@@ -1,0 +1,27 @@
+@import '../index.scss';
+@import '../App.scss';
+
+.main {
+    margin-top: 6%;
+    margin-bottom: 4%;
+}
+
+.question-list {
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.trendingUp {
+    color:#00df00;
+}
+
+.trendingDown {
+    color: #ff7c7c;
+}
+
+@media only screen and (max-width: 400px) {
+    .main {
+        margin-top: 18%;
+        margin-bottom: 12%;
+    }
+}
