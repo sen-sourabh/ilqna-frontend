@@ -2,6 +2,7 @@ import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import Tooltip from '@mui/material/Tooltip';
 // import FolderIcon from '@mui/icons-material/Folder';
 // import RestoreIcon from '@mui/icons-material/Restore';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -13,6 +14,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import SettingsIcon from '@mui/icons-material/Settings';
+// import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 import '../../sass/footer.scss';
 
@@ -31,36 +34,54 @@ export default function footer() {
           // value={value} 
           // onChange={handleChange}  
         >
-          <BottomNavigationAction
-            label="Home"
-            className="footer-icon"
-            // value="recents"
-            icon={<HomeIcon />}
-          />
-          <BottomNavigationAction
-            label="Person"
-            className="footer-icon"
-            // value="favorites"
-            icon={<PersonIcon />}
-          />
-          <BottomNavigationAction
-            label="AddBox"
-            className="footer-icon"
-            // value="nearby"
-            icon={<AddBoxIcon />}
-          />
-          <BottomNavigationAction 
-            label="QuestionAnswer" 
-            className="footer-icon"
-            // value="folder" 
-            icon={<QuestionAnswerIcon />} 
-          />
-          <BottomNavigationAction 
-            label="Bookmark" 
-            className="footer-icon"
-            // value="folder" 
-            icon={<BookmarkIcon />} 
-          />
+          <Tooltip title="Home" placement="top" arrow>
+            <BottomNavigationAction
+              label="Home"
+              className="footer-icon"
+              // value="recents"
+              icon={<HomeIcon />}
+            />
+          </Tooltip>
+          <Tooltip title="Asked By You" placement="top" arrow>
+            <BottomNavigationAction 
+              label="QuestionAnswer" 
+              className="footer-icon"
+              // value="folder" 
+              icon={<QuestionAnswerIcon />} 
+            />
+          </Tooltip>
+          <Tooltip title="You Can Ask" placement="top" arrow>
+            <BottomNavigationAction
+              label="AddBox"
+              className="footer-icon"
+              // value="nearby"
+              icon={<AddBoxIcon />}
+            />
+          </Tooltip>
+          <Tooltip title="Your Bookmarks" placement="top" arrow>
+            <BottomNavigationAction 
+              label="Bookmark" 
+              className="footer-icon"
+              // value="folder" 
+              icon={<BookmarkIcon />} 
+            />
+          </Tooltip>
+          <Tooltip title="You" placement="top" arrow>
+            <BottomNavigationAction
+              label="Person"
+              className="footer-icon"
+              // value="favorites"
+              icon={<PersonIcon />}
+            />
+          </Tooltip>
+          {/* <Tooltip title="Settings" placement="top" arrow>
+            <BottomNavigationAction
+              label="Settings"
+              className="footer-icon"
+              // value="favorites"
+              icon={<SettingsIcon />}
+            />
+          </Tooltip> */}
         </BottomNavigation>
       </Paper>
     </div>
