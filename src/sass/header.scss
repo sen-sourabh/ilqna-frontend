@@ -14,9 +14,15 @@
 }
 .logo {
     width: 5%;
+    cursor: pointer;
+}
+
+.seachfield {
+    border: 1px solid black;
 }
 
 .filter {
-    position: relative;
+    position: fixed;
     left: 54.5%;
+    cursor: pointer;
 }
