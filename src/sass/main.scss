@@ -1,27 +1,39 @@
 @import '../index.scss';
 @import '../App.scss';
 
-.main {
-    margin-top: 6%;
-    margin-bottom: 4%;
-}
+$small: 300px;
+$medium: 900px;
 
-.question-list {
+.ilqna-main {
+    position: relative;
+    top: 12px;
+    margin-bottom: 4%;
     padding-left: 2%;
     padding-right: 2%;
+    cursor: default;
+    user-select: none;
 }
 
-.trendingUp {
-    color:#00df00;
-}
-
-.trendingDown {
-    color: #ff7c7c;
-}
-
-@media only screen and (max-width: 400px) {
-    .main {
-        margin-top: 18%;
-        margin-bottom: 12%;
+.nav-link {
+    padding-inline: 4%;
+    @media screen and (max-width: $small) {
+        padding-inline: 1%;
     }
+    @media screen and (min-width: $medium) {
+    //do Smth
+    }
+}
+
+.h-scroller {
+    background-color: #333;
+    overflow: auto;
+    // white-space: nowrap;
+}
+  
+.h-scroller {
+    display: inline-flex;
+    color: white;
+    text-align: center;
+    // padding: 14px;
+    // text-decoration: none;
 }

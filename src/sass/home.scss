@@ -1,0 +1,47 @@
+@import '../index.scss';
+@import '../App.scss';
+
+.home {
+    // margin-top: 6%;
+    margin-bottom: 4%;
+    cursor: default;
+    user-select: none;
+}
+
+.question-list {
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.trendingUp {
+    color:#00df00;
+}
+
+.trendingDown {
+    color: #ff7c7c;
+}
+
+.home-h3 {
+    font-size: 1.5rem;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    color: #0a1929;
+    cursor: pointer;
+}
+
+.home-h6 {
+    margin-top: 10px;
+    margin-bottom: 14px;
+}
+
+.home-span {
+    font-size: .9rem;
+    color: #3e5060;
+}
+
+@media only screen and (max-width: 400px) {
+    .home {
+        margin-top: 18%;
+        margin-bottom: 12%;
+    }
+}
