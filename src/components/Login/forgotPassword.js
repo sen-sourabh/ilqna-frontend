@@ -59,7 +59,7 @@ export default function ForgotPassword() {
               <b>RESET PASSWORD</b>
             </LoadingButton>
             <div className='other-link'>
-              <Link to="/login">Remember Password?</Link>
+              <Link to="/">Remember Password?</Link>
             </div>
         </Stack>
       </Paper>

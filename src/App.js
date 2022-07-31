@@ -40,7 +40,7 @@ import Verification from './components/Login/Verification';
 
 function App() {
   // const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   
 
@@ -56,7 +56,6 @@ function App() {
         <div className='ilqna'>
           <Routes>
             <Route path="/" element={<Login />}></Route>
-            <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/forgot-password" element={<ForgotPassword />}></Route>
             <Route path="/verification" element={<Verification />}></Route>
@@ -69,8 +68,11 @@ function App() {
         </div>
         {
           isLogin && 
-          <div className='footer'>
-            <Paper sx={{ position: 'fixed',bottom: '-4px',left: 0,right: 0 }} elevation={12}>
+            <Paper 
+              style={{backgroundColor: 'transparent'}}
+              className='footer-paper'
+              elevation={12}
+            >
                 <BottomNavigation 
                   className='h-scroller' 
                 >
@@ -155,7 +157,7 @@ function App() {
                     </Link>
                   </Tooltip>
                   <Tooltip title="Logout" placement="top" arrow>
-                    <Link className='nav-link' to="/user">
+                    <Link className='nav-link' to="/">
                       <BottomNavigationAction
                         label="Logout"
                         className="footer-icon"
@@ -166,7 +168,6 @@ function App() {
                   </Tooltip>
                 </BottomNavigation>
             </Paper>
-          </div>
         }
       </Router>
     </div>

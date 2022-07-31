@@ -61,7 +61,7 @@ export default function Register() {
               <b>SIGN UP</b>
             </LoadingButton>
             <div className='other-link'>
-              <Link to="/login">Sign In?</Link>
+              <Link to="/">Sign In?</Link>
             </div>
         </Stack>
       </Paper>

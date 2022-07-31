@@ -50,7 +50,7 @@ export default function Verification() {
               </LoadingButton>
               <div className='other-link'>
                 <Link to="/register">We'll resend code in {timeRemaining}</Link>
-                <Link to="/login">Sign In?</Link>
+                <Link to="/">Sign In?</Link>
               </div>
           </Stack>
         </Paper>
