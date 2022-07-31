@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 //UI
 import { Grid, MenuItem, Select, Stack, TextField, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import Grid from '@mui/'
+// import MUIRichTextEditor from 'mui-rte';
 //SCSS
 import '../../../sass/add-question.scss';
 import '../../../sass/main.scss';
@@ -47,7 +47,9 @@ const languages = [
 ];
 
 export default function AddQuestion() {
-  const [loading, setLoading] = useState(false);
+  const [loadingAsk, setLoadingAsk] = useState(false);
+  const [loadingSave, setLoadingSave] = useState(false);
+  const [clickOnOne, setClickOnOne] = useState(false);
   const [category, setCategory] = useState('EUR');
   const [language, setLanguage] = useState('EUR');
 
@@ -59,8 +61,14 @@ export default function AddQuestion() {
     setLanguage(event.target.value);
   }
 
-  const handleClick = () => {
-    setLoading(true);
+  const handleClickAsk = () => {
+    setClickOnOne(true);
+    setLoadingAsk(true);
+  }
+
+  const handleClickSave = () => {
+    setClickOnOne(true);
+    setLoadingSave(true);
   }
 
   return (
@@ -77,12 +85,14 @@ export default function AddQuestion() {
                 id="standard-basic" 
                 label="Question" 
                 variant="standard"
+                required
               />
               <TextField
                 id="standard-basic" 
                 label="whatYouHaveTried" 
                 variant="standard"
               />
+              {/* <MUIRichTextEditor label="Start typing..." /> */}
           </Stack>
         </Grid>
         <Grid item xs={6}>
@@ -121,16 +131,32 @@ export default function AddQuestion() {
                 </MenuItem>
               ))}
             </TextField>
-            <LoadingButton
-              margin="normal" 
-              onClick={handleClick}
-              // endIcon={<LoginIcon />}
-              loading={loading}
-              loadingPosition="end"
-              variant="contained"
-            >
-              <b>ASK</b>
-            </LoadingButton>
+            <div className='btn-ask'>
+              <LoadingButton
+                margin="normal" 
+                onClick={handleClickAsk}
+                // endIcon={<LoginIcon />}
+                loading={loadingAsk}
+                loadingPosition="end"
+                variant="contained"
+                fullWidth
+                disabled={clickOnOne}
+              >
+                <b>ASK</b>
+              </LoadingButton>
+              <LoadingButton
+                margin="normal" 
+                onClick={handleClickSave}
+                // endIcon={<LoginIcon />}
+                loading={loadingSave}
+                loadingPosition="end"
+                variant="text"
+                fullWidth
+                disabled={clickOnOne}
+              >
+                <b>SAVE</b>
+              </LoadingButton>
+            </div>
           </Stack>
         </Grid>
       </Grid>
