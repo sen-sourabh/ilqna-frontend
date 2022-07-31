@@ -25,7 +25,7 @@
 // import UserBookmarks from '../main/UserBookmarks/userBookmarks';
 // import User from '../main/User/user';
 
-// export default function footer() {
+// export default function Footer() {
   // const [value, setValue] = React.useState('recents');
 
   // const handleChange = (event, newValue) => {

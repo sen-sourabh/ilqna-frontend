@@ -9,7 +9,7 @@ import TodayIcon from '@mui/icons-material/Today';
 import '../../../sass/main.scss';
 import '../../../sass/home.scss';
 
-export default function home() {
+export default function Home() {
   return (
     <div className='ilqna-main'>
       <div className="question-list" >
