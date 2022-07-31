@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 // HEADER
-export default function header() {
+export default function Header() {
   return (
     <div className='header'>
       <Box sx={{ flexGrow: 1 }}>

@@ -2,7 +2,7 @@
 
 // import '../../sass/main.scss';
 
-// export default function main() {
+// export default function Main() {
 //   return (
 //     <div className='main'>
       

@@ -18,12 +18,12 @@
     // -webkit-backdrop-filter: blur(6.9px);
 
     width: 20%;
-    height: auto;
+    height: 430px;
 	// box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);	
 	// border-radius: 20px;
-	// background-color: rgba(255, 255, 255, .15); //need to add
+	background-color: rgba(255, 255, 255, .15); //need to add
 	
-	// backdrop-filter: blur(5px); //need to add
+	backdrop-filter: blur(15px); //need to add
 
     // background-color: white;
     // border-radius: 30px;
@@ -63,26 +63,27 @@
     font-size: 2.3rem !important;
 }
 
-// .login-icon:hover {
-//     color: #1976d2;
-// }
+.other-link {
+    display: grid;
+    text-align: end;
+}
 
 .google:hover {
-    color: red;
+    color: #ea4335;
 }
 .facebook:hover {
-    color: blue;
+    color: #1877f2;
 }
 .reddit:hover {
-    color: orange;
+    color: #ff4500;
 }
 .linkedin:hover {
-    color: blueviolet;
+    color: #0077b5;
 }
 .whatsapp:hover {
-    color: greenyellow;
+    color: #00e676;
 }
 .github:hover {
-    color: black;
+    color: #1b1f23;
 }
 

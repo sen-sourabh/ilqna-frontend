@@ -4,7 +4,8 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
+  Link,
+  // useNavigate
 } from "react-router-dom";
 //UI
 import Paper from '@mui/material/Paper';
@@ -19,6 +20,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 //SCSS
 import './App.scss';
@@ -26,17 +28,27 @@ import './sass/main.scss';
 import './sass/footer.scss';
 //Component
 // import Header from './components/headers/header';
-import Register from './components/Login/register';
-import Login from './components/Login/login';
-import ForgotPassword from './components/Login/forgotPassword';
-import Home from './components/main/Home/home';
-import UserQuestions from './components/main/UserQuestions/userQuestions';
-import AddQuestion from './components/main/AddQuestion/addQuestion';
-import UserBookmarks from './components/main/UserBookmarks/userBookmarks';
-import User from './components/main/User/user';
+import Register from './components/Login/Register';
+import Login from './components/Login/Login';
+import ForgotPassword from './components/Login/ForgotPassword';
+import Home from './components/main/Home/Home';
+import UserQuestions from './components/main/UserQuestions/UserQuestions';
+import AddQuestion from './components/main/AddQuestion/AddQuestion';
+import UserBookmarks from './components/main/UserBookmarks/UserBookmarks';
+import User from './components/main/User/User';
+import Verification from './components/Login/Verification';
 
 function App() {
+  // const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
+
+  
+
+  // const logoutHandler = () => {
+  //   setIsLogin(false);
+  //   navigate('/');
+  // }
+
   return (
     <div className="App">
       <Router>
@@ -47,6 +59,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+            <Route path="/verification" element={<Verification />}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route exact path="/user-questions" element={<UserQuestions />}></Route>
             <Route exact path="/add-question" element={<AddQuestion />}></Route>
@@ -138,6 +151,16 @@ function App() {
                         className="footer-icon"
                         // value="favorites"
                         icon={<SettingsIcon />}
+                      />
+                    </Link>
+                  </Tooltip>
+                  <Tooltip title="Logout" placement="top" arrow>
+                    <Link className='nav-link' to="/user">
+                      <BottomNavigationAction
+                        label="Logout"
+                        className="footer-icon"
+                        // value="favorites"
+                        icon={<ExitToAppIcon />}
                       />
                     </Link>
                   </Tooltip>

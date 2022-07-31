@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 // import BGImage from '../../images/login_bg_image.jpg';
-import BGImage from '../../images/login_screen1.jpg';
+// import BGImage from '../../images/login_screen1.jpg';
+// import BGImage from '../../images/4k_bg1.jpg';
+import BGImage from '../../images/4k_bg2.jpg';
 
-export default function loginBg() {
+export default function LoginBg() {
   return (
     <Fragment>
       <img 
@@ -11,7 +13,7 @@ export default function loginBg() {
         style={{
             width: '100%', 
             height: '100%', 
-            position: 'absolute',
+            position: 'absolute'
         }} 
       />
     </Fragment>
