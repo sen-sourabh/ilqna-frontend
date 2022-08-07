@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 //UI
-import { Grid, MenuItem, Select, Stack, TextField, Typography } from '@mui/material';
+import { Grid, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-// import MUIRichTextEditor from 'mui-rte';
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 //SCSS
 import '../../../sass/add-question.scss';
 import '../../../sass/main.scss';
@@ -52,6 +54,7 @@ export default function AddQuestion() {
   const [clickOnOne, setClickOnOne] = useState(false);
   const [category, setCategory] = useState('EUR');
   const [language, setLanguage] = useState('EUR');
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
@@ -71,10 +74,14 @@ export default function AddQuestion() {
     setLoadingSave(true);
   }
 
+  const onEditorStateChange = (editorState) => {
+    setEditorState(editorState);
+  };
+
   return (
     <div className='ilqna-main'>
       <Typography variant='h5' align='left'>ASK</Typography>
-      <Typography variant='subtitle1' align='left'>Ask questions from here, definetly, You will get answers soon...</Typography>
+      <Typography variant='subtitle1' align='left'>Ask questions from here. Hope, You will get answer soon...</Typography>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>
           <Stack
@@ -87,12 +94,13 @@ export default function AddQuestion() {
                 variant="standard"
                 required
               />
-              <TextField
-                id="standard-basic" 
-                label="whatYouHaveTried" 
-                variant="standard"
+              <Editor
+                editorState={editorState}
+                wrapperClassName="demo-wrapper"
+                editorClassName="demo-editor"
+                onEditorStateChange={onEditorStateChange}
+                wrapperStyle={{width: '100%', height: 'auto', border: '1px solid lightgrey', cursor: 'text', zIndex: '99'}}
               />
-              {/* <MUIRichTextEditor label="Start typing..." /> */}
           </Stack>
         </Grid>
         <Grid item xs={6}>
@@ -137,7 +145,7 @@ export default function AddQuestion() {
                 onClick={handleClickAsk}
                 // endIcon={<LoginIcon />}
                 loading={loadingAsk}
-                loadingPosition="end"
+                // loadingPosition="end"
                 variant="contained"
                 fullWidth
                 disabled={clickOnOne}
@@ -149,7 +157,7 @@ export default function AddQuestion() {
                 onClick={handleClickSave}
                 // endIcon={<LoginIcon />}
                 loading={loadingSave}
-                loadingPosition="end"
+                // loadingPosition="end"
                 variant="text"
                 fullWidth
                 disabled={clickOnOne}

@@ -68,13 +68,12 @@ function App() {
         </div>
         {
           isLogin && 
-            <Paper 
-              style={{backgroundColor: 'transparent'}}
+            <Paper
               className='footer-paper'
               elevation={12}
             >
                 <BottomNavigation 
-                  className='h-scroller' 
+                  className="h-scroller"
                 >
                   <Tooltip title="Home" placement="top" arrow>
                     <Link className='nav-link' to="/home">
