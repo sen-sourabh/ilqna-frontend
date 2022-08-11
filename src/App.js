@@ -16,11 +16,11 @@ import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
+// import BookmarkIcon from '@mui/icons-material/Bookmark';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import SettingsIcon from '@mui/icons-material/Settings';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+// import SettingsIcon from '@mui/icons-material/Settings';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
+// import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 //SCSS
 import './App.scss';
@@ -95,7 +95,7 @@ function App() {
                       />
                     </Link>
                   </Tooltip>
-                  <Tooltip title="Your Bookmarks" placement="top" arrow>
+                  {/* <Tooltip title="Your Bookmarks" placement="top" arrow>
                     <Link className='nav-link' to="/user-bookmark">
                       <BottomNavigationAction 
                         label="Bookmark" 
@@ -104,7 +104,7 @@ function App() {
                         icon={<BookmarkIcon />} 
                       />
                     </Link>
-                  </Tooltip>
+                  </Tooltip> */}
                   <Tooltip title="You Can Ask" placement="top" arrow>
                     <Link className='nav-link' to="/add-question">
                       <BottomNavigationAction
@@ -135,7 +135,7 @@ function App() {
                       />
                     </Link>
                   </Tooltip>
-                  <Tooltip title="Notification" placement='top' arrow>
+                  {/* <Tooltip title="Notification" placement='top' arrow>
                     <Link className='nav-link' to="/user">
                       <BottomNavigationAction 
                         label="Notification"
@@ -144,7 +144,7 @@ function App() {
                         icon={<NotificationsIcon />}
                       />
                     </Link>
-                  </Tooltip>
+                  </Tooltip> */}
                   {/* <Tooltip title="Settings" placement="top" arrow>
                     <Link className='nav-link' to="/user">
                       <BottomNavigationAction
