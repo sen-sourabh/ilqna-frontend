@@ -2,12 +2,13 @@
 @import '../App.scss';
 
 .user {
+    margin-top: 2%;
     display: block;
     align-content: center;
     justify-content: center;
     // width: 100%;
     // height: auto;
-    // margin-bottom: 4%;
+    // margin-bottom: 12%;
     // cursor: default;
     // user-select: none;
 }
@@ -26,19 +27,42 @@
     font-size: 8rem !important;
 }
 
+.user-title {
+    color: #0a1929;
+}
+
+.user-title-icon {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #0a1929;
+}
+
 .ask-section {
+    color: #0a1929;
     margin-left: 15% !important;
     margin-top: 1% !important;
     width: 70% !important;
     height: auto;
 }
 
-.sections:hover{
+.sections {
+    color: #0a1929;
+}
+
+.sections:hover {
     box-shadow: 0px 10px 13px 0px rgba(0,0,0,0.24);
     cursor: pointer;
+    color: #1976d2 !important;
+    & .user-icon {
+        color: #1976d2;
+    }
+    & .logout-icon {
+        color: #0a1929;//#00000099;
+    }
 }
 
 .ask-section-content {
+    color: #0a1929;
     margin-left: 15% !important;
     margin-top: 1% !important;
     width: 70% !important;
@@ -46,6 +70,7 @@
 }
 
 .ask-section-count {
+    color: #0a1929 !important;
     font-size: 3rem !important;
     font-weight: 700 !important;
     padding-bottom: 0% !important;
@@ -53,11 +78,13 @@
 }
 
 .ask-section-text {
+    color: #0a1929;
     font-size: 1rem !important;
     font-weight: 700 !important;
 }
 
 .user-email {
+    color: #0a1929;
     font-size: 1rem !important;
     font-weight: 700 !important;
     text-align: left;
@@ -67,16 +94,23 @@
 .user-icon {
     float: right; 
     cursor: pointer;
+    color: #0a1929;//#666666;
 }
 
 .logout-icon {
     color: #d32f2f;
 }
-.logout-icon:hover {
-    color: #00000099;
-}
-.logout-icon:active {
-    color: #d32f2f;
+// .logout-icon:hover {
+//     color: #00000099;
+// }
+// .logout-icon:active {
+//     color: #d32f2f;
+// }
+
+.noti-icon > .MuiBadge-colorError {
+    top: -1px !important;
+    right: 4px !important;
+    transform: unset !important;
 }
 
 .about-icon {
@@ -88,6 +122,7 @@
 }
 
 .version-info {
+    color: #0a1929;
     position: relative;
     top: 12px;
     float: right;
