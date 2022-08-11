@@ -1,17 +1,95 @@
-// @import '../index.scss';
-// @import '../App.scss';
+@import '../index.scss';
+@import '../App.scss';
 
 .user {
-    display: flex;
+    display: block;
     align-content: center;
     justify-content: center;
+    // width: 100%;
+    // height: auto;
     // margin-bottom: 4%;
     // cursor: default;
     // user-select: none;
+}
+
+.user-image {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
 }
 
 .avatar-img {
     width: 200px !important;
     height: 200px !important;
     font-size: 8rem !important;
+}
+
+.ask-section {
+    margin-left: 15% !important;
+    margin-top: 1% !important;
+    width: 70% !important;
+    height: auto;
+}
+
+.sections:hover{
+    box-shadow: 0px 10px 13px 0px rgba(0,0,0,0.24);
+    cursor: pointer;
+}
+
+.ask-section-content {
+    margin-left: 15% !important;
+    margin-top: 1% !important;
+    width: 70% !important;
+    height: auto;
+}
+
+.ask-section-count {
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    padding-bottom: 0% !important;
+    text-align: center;
+}
+
+.ask-section-text {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+}
+
+.user-email {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    text-align: left;
+    overflow-wrap: break-word;
+}
+
+.user-icon {
+    float: right; 
+    cursor: pointer;
+}
+
+.logout-icon {
+    color: #d32f2f;
+}
+.logout-icon:hover {
+    color: #00000099;
+}
+.logout-icon:active {
+    color: #d32f2f;
+}
+
+.about-icon {
+    text-align: center;
+    width: 100% !important;
+    height: auto !important;
+    font-size: 3rem !important;
+    color: #1976d2;
+}
+
+.version-info {
+    position: relative;
+    top: 12px;
+    float: right;
+    font-size: 0.6rem;
 }

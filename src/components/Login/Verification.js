@@ -43,7 +43,7 @@ export default function Verification() {
                 onClick={handleClick}
                 // endIcon={<LoginIcon />}
                 loading={loading}
-                loadingPosition="end"
+                // loadingPosition="end"
                 variant="contained"
               >
                 <b>VERIFY</b>
