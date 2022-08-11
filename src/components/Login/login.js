@@ -58,7 +58,7 @@ export default function Login() {
               onClick={handleClick}
               // endIcon={<LoginIcon />}
               loading={loading}
-              loadingPosition="end"
+              // loadingPosition="end"
               variant="contained"
             >
               <b>SIGN IN</b>

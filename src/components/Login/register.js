@@ -55,7 +55,7 @@ export default function Register() {
               onClick={handleClick}
               // endIcon={<LoginIcon />}
               loading={loading}
-              loadingPosition="end"
+              // loadingPosition="end"
               variant="contained"
             >
               <b>SIGN UP</b>

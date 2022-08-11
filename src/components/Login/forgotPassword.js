@@ -53,7 +53,7 @@ export default function ForgotPassword() {
               onClick={handleClick}
               // endIcon={<LoginIcon />}
               loading={loading}
-              loadingPosition="end"
+              // loadingPosition="end"
               variant="contained"
             >
               <b>RESET PASSWORD</b>

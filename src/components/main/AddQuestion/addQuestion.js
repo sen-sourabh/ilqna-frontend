@@ -99,7 +99,7 @@ export default function AddQuestion() {
                 wrapperClassName="demo-wrapper"
                 editorClassName="demo-editor"
                 onEditorStateChange={onEditorStateChange}
-                wrapperStyle={{width: '100%', height: 'auto', border: '1px solid lightgrey', cursor: 'text', zIndex: '99'}}
+                wrapperStyle={{width: '100%', height: 'auto', border: '1px solid lightgrey', cursor: 'text', zIndex: '99', backgroundColor: 'white'}}
               />
           </Stack>
         </Grid>

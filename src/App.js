@@ -95,16 +95,6 @@ function App() {
                       />
                     </Link>
                   </Tooltip>
-                  <Tooltip title="You Can Ask" placement="top" arrow>
-                    <Link className='nav-link' to="/add-question">
-                      <BottomNavigationAction
-                        label="AddBox"
-                        className="footer-icon"
-                        // value="nearby"
-                        icon={<AddBoxIcon />}
-                      />
-                    </Link>
-                  </Tooltip>
                   <Tooltip title="Your Bookmarks" placement="top" arrow>
                     <Link className='nav-link' to="/user-bookmark">
                       <BottomNavigationAction 
@@ -112,6 +102,16 @@ function App() {
                         className="footer-icon"
                         // value="folder" 
                         icon={<BookmarkIcon />} 
+                      />
+                    </Link>
+                  </Tooltip>
+                  <Tooltip title="You Can Ask" placement="top" arrow>
+                    <Link className='nav-link' to="/add-question">
+                      <BottomNavigationAction
+                        label="AddBox"
+                        className="footer-icon"
+                        // value="nearby"
+                        icon={<AddBoxIcon />}
                       />
                     </Link>
                   </Tooltip>
@@ -145,7 +145,7 @@ function App() {
                       />
                     </Link>
                   </Tooltip>
-                  <Tooltip title="Settings" placement="top" arrow>
+                  {/* <Tooltip title="Settings" placement="top" arrow>
                     <Link className='nav-link' to="/user">
                       <BottomNavigationAction
                         label="Settings"
@@ -164,7 +164,7 @@ function App() {
                         icon={<ExitToAppIcon />}
                       />
                     </Link>
-                  </Tooltip>
+                  </Tooltip> */}
                 </BottomNavigation>
             </Paper>
         }
