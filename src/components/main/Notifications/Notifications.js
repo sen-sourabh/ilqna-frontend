@@ -1,5 +1,4 @@
 import React from 'react';
-import {useNavigate} from 'react-router-dom';
 //UI
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
@@ -11,23 +10,11 @@ import TodayIcon from '@mui/icons-material/Today';
 import '../../../sass/main.scss';
 import '../../../sass/home.scss';
 
-export default function UserQuestions() {
-  let navigate = useNavigate();
-
-  const OpenQna = () => {
-    console.log("open qna")
-    navigate('/qna');
-  }
-
+export default function Notifications() {
   return (
     <div className='ilqna-main'>
       <div className="question-list" >
-        <h3 
-          className="home-h3"
-          onClick={OpenQna}
-        >
-          Can I change my email name without creating a new account?...
-        </h3>
+        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
         <h6 className="home-h6">
           <span className="home-span">Open</span> • 
           <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
