@@ -37,12 +37,13 @@ import AddQuestion from './components/main/AddQuestion/AddQuestion';
 import UserBookmarks from './components/main/UserBookmarks/UserBookmarks';
 import User from './components/main/User/User';
 import Verification from './components/Login/Verification';
+import Header from './components/headers/Header';
+import Notifications from './components/main/Notifications/Notifications';
+import QNA from './components/main/QNA/QNA';
 
 function App() {
-  // const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
 
-  
 
   // const logoutHandler = () => {
   //   setIsLogin(false);
@@ -52,20 +53,26 @@ function App() {
   return (
     <div className="App">
       <Router>
-        {/* <Header /> */}
-        <div className='ilqna'>
+        {/* Header */}
+        {
+          isLogin &&
+          <Header />
+        }
+        {/* Body */}
+        
           <Routes>
             <Route path="/" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/forgot-password" element={<ForgotPassword />}></Route>
             <Route path="/verification" element={<Verification />}></Route>
             <Route path="/home" element={<Home />}></Route>
+            <Route path="/qna" element={<QNA />}></Route>
             <Route exact path="/user-questions" element={<UserQuestions />}></Route>
             <Route exact path="/add-question" element={<AddQuestion />}></Route>
             <Route exact path="/user-bookmark" element={<UserBookmarks />}></Route>
+            <Route exact path="/notification" element={<Notifications />}></Route>
             <Route exact path="/user" element={<User />}></Route>
           </Routes>
-        </div>
         {
           isLogin && 
             <Paper
@@ -95,16 +102,6 @@ function App() {
                       />
                     </Link>
                   </Tooltip>
-                  {/* <Tooltip title="Your Bookmarks" placement="top" arrow>
-                    <Link className='nav-link' to="/user-bookmark">
-                      <BottomNavigationAction 
-                        label="Bookmark" 
-                        className="footer-icon"
-                        // value="folder" 
-                        icon={<BookmarkIcon />} 
-                      />
-                    </Link>
-                  </Tooltip> */}
                   <Tooltip title="You Can Ask" placement="top" arrow>
                     <Link className='nav-link' to="/add-question">
                       <BottomNavigationAction
@@ -125,46 +122,6 @@ function App() {
                       />
                     </Link>
                   </Tooltip>
-                  <Tooltip title="Filter" placement="top" arrow>
-                    <Link className='nav-link' to="/user">
-                      <BottomNavigationAction
-                        label="Filter"
-                        className="footer-icon"
-                        // value="favorites"
-                        icon={<FilterListIcon />}
-                      />
-                    </Link>
-                  </Tooltip>
-                  {/* <Tooltip title="Notification" placement='top' arrow>
-                    <Link className='nav-link' to="/user">
-                      <BottomNavigationAction 
-                        label="Notification"
-                        className="footer-icon"
-                        //value="notification"
-                        icon={<NotificationsIcon />}
-                      />
-                    </Link>
-                  </Tooltip> */}
-                  {/* <Tooltip title="Settings" placement="top" arrow>
-                    <Link className='nav-link' to="/user">
-                      <BottomNavigationAction
-                        label="Settings"
-                        className="footer-icon"
-                        // value="favorites"
-                        icon={<SettingsIcon />}
-                      />
-                    </Link>
-                  </Tooltip>
-                  <Tooltip title="Logout" placement="top" arrow>
-                    <Link className='nav-link' to="/">
-                      <BottomNavigationAction
-                        label="Logout"
-                        className="footer-icon"
-                        // value="favorites"
-                        icon={<ExitToAppIcon />}
-                      />
-                    </Link>
-                  </Tooltip> */}
                 </BottomNavigation>
             </Paper>
         }

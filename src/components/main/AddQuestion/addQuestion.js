@@ -82,8 +82,8 @@ export default function AddQuestion() {
     <div className='ilqna-main'>
       <Typography variant='h5' align='left'>ASK</Typography>
       <Typography variant='subtitle1' align='left'>Ask questions from here. Hope, You will get answer soon...</Typography>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
+      <Grid container spacing={2} column={12}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Stack
             className='stack-style'
             spacing={{ xs: 2, md: 2 }}
@@ -103,14 +103,14 @@ export default function AddQuestion() {
               />
           </Stack>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Stack
             className='stack-style'
             spacing={{ xs: 2, md: 2 }}
           >
             <TextField
               fullWidth
-              id="standard-select-currency"
+              id="select-category"
               select
               label="Category"
               value={category}
@@ -126,7 +126,7 @@ export default function AddQuestion() {
             </TextField>
             <TextField
               fullWidth
-              id="standard-select-currency"
+              id="select-language"
               select
               label="Language"
               value={language}
@@ -142,18 +142,6 @@ export default function AddQuestion() {
             <div className='btn-ask'>
               <LoadingButton
                 margin="normal" 
-                onClick={handleClickAsk}
-                // endIcon={<LoginIcon />}
-                loading={loadingAsk}
-                // loadingPosition="end"
-                variant="contained"
-                fullWidth
-                disabled={clickOnOne}
-              >
-                <b>ASK</b>
-              </LoadingButton>
-              <LoadingButton
-                margin="normal" 
                 onClick={handleClickSave}
                 // endIcon={<LoginIcon />}
                 loading={loadingSave}
@@ -163,6 +151,18 @@ export default function AddQuestion() {
                 disabled={clickOnOne}
               >
                 <b>SAVE</b>
+              </LoadingButton>
+              <LoadingButton
+                margin="normal" 
+                onClick={handleClickAsk}
+                // endIcon={<LoginIcon />}
+                loading={loadingAsk}
+                // loadingPosition="end"
+                variant="contained"
+                fullWidth
+                disabled={clickOnOne}
+              >
+                <b>ASK</b>
               </LoadingButton>
             </div>
           </Stack>

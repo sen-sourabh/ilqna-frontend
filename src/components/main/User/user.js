@@ -79,7 +79,7 @@ export default function User() {
   const [openAbout, setOpenAbout] = useState(false);
   const [newNotification, setNewNotification] = useState(true);
   const audioPlayer = useRef(null);
-  const [verifyTimer, setVerifyTimer] = useState(null)
+  const [verifyTimer, setVerifyTimer] = useState(null);
 
   //Password Visibility
   const handlePasswordVisibility = () => {
@@ -250,7 +250,7 @@ export default function User() {
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Item className='sections'><span className='user-email'>Notifications</span>
                 <Tooltip title="Notifications" placement="top" arrow>
-                  <Link className='user-icon' to="/home">
+                  <Link className='user-icon' to="/notification">
                     {
                       newNotification ? 
                         <Badge color="error" className='noti-icon' variant="dot">
@@ -309,7 +309,7 @@ export default function User() {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleCloseUsername}>Cancel</Button>
-              <Button onClick={handleClickToVerifyOpen}>Send</Button>
+              <Button variant="contained" onClick={handleClickToVerifyOpen}>Send</Button>
             </DialogActions>
           </Dialog>
 
@@ -333,7 +333,7 @@ export default function User() {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleCloseEmail}>Cancel</Button>
-              <Button onClick={handleClickToVerifyOpen}>Send</Button>
+              <Button variant="contained" onClick={handleClickToVerifyOpen}>Send</Button>
             </DialogActions>
           </Dialog>
           
@@ -356,9 +356,11 @@ export default function User() {
               />
             </DialogContent>
             <DialogActions>
-              <Typography variant='h6' align='left'>{ verifyTimer }</Typography>
+              <Tooltip title={`Try agian after ${ verifyTimer } seconds`} placement="top" arrow>
+                <Typography variant='h6' style={{cursor: 'default', userSelect: 'none'}}>{ verifyTimer }</Typography>
+              </Tooltip>
               <Button onClick={handleCloseEmail}>Cancel</Button>
-              <Button onClick={handleClickToVerifyClose}>Verify</Button>
+              <Button variant="contained" onClick={handleClickToVerifyClose}>Verify</Button>
             </DialogActions>
           </Dialog>
           
@@ -400,7 +402,7 @@ export default function User() {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClosePassword}>Cancel</Button>
-              <Button onClick={handleChangePassword}>Change</Button>
+              <Button variant="contained" onClick={handleChangePassword}>Change</Button>
             </DialogActions>
           </Dialog>
            

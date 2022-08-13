@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 //Routers
 import {
   Link
@@ -28,7 +28,7 @@ export default function Login() {
   }
 
   return (
-    <Fragment>
+    <div className='login'>
       <LoginBg />
       <Paper
           style={{backgroundColor: 'transparent'}}
@@ -92,6 +92,6 @@ export default function Login() {
       </Paper>
           {/* <Link to="/register">Register</Link>
           <Link to="/forgot-password">Forgot Password</Link> */}
-    </Fragment>
+    </div>
   )
 }

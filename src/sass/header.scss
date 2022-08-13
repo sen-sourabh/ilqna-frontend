@@ -1,6 +1,9 @@
 @import '../index.scss';
 @import '../App.scss';
 
+$small: 300px;
+$medium: 900px;
+
 .header {
     // padding: 5px;
     // border-bottom: 1px solid #333333;
@@ -25,4 +28,23 @@
     position: fixed;
     left: 54.5%;
     cursor: pointer;
+}
+
+.drawer-title {
+    width: 250px;
+    margin: 0%;
+    padding: 14px;
+    text-align: center;
+    background-color: #1976d2;
+    color: #FFFFFF;
+}
+
+.drawer-content {
+    text-align: center;
+    // @media screen and (max-width: $small) {
+    //     padding: 10px !important;
+    // }
+    // @media screen and (min-width: $medium) {
+    // //do Smth
+    // }
 }

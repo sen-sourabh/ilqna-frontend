@@ -2,11 +2,13 @@
 @import '../App.scss';
 
 .login {
-    // margin-top: 6%;
-    // margin-bottom: 4%;
-    // cursor: default;
-    // user-select: none;
-    
+    position: unset !important;
+    top: 0px !important;
+    margin-bottom: 0% !important;
+    padding-left: 0% !important;
+    padding-right: 0% !important;
+    cursor: default;
+    user-select: none;
 }
 
 .login-window {
