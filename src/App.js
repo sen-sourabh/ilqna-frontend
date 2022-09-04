@@ -5,6 +5,7 @@ import {
   Routes,
   Route,
   Link,
+  useNavigate,
   // useNavigate
 } from "react-router-dom";
 //UI
@@ -40,16 +41,10 @@ import Verification from './components/Login/Verification';
 import Header from './components/headers/Header';
 import Notifications from './components/main/Notifications/Notifications';
 import QNA from './components/main/QNA/QNA';
+import { useSelector } from 'react-redux';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
-
-
-  // const logoutHandler = () => {
-  //   setIsLogin(false);
-  //   navigate('/');
-  // }
-
+  const { isLogin, userData } = useSelector(state => state.login);
   return (
     <div className="App">
       <Router>
@@ -61,17 +56,17 @@ function App() {
         {/* Body */}
         
           <Routes>
-            <Route path="/" element={<Login />}></Route>
-            <Route path="/register" element={<Register />}></Route>
-            <Route path="/forgot-password" element={<ForgotPassword />}></Route>
-            <Route path="/verification" element={<Verification />}></Route>
-            <Route path="/home" element={<Home />}></Route>
-            <Route path="/qna" element={<QNA />}></Route>
-            <Route exact path="/user-questions" element={<UserQuestions />}></Route>
-            <Route exact path="/add-question" element={<AddQuestion />}></Route>
-            <Route exact path="/user-bookmark" element={<UserBookmarks />}></Route>
-            <Route exact path="/notification" element={<Notifications />}></Route>
-            <Route exact path="/user" element={<User />}></Route>
+            {!isLogin && <Route path="/" element={<Login />}></Route>}
+            {!isLogin && <Route path="/register" element={<Register />}></Route>}
+            {!isLogin && <Route path="/forgot-password" element={<ForgotPassword />}></Route>}
+            {!isLogin && <Route path="/verification" element={<Verification />}></Route>}
+            {isLogin && <Route path="/home" element={<Home />}></Route>}
+            {isLogin && <Route path="/qna" element={<QNA />}></Route>}
+            {isLogin && <Route exact path="/user-questions" element={<UserQuestions />}></Route>}
+            {isLogin && <Route exact path="/add-question" element={<AddQuestion />}></Route>}
+            {isLogin && <Route exact path="/user-bookmark" element={<UserBookmarks />}></Route>}
+            {isLogin && <Route exact path="/notification" element={<Notifications />}></Route>}
+            {isLogin && <Route exact path="/user" element={<User />}></Route>}
           </Routes>
         {
           isLogin && 

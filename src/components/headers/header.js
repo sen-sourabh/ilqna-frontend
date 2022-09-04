@@ -14,6 +14,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { isLogin } from '../../redux/loginRedux/login-slice';
+import { useDispatch } from 'react-redux';
 
 
 const categories = [
@@ -59,6 +61,7 @@ const filterPage = ['/home', '/user-questions', '/user-bookmark', '/notification
 // HEADER
 export default function Header() {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     left: false
   });
@@ -94,6 +97,7 @@ export default function Header() {
   };
 
   const handleClickLogout = () => {
+    dispatch(isLogin(false));
     navigate('/');
   };
 

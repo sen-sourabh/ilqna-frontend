@@ -1,35 +1,91 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+
 //Routers
 import {
-  Link
+  Link,
+  useNavigate
 } from "react-router-dom";
+
 //SCSS
 import '../../sass/main.scss';
 import '../../sass/login.scss';
+
 //UI
-import { Divider, Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
+import { Divider, IconButton, Input, InputAdornment, Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 // import LoginIcon from '@mui/icons-material/Login';
 import GoogleIcon from '@mui/icons-material/Google';
-import FacebookIcon from '@mui/icons-material/Facebook';
 import RedditIcon from '@mui/icons-material/Reddit';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-//Component
-import LoginBg from '../backgrounds/LoginBg';
+import InfoIcon from '@mui/icons-material/Info';
 
+//Validations
+import Email from '../../functions/validations/email';
+import Password from '../../functions/validations/password';
+
+//Component
+import { Messages } from '../Alerts/Messages';
+import { useDispatch } from 'react-redux';
+import { isLogin } from '../../redux/loginRedux/login-slice';
 
 export default function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const [showPassword, setShowPassword] = useState(false);
+  const [options, setOptions] = useState(null);
+  const [showMessage, setShowMessage] = useState(false);
   
-  const handleClick = () => {
+  const handleEmail = (event) => {
+    setEmail(event.target.value.trim());
+  }
+
+  const handlePassword = (event) => {
+    setPassword(event.target.value.trim());
+  }
+
+  const isValid = (email, password) => {
+    if(!Email.isValidEmail(email)) {
+      setOptions({open: true, severity: 'error', message: 'Please enter a valid email.'});
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 3000);
+      return false;
+    }
+    if(!Password.isValidPassword(password)) {
+      setOptions({open: true, severity: 'error', message: 'Please enter a valid password.'});
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 3000);
+      return false;
+    }
+    return true;
+  }
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
+
+  const handleLogin = () => {
+    if(!isValid(email, password)) return false;
     setLoading(true);
+    setTimeout(() => {
+      dispatch(isLogin(true));
+      setLoading(false);
+      navigate('/home');
+    }, 3000);
   }
 
   return (
     <div className='login'>
-      <LoginBg />
+      {/* <LoginBg /> */}
       <Paper
           style={{backgroundColor: 'transparent'}}
           className='login-window'
@@ -42,23 +98,39 @@ export default function Login() {
           className='stack-style'
           spacing={{ xs: 2, md: 2 }}
         >
-            <TextField 
-              id="standard-basic" 
-              label="Email" 
+            <TextField
+              autoFocus
+              type="email"
+              label="Email"
               variant="standard"
               placeholder="example@example.com"
+              onChange={handleEmail}
+              ref={emailRef}
             />
             <TextField
-              id="standard-basic" 
               label="Password" 
               variant="standard"
+              onChange={handlePassword}
+              type={showPassword ? 'text' : 'password'}
+              placeholder="••••••••••"
+              ref={passwordRef}
             />
+            <p 
+              position="end" 
+              className="show-password"
+            >
+              <span onClick={handleClickShowPassword} >{showPassword ? 'Hide Password' : 'Show Password'}</span>
+              <span>
+                <Tooltip title="Password should contain minimum 8 characters that includes capital letter, small letter, special character, and number." placement="right" arrow>
+                  <InfoIcon className='info-icon'/>
+                </Tooltip>  
+              </span>
+            </p>
             <LoadingButton
+              className="loading-btn"
               margin="normal" 
-              onClick={handleClick}
-              // endIcon={<LoginIcon />}
+              onClick={handleLogin}
               loading={loading}
-              // loadingPosition="end"
               variant="contained"
             >
               <b>SIGN IN</b>
@@ -73,25 +145,18 @@ export default function Login() {
           <Tooltip title="Google" placement="bottom" arrow>
             <GoogleIcon className="login-icon google" />
           </Tooltip>
-          <Tooltip title="Facebook" placement="bottom" arrow>
-            <FacebookIcon className="login-icon facebook" />
-          </Tooltip>
           <Tooltip title="Reddit" placement="bottom" arrow>
             <RedditIcon className="login-icon reddit" />
           </Tooltip>
           <Tooltip title="LinkedIn" placement="bottom" arrow>
             <LinkedInIcon className="login-icon linkedin" />
           </Tooltip>
-          <Tooltip title="WhatsApp" placement="bottom" arrow>
-            <WhatsAppIcon className="login-icon whatsapp" />
-          </Tooltip>
           <Tooltip title="GitHub" placement="bottom" arrow>
             <GitHubIcon className="login-icon github" />
           </Tooltip>
         </div>
       </Paper>
-          {/* <Link to="/register">Register</Link>
-          <Link to="/forgot-password">Forgot Password</Link> */}
+      {showMessage && <Messages options={options} />}
     </div>
   )
 }

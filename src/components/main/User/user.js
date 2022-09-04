@@ -29,6 +29,12 @@ import NotificationSound from "../../../images/Notification_sound.wav";
 //SCSS
 import '../../../sass/main.scss';
 import '../../../sass/user.scss';
+import { useDispatch } from 'react-redux';
+import { isLogin } from '../../../redux/loginRedux/login-slice';
+
+//Component
+import { Messages } from '../../Alerts/Messages';
+
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -70,6 +76,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function User() {
+  const dispatch = useDispatch();
+  //UI Variables
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('sourabh');
   const [openUsername, setOpenUsername] = useState(false);
@@ -80,6 +88,20 @@ export default function User() {
   const [newNotification, setNewNotification] = useState(true);
   const audioPlayer = useRef(null);
   const [verifyTimer, setVerifyTimer] = useState(null);
+  const [openPopup, setOpenPopup] = useState('');
+  //Operational Variables
+  const [username, setUsername] = useState('');
+  const [designation, setDesignation] = useState('');
+  const [company, setCompany] = useState('');
+  const [email, setEmail] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [cnewPassword, setCNewPassword] = useState('');
+
+  //Validation Variables
+  const [options, setOptions] = useState(null);
+  const [showMessage, setShowMessage] = useState(false);
+
 
   //Password Visibility
   const handlePasswordVisibility = () => {
@@ -97,29 +119,80 @@ export default function User() {
 
   //Enter Username
   const handleClickOpenUsername = () => {
+    setOpenPopup('Username');
     setOpenUsername(true);
   };
 
   const handleCloseUsername = () => {
     setOpenUsername(false);
+    setUsername('');
+    setOpenPopup('');
   };
+
+  const handleUsername = (event) => {
+    setUsername(event.target.value.trim())
+  }
+
+  const handleDesignation = (event) => {
+    setDesignation(event.target.value.trim())
+  }
+
+  const handleCompany = (event) => {
+    setCompany(event.target.value.trim())
+  }
 
   //Enter Email
   const handleClickOpenEmail = () => {
+    setOpenPopup('Email');
     setOpenEmail(true);
   };
 
   const handleCloseEmail = () => {
     setOpenEmail(false);
-    setOpenVerify(false);
-    setOpenUsername(false);
+    handleClickToVerifyClose();
+    setOpenPopup('');
   };
 
   //Verify Email
   const handleClickToVerifyOpen = () => {
-    console.log("Verification code sent.")
-    setOpenVerify(true);
-    setVerifyTimer(60);
+    if(checkPopupValidation()) {
+      setOpenPopup('Verify');
+      console.log("Verification code sent.")
+      setOpenVerify(true);
+      setVerifyTimer(60);  
+    }
+  }
+
+  const checkPopupValidation = () => {
+    console.log(typeof username, username, openPopup);
+    if(openPopup === 'Username' && username == '') {
+      console.log("opopopo")
+      setOptions({open: true, severity: 'error', message: `Please enter ${openPopup}`});
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 3000);
+      return false;
+    } else if(openPopup === 'Email' && email == '') {
+      setOptions({open: true, severity: 'error', message: `Please enter ${openPopup}`});
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 3000);
+      return false;
+    } else if(openPopup === 'Password' && oldPassword == '') {
+      setOptions({open: true, severity: 'error', message: `Please enter ${openPopup}`});
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 3000);
+      return false;
+    } else { 
+      return true; 
+    }
+    //  else if(openPopup === 'Email' && !email && email === '') {
+    // } else if(openPopup === 'Password' && !oldPassword && oldPassword === '') {
+    // }
   }
 
   useEffect(() => {
@@ -132,20 +205,25 @@ export default function User() {
     setOpenVerify(false);
     setOpenEmail(false);
     setOpenUsername(false);
+    handleCloseUsername();
+    setOpenPopup('');
   }
 
   //Change Password
   const handleChangePassword = () => {
+    setOpenPopup('password');
     console.log("Change password done.");
     setOpenPassword(false);
   }
 
   const handleClickOpenPassword = () => {
+    setOpenPopup('Password');
     setOpenPassword(true);
   };
 
   const handleClosePassword = () => {
     setOpenPassword(false);
+    setOpenPopup('');
   };
 
   //About
@@ -159,6 +237,10 @@ export default function User() {
 
   const playAudio = () => {
     audioPlayer.current.play();
+  }
+
+  const handleLogout = () => {
+    dispatch(isLogin(false))
   }
 
   return (
@@ -188,7 +270,12 @@ export default function User() {
               />
             </Tooltip>
           </Typography>
-          <Grid className="ask-section" container spacing={2} columns={12}>
+          <Typography
+            className='caption-text'
+          >
+            Full Stack Developer, Company Name
+          </Typography>
+          <Grid className="ask-section" container spacing={1} columns={12}>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Item className="ask-section-count sections">22<span className="ask-section-text">ANSWERs</span></Item>
             </Grid>
@@ -198,7 +285,7 @@ export default function User() {
           </Grid>
 
           {/* User */}
-          <Grid className="ask-section-content" container spacing={2} columns={12}>
+          <Grid className="ask-section-content" container spacing={1} columns={12}>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Item className='sections'><span className='user-email'>sourabhsen201313@gmail.com</span> 
                 <Tooltip title="Change Email" placement="top" arrow>
@@ -237,7 +324,7 @@ export default function User() {
           </Grid>
 
           {/* Options */}
-          <Grid className="ask-section-content" container spacing={2} columns={12}>
+          <Grid className="ask-section-content" container spacing={1} columns={12}>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Item className='sections'><span className='user-email'>Bookmarks</span>
                 <Tooltip title="Bookmarks" placement="top" arrow>
@@ -267,7 +354,7 @@ export default function User() {
           </Grid>
 
           {/* About */}
-          <Grid className="ask-section-content" container spacing={2} columns={12}>
+          <Grid className="ask-section-content" container spacing={1} columns={12}>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Item className='sections'><span className='user-email'>About</span>
                 <Tooltip title="About" placement="top" arrow>
@@ -282,7 +369,7 @@ export default function User() {
               <Item className='sections'><span className='user-email'>Logout</span>
                 <Tooltip title="Logout" placement="top" arrow>
                   <Link className='user-icon logout-icon' to="/">
-                    <ExitToAppIcon />
+                    <ExitToAppIcon onClick={handleLogout} />
                   </Link>
                 </Tooltip>  
               </Item>
@@ -299,12 +386,30 @@ export default function User() {
               <TextField
                 autoFocus
                 margin="dense"
-                id="username"
+                onChange={handleUsername}
                 label="Username"
                 type="text"
                 fullWidth
                 variant="standard"
                 required
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                onChange={handleDesignation}
+                label="Designation"
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                onChange={handleCompany}
+                label="Company"
+                type="text"
+                fullWidth
+                variant="standard"
               />
             </DialogContent>
             <DialogActions>
@@ -419,6 +524,7 @@ export default function User() {
             </DialogActions>
           </Dialog>
       </div>
+      {showMessage && <Messages options={options} />}
     </div>
   )
 }
