@@ -21,6 +21,9 @@ import '../../../sass/main.scss';
 import '../../../sass/qna.scss';
 import { LoadingButton } from '@mui/lab';
 
+//Common Functions
+import { generateRandomColor } from '../../../functions/common/common';
+
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       backgroundColor: '#44b700',
@@ -64,15 +67,6 @@ export default function QNA(props) {
   const handleGoBack = () => {
     navigate('/user-questions');
   }
-
-  const generateRandomColor = () => {
-    let maxVal = 0xFFFFFF; // 16777215
-    let randomNumber = Math.random() * maxVal; 
-    randomNumber = Math.floor(randomNumber);
-    randomNumber = randomNumber.toString(16);
-    let randColor = randomNumber.padStart(6, 0);   
-    return `#${randColor.toUpperCase()}`
-}
 
   return (
     <div className='ilqna-main'>

@@ -11,6 +11,20 @@
     user-select: none;
 }
 
+.show-password {
+    text-align-last: right; 
+    margin: 0 !important; 
+    padding: 0;
+    font-size: .6rem;
+    color: #1976d2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.loading-btn {
+    margin-top: 10px !important;
+}
+
 .login-window {
     /* From https://css.glass */
     // background: rgba(255, 255, 255, 0.27);
@@ -57,12 +71,16 @@
 }
 
 .login-icon {
-    padding-left: 6.5px;
-    padding-right: 6.5px;
+    padding-left: 4.3px;
+    padding-right: 4.3px;
     position: relative;
     cursor: pointer;
     top: 3px;
     font-size: 2.3rem !important;
+}
+
+.login-icon-palette {
+    text-align: center;
 }
 
 .other-link {
@@ -89,3 +107,8 @@
     color: #1b1f23;
 }
 
+.info-icon {
+    font-size: 1rem !important;
+    position: relative;
+    top: 4px;
+}
