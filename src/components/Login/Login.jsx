@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 //Routers
 import {
@@ -11,7 +11,7 @@ import '../../sass/main.scss';
 import '../../sass/login.scss';
 
 //UI
-import { Divider, IconButton, Input, InputAdornment, Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
+import { Divider, Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 // import LoginIcon from '@mui/icons-material/Login';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -26,8 +26,9 @@ import Password from '../../functions/validations/password';
 
 //Component
 import { Messages } from '../Alerts/Messages';
-import { useDispatch } from 'react-redux';
-import { isLogin } from '../../redux/loginRedux/login-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { isLogin, userData } from '../../redux/loginRedux/login-slice';
+import { loginWithEmailAndPassword } from '../../functions/APIs/login-api';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -40,7 +41,12 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [options, setOptions] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
-  
+  // const { isLoginCheck } = useSelector(state => state.login);
+
+  // useEffect(() => {
+  //   isLoginCheck ? navigate('/home') : navigate('/');
+  // }, [isLoginCheck]);
+
   const handleEmail = (event) => {
     setEmail(event.target.value.trim());
   }
@@ -73,19 +79,26 @@ export default function Login() {
     setShowPassword(!showPassword);
   }
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if(!isValid(email, password)) return false;
     setLoading(true);
-    setTimeout(() => {
-      dispatch(isLogin(true));
+    let loginData = {
+      email,
+      password,
+      loginDate: new Date().toISOString()
+    }
+    await loginWithEmailAndPassword(loginData).then((res) => {
       setLoading(false);
-      navigate('/home');
-    }, 3000);
+      dispatch(isLogin(true));
+      dispatch(userData(res.data[0]))
+      // navigate('/home')
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   return (
     <div className='login'>
-      {/* <LoginBg /> */}
       <Paper
           style={{backgroundColor: 'transparent'}}
           className='login-window'

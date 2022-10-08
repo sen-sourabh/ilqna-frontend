@@ -30,7 +30,7 @@ import NotificationSound from "../../../images/Notification_sound.wav";
 import '../../../sass/main.scss';
 import '../../../sass/user.scss';
 import { useDispatch } from 'react-redux';
-import { isLogin } from '../../../redux/loginRedux/login-slice';
+import { isLogin, isLogout } from '../../../redux/loginRedux/login-slice';
 
 //Component
 import { Messages } from '../../Alerts/Messages';
@@ -240,7 +240,7 @@ export default function User() {
   }
 
   const handleLogout = () => {
-    dispatch(isLogin(false))
+    dispatch(isLogout(false));
   }
 
   return (

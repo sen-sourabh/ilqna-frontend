@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 //Routers
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
-  useNavigate,
-  // useNavigate
+  Link
 } from "react-router-dom";
 //UI
 import Paper from '@mui/material/Paper';
@@ -18,7 +16,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 // import BookmarkIcon from '@mui/icons-material/Bookmark';
-import FilterListIcon from '@mui/icons-material/FilterList';
+// import FilterListIcon from '@mui/icons-material/FilterList';
 // import SettingsIcon from '@mui/icons-material/Settings';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 // import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -44,7 +42,10 @@ import QNA from './components/main/QNA/QNA';
 import { useSelector } from 'react-redux';
 
 function App() {
-  const { isLogin, userData } = useSelector(state => state.login);
+  const { isLogin } = useSelector(state => state.login);
+
+  
+
   return (
     <div className="App">
       <Router>
@@ -60,7 +61,7 @@ function App() {
             {!isLogin && <Route path="/register" element={<Register />}></Route>}
             {!isLogin && <Route path="/forgot-password" element={<ForgotPassword />}></Route>}
             {!isLogin && <Route path="/verification" element={<Verification />}></Route>}
-            {isLogin && <Route path="/home" element={<Home />}></Route>}
+            {isLogin && <Route path="/" element={<Home />}></Route>}
             {isLogin && <Route path="/qna" element={<QNA />}></Route>}
             {isLogin && <Route exact path="/user-questions" element={<UserQuestions />}></Route>}
             {isLogin && <Route exact path="/add-question" element={<AddQuestion />}></Route>}
@@ -78,7 +79,7 @@ function App() {
                   className="h-scroller"
                 >
                   <Tooltip title="Home" placement="top" arrow>
-                    <Link className='nav-link' to="/home">
+                    <Link className='nav-link' to="/">
                       <BottomNavigationAction
                         label="Home"
                         className="footer-icon"
