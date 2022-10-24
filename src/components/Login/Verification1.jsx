@@ -8,9 +8,9 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import '../../sass/main.scss';
 import '../../sass/login.scss';
 //Components
-import LoginBg from '../backgrounds/LoginBg';
+// import LoginBg from '../backgrounds/LoginBg';
 
-export default function Verification() {
+export default function Verification1() {
     const [loading, setLoading] = useState(false);
     const [timeRemaining, setTimeRemaining] = useState('00:00');
   
@@ -20,7 +20,7 @@ export default function Verification() {
   
     return (
       <Fragment>
-        <LoginBg />
+        {/* <LoginBg /> */}
         <Paper
            style={{backgroundColor: 'transparent'}}
            className='login-window'
@@ -37,13 +37,12 @@ export default function Verification() {
                 id="standard-basic" 
                 label="Verification Code" 
                 variant="standard"
+                required
               />
               <LoadingButton
                 margin="normal" 
                 onClick={handleClick}
-                // endIcon={<LoginIcon />}
                 loading={loading}
-                // loadingPosition="end"
                 variant="contained"
               >
                 <b>VERIFY</b>

@@ -4,7 +4,7 @@ const isValidEmail = (email) => {
 }
 
 const isEmpty = (email) => {
-    if(email === null || email === '') return false;
+    if(email === null || email === '' || email === undefined) return false;
     return true;
 }
 

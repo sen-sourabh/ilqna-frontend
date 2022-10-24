@@ -15,36 +15,28 @@ import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-// import BookmarkIcon from '@mui/icons-material/Bookmark';
-// import FilterListIcon from '@mui/icons-material/FilterList';
-// import SettingsIcon from '@mui/icons-material/Settings';
-// import NotificationsIcon from '@mui/icons-material/Notifications';
-// import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-
 //SCSS
 import './App.scss';
 import './sass/main.scss';
 import './sass/footer.scss';
 //Component
-// import Header from './components/headers/header';
 import Register from './components/Login/Register';
 import Login from './components/Login/Login';
-import ForgotPassword from './components/Login/ForgotPassword';
+import { ForgotPassword } from './components/Login/ForgotPassword';
 import Home from './components/main/Home/Home';
 import UserQuestions from './components/main/UserQuestions/UserQuestions';
 import AddQuestion from './components/main/AddQuestion/AddQuestion';
 import UserBookmarks from './components/main/UserBookmarks/UserBookmarks';
 import User from './components/main/User/User';
-import Verification from './components/Login/Verification';
 import Header from './components/headers/Header';
 import Notifications from './components/main/Notifications/Notifications';
 import QNA from './components/main/QNA/QNA';
 import { useSelector } from 'react-redux';
+import { Verification } from './components/Dialogs/Verification';
+import { Messages } from './components/Alerts/Messages';
 
 function App() {
   const { isLogin } = useSelector(state => state.login);
-
-  
 
   return (
     <div className="App">
@@ -55,12 +47,10 @@ function App() {
           <Header />
         }
         {/* Body */}
-        
           <Routes>
             {!isLogin && <Route path="/" element={<Login />}></Route>}
             {!isLogin && <Route path="/register" element={<Register />}></Route>}
             {!isLogin && <Route path="/forgot-password" element={<ForgotPassword />}></Route>}
-            {!isLogin && <Route path="/verification" element={<Verification />}></Route>}
             {isLogin && <Route path="/" element={<Home />}></Route>}
             {isLogin && <Route path="/qna" element={<QNA />}></Route>}
             {isLogin && <Route exact path="/user-questions" element={<UserQuestions />}></Route>}
@@ -69,6 +59,7 @@ function App() {
             {isLogin && <Route exact path="/notification" element={<Notifications />}></Route>}
             {isLogin && <Route exact path="/user" element={<User />}></Route>}
           </Routes>
+        {/* Footer */}
         {
           isLogin && 
             <Paper
@@ -83,7 +74,6 @@ function App() {
                       <BottomNavigationAction
                         label="Home"
                         className="footer-icon"
-                        // value="recents"
                         icon={<HomeIcon />}
                       />
                     </Link>
@@ -93,7 +83,6 @@ function App() {
                       <BottomNavigationAction 
                         label="QuestionAnswer" 
                         className="footer-icon"
-                        // value="folder" 
                         icon={<QuestionAnswerIcon />} 
                       />
                     </Link>
@@ -103,7 +92,6 @@ function App() {
                       <BottomNavigationAction
                         label="AddBox"
                         className="footer-icon"
-                        // value="nearby"
                         icon={<AddBoxIcon />}
                       />
                     </Link>
@@ -113,7 +101,6 @@ function App() {
                       <BottomNavigationAction
                         label="Person"
                         className="footer-icon"
-                        // value="favorites"
                         icon={<PersonIcon />}
                       />
                     </Link>
@@ -121,6 +108,8 @@ function App() {
                 </BottomNavigation>
             </Paper>
         }
+        <Verification />
+        <Messages />
       </Router>
     </div>
   );

@@ -24,6 +24,7 @@ import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationSound from "../../../images/Notification_sound.wav";
+import InfoIcon from '@mui/icons-material/Info';
 // import Divider from '@mui/material/Divider';
 // import { deepOrange } from '@mui/material/colors';
 //SCSS
@@ -97,6 +98,11 @@ export default function User() {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [cnewPassword, setCNewPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
 
   //Validation Variables
   const [options, setOptions] = useState(null);
@@ -481,7 +487,8 @@ export default function User() {
                 margin="dense"
                 id="password"
                 label="Current Password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••••"
                 fullWidth
                 variant="standard"
                 required
@@ -490,7 +497,8 @@ export default function User() {
                 margin="dense"
                 id="newpassword"
                 label="New Password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••••"
                 fullWidth
                 variant="standard"
                 required
@@ -499,11 +507,23 @@ export default function User() {
                 margin="dense"
                 id="cnewpassword"
                 label="Confirm New Password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••••"
                 fullWidth
                 variant="standard"
                 required
               />
+              <p 
+                position="end" 
+                className="show-password"
+              >
+                <span onClick={handleClickShowPassword} >{showPassword ? 'Hide Password' : 'Show Password'}</span>
+                <span>
+                  <Tooltip title="Password should contain minimum 8 characters that includes capital letter, small letter, special character, and number." placement="right" arrow>
+                    <InfoIcon className='info-icon'/>
+                  </Tooltip>  
+                </span>
+              </p>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClosePassword}>Cancel</Button>

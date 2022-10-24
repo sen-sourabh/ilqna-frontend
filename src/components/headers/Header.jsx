@@ -98,6 +98,7 @@ export default function Header() {
 
   const handleClickLogout = () => {
     dispatch(isLogout(false));
+    navigate('/')
   };
 
   return (

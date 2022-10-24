@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 //Routers
 import {
   Link,
-  useNavigate
 } from "react-router-dom";
 
 //SCSS
@@ -21,17 +20,18 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InfoIcon from '@mui/icons-material/Info';
 
 //Validations
+import * as functions from '../../functions/common/common';
 import Email from '../../functions/validations/email';
 import Password from '../../functions/validations/password';
 
+
 //Component
 import { Messages } from '../Alerts/Messages';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { isLogin, userData } from '../../redux/loginRedux/login-slice';
-import { loginWithEmailAndPassword } from '../../functions/APIs/login-api';
+import { signInWithEmailAndPassword } from '../../functions/APIs/login-api';
 
 export default function Login() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState(null);
@@ -41,11 +41,6 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [options, setOptions] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
-  // const { isLoginCheck } = useSelector(state => state.login);
-
-  // useEffect(() => {
-  //   isLoginCheck ? navigate('/home') : navigate('/');
-  // }, [isLoginCheck]);
 
   const handleEmail = (event) => {
     setEmail(event.target.value.trim());
@@ -61,7 +56,7 @@ export default function Login() {
       setShowMessage(true);
       setTimeout(() => {
         setShowMessage(false);
-      }, 3000);
+      }, functions.snackbarTimer);
       return false;
     }
     if(!Password.isValidPassword(password)) {
@@ -69,7 +64,7 @@ export default function Login() {
       setShowMessage(true);
       setTimeout(() => {
         setShowMessage(false);
-      }, 3000);
+      }, functions.snackbarTimer);
       return false;
     }
     return true;
@@ -87,14 +82,30 @@ export default function Login() {
       password,
       loginDate: new Date().toISOString()
     }
-    await loginWithEmailAndPassword(loginData).then((res) => {
-      setLoading(false);
-      dispatch(isLogin(true));
-      dispatch(userData(res.data[0]))
-      // navigate('/home')
+    await signInWithEmailAndPassword(loginData).then((res) => {
+      signInSuccess(res);
     }).catch((error) => {
       console.log(error);
+      setLoading(false);
     });
+  }
+
+  const signInSuccess = (res) => {
+    setLoading(false);
+    if(res.code == 200) {
+      setOptions({open: true, severity: 'success', message: res.message});
+      setTimeout(() => {
+        setShowMessage(false);
+        dispatch(isLogin(true));
+        dispatch(userData(res.data[0]))
+      }, 1000);
+    } else {
+      setOptions({open: true, severity: 'error', message: res.message});
+      setTimeout(() => {
+        setShowMessage(false);
+      }, functions.snackbarTimer);
+    }
+    setShowMessage(true);
   }
 
   return (
@@ -119,6 +130,7 @@ export default function Login() {
               placeholder="example@example.com"
               onChange={handleEmail}
               ref={emailRef}
+              required
             />
             <TextField
               label="Password" 
@@ -127,6 +139,7 @@ export default function Login() {
               type={showPassword ? 'text' : 'password'}
               placeholder="••••••••••"
               ref={passwordRef}
+              required
             />
             <p 
               position="end" 
@@ -136,7 +149,7 @@ export default function Login() {
               <span>
                 <Tooltip title="Password should contain minimum 8 characters that includes capital letter, small letter, special character, and number." placement="right" arrow>
                   <InfoIcon className='info-icon'/>
-                </Tooltip>  
+                </Tooltip>
               </span>
             </p>
             <LoadingButton
