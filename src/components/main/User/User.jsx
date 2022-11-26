@@ -30,8 +30,13 @@ import InfoIcon from '@mui/icons-material/Info';
 //SCSS
 import '../../../sass/main.scss';
 import '../../../sass/user.scss';
-import { useDispatch } from 'react-redux';
+
+import * as functions from '../../../functions/common/common';
+import { useDispatch, useSelector } from 'react-redux';
 import { isLogin, isLogout } from '../../../redux/loginRedux/login-slice';
+import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
+import { openUsername } from '../../../redux/dialogRedux/update-username-slice';
+
 
 //Component
 import { Messages } from '../../Alerts/Messages';
@@ -81,7 +86,7 @@ export default function User() {
   //UI Variables
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('sourabh');
-  const [openUsername, setOpenUsername] = useState(false);
+  // const [openUsername, setOpenUsername] = useState(false);
   const [openEmail, setOpenEmail] = useState(false);
   const [openVerify, setOpenVerify] = useState(false);
   const [openPassword, setOpenPassword] = useState(false);
@@ -91,9 +96,10 @@ export default function User() {
   const [verifyTimer, setVerifyTimer] = useState(null);
   const [openPopup, setOpenPopup] = useState('');
   //Operational Variables
-  const [username, setUsername] = useState('');
-  const [designation, setDesignation] = useState('');
-  const [company, setCompany] = useState('');
+  // const [username, setUsername] = useState('');
+  // const [designation, setDesignation] = useState('');
+  // const [company, setCompany] = useState('');
+  const { username, designation, company } = useSelector(state => state.login?.userData)
   const [email, setEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -125,26 +131,27 @@ export default function User() {
 
   //Enter Username
   const handleClickOpenUsername = () => {
-    setOpenPopup('Username');
-    setOpenUsername(true);
+    // setOpenPopup('Username');
+    // setOpenUsername(true);
+    dispatch(openUsername(true));
   };
 
   const handleCloseUsername = () => {
-    setOpenUsername(false);
-    setUsername('');
+    // setOpenUsername(false);
+    // setUsername('');
     setOpenPopup('');
   };
 
   const handleUsername = (event) => {
-    setUsername(event.target.value.trim())
+    // setUsername(event.target.value.trim())
   }
 
   const handleDesignation = (event) => {
-    setDesignation(event.target.value.trim())
+    // setDesignation(event.target.value.trim())
   }
 
   const handleCompany = (event) => {
-    setCompany(event.target.value.trim())
+    // setCompany(event.target.value.trim())
   }
 
   //Enter Email
@@ -210,7 +217,7 @@ export default function User() {
     console.log("Verification done.")
     setOpenVerify(false);
     setOpenEmail(false);
-    setOpenUsername(false);
+    // setOpenUsername(false);
     handleCloseUsername();
     setOpenPopup('');
   }
@@ -245,7 +252,9 @@ export default function User() {
     audioPlayer.current.play();
   }
 
-  const handleLogout = () => {
+  const handleClickLogout = () => {
+    dispatch(prepareSnackbar({ open: true, severity: 'success', message: 'Logout successfully.' }));
+    setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
     dispatch(isLogout(false));
   }
 
@@ -266,9 +275,9 @@ export default function User() {
           
         </div>
           <Typography 
-            className="ask-section-count user-title"
+            className="user-title"
           >
-            Sourabh
+            {username}
             <Tooltip title="Change Username" placement="right" arrow>
               <EditIcon
                 className='user-title-icon'
@@ -279,7 +288,7 @@ export default function User() {
           <Typography
             className='caption-text'
           >
-            Full Stack Developer, Company Name
+            {designation}, {company}
           </Typography>
           <Grid className="ask-section" container spacing={1} columns={12}>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -375,7 +384,7 @@ export default function User() {
               <Item className='sections'><span className='user-email'>Logout</span>
                 <Tooltip title="Logout" placement="top" arrow>
                   <Link className='user-icon logout-icon' to="/">
-                    <ExitToAppIcon onClick={handleLogout} />
+                    <ExitToAppIcon onClick={handleClickLogout} />
                   </Link>
                 </Tooltip>  
               </Item>
@@ -383,7 +392,7 @@ export default function User() {
           </Grid>
 
           {/* Change Username */}
-          <Dialog open={openUsername} onClose={handleCloseUsername}>
+          {/* <Dialog open={openUsername} onClose={handleCloseUsername}>
             <DialogTitle>Username</DialogTitle>
             <DialogContent>
               <DialogContentText>
@@ -422,7 +431,7 @@ export default function User() {
               <Button onClick={handleCloseUsername}>Cancel</Button>
               <Button variant="contained" onClick={handleClickToVerifyOpen}>Send</Button>
             </DialogActions>
-          </Dialog>
+          </Dialog> */}
 
           {/* Change Email */}
           <Dialog open={openEmail} onClose={handleCloseEmail}>

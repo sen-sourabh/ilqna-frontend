@@ -18,19 +18,19 @@ import InfoIcon from '@mui/icons-material/Info';
 import * as functions from '../../functions/common/common';
 import Email from '../../functions/validations/email';
 import Password from '../../functions/validations/password';
-import { Messages } from '../Alerts/Messages';
 import Phone from '../../functions/validations/phone';
+import { useDispatch } from 'react-redux';
 import { signUpWithEmailAndPassword } from '../../functions/APIs/login-api';
+import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 
 export default function Register() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [options, setOptions] = useState(null);
-  const [showMessage, setShowMessage] = useState(false);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -48,27 +48,18 @@ export default function Register() {
 
   const isValid = () => {
     if(!Email.isValidEmail(email)) {
-      setOptions({open: true, severity: 'error', message: 'Please enter a valid email.'});
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, functions.snackbarTimer);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid email.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     if(!Password.isValidPassword(password)) {
-      setOptions({open: true, severity: 'error', message: 'Please enter a valid password.'});
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, functions.snackbarTimer);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid password.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     if(!Phone.isValidPhone(phone)) {
-      setOptions({open: true, severity: 'error', message: 'Please enter a valid mobile no.'});
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, functions.snackbarTimer);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid mobile no.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     return true;
@@ -86,7 +77,8 @@ export default function Register() {
     await signUpWithEmailAndPassword(newUserData).then((res) => {
       signUpSuccess(res);
     }).catch((error) => {
-      console.log(error);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: error.message }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       setLoading(false);
     });
   }
@@ -94,18 +86,13 @@ export default function Register() {
   const signUpSuccess = (res) => {
     setLoading(false);
     if(res.code == 200) {
-      setOptions({open: true, severity: 'success', message: res.message});
-      setTimeout(() => {
-        setShowMessage(false);
-        navigate('/');
-      }, functions.snackbarTimer);
+      dispatch(prepareSnackbar({ open: true, severity: 'success', message: res.message }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
+      navigate('/');
     } else {
-      setOptions({open: true, severity: 'error', message: res.message});
-      setTimeout(() => {
-        setShowMessage(false);
-      }, functions.snackbarTimer);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: res.message }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
     }
-    setShowMessage(true);
   }
 
   return (
@@ -180,7 +167,6 @@ export default function Register() {
             </div>
         </Stack>
       </Paper>
-      {showMessage && <Messages options={options} />}
     </Fragment>
   )
 }

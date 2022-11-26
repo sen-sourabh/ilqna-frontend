@@ -1,5 +1,4 @@
 export const snackbarTimer = 5000;
-
 //User Avatar Dynamic Color
 export const generateRandomColor = () => {
     let maxVal = 0xFFFFFF; // 16777215
@@ -20,4 +19,10 @@ export const refactor = (response) => {
 export const generatedUsernameByEmail = (text) => {
     console.log("username: ", text.split('@')[0].toString());
     return text.split('@')[0].toString();
+}
+
+//String Functions
+export const isEmpty = (text) => {
+    if(text === null || text === '' || text === undefined) return false;
+    return true;
 }

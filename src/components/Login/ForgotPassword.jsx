@@ -15,9 +15,10 @@ import Email from '../../functions/validations/email';
 import Password from '../../functions/validations/password';
 import { forgotPassword, resetPassword } from '../../functions/APIs/login-api';
 import { useDispatch, useSelector } from 'react-redux';
+import { changeForm } from '../../redux/loginRedux/forgotPassword-slice';
 import { isVerifyOpen, setOTP } from '../../redux/dialogRedux/verification-slice';
-import { prepareSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
-// import * as functions from '../../functions/common/common';
+import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
+import * as functions from '../../functions/common/common';
 
 export const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -44,6 +45,7 @@ export const ForgotPassword = () => {
   const isValid = () => {
     if(!Email.isValidEmail(email)) {
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid email.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     return true;
@@ -56,14 +58,17 @@ export const ForgotPassword = () => {
   const isResetValid = () => {
     if(!Password.isValidPassword(newPassword)) {
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid new password.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     if(!Password.isValidPassword(cnewPassword)) {
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid confirm new password.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     if(!Password.isPasswordMatch(newPassword, cnewPassword)) {
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'New password & Confirm password are not matched.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     return true;
@@ -77,6 +82,7 @@ export const ForgotPassword = () => {
     }).catch((error) => {
       setLoading(false);
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: error.message }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
     });
   }
 
@@ -87,6 +93,8 @@ export const ForgotPassword = () => {
     } else {
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: res.message }));
     }
+    setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
+    dispatch(changeForm(true));
     navigate('/')
   }
 
@@ -98,6 +106,7 @@ export const ForgotPassword = () => {
     }).catch((error) => {
       setLoading(false);
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: error.message }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
     });
   }
 
@@ -110,7 +119,9 @@ export const ForgotPassword = () => {
     } else {
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: res.message }));
     }
+    setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
   }
+
 
   return (
     <Fragment>

@@ -22,18 +22,30 @@
 }
 
 .avatar-img {
-    width: 150px !important;
-    height: 150px !important;
-    font-size: 6rem !important;
+    // width: 150px !important;
+    // height: 150px !important;
+    // font-size: 6rem !important;
+    width: 120px !important;
+    height: 120px !important;
+    font-size: 5rem !important;
 }
 
 .user-title {
     color: #0a1929;
+    font-size: 2rem !important;
+    padding-bottom: 0% !important;
+    text-align: center;
+    line-height: 1 !important;
 }
 
 .user-title-icon {
-    font-size: 2rem;
+    // font-size: 2rem;
+    // cursor: pointer;
+    // color: #0a1929;
+    font-size: 1rem;
+    font-weight: 600 !important;
     cursor: pointer;
+    position: absolute;
     color: #0a1929;
 }
 

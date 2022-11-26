@@ -11,10 +11,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { changeForm } from '../../redux/loginRedux/forgotPassword-slice';
 import { isVerifyOpen, resetVerifyTimer, verifyTimer } from '../../redux/dialogRedux/verification-slice';
+import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
+import * as functions from '../../functions/common/common';
 
 export const Verification = (props) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const [enterOTP, setEnterOTP] = useState();
 	const { isVerifyOpen: isOpen, OTP } = useSelector(state => state.verification);
 	const { verifyTimer: verifyTimerChange } = useSelector(state => state.verification);
 
@@ -27,15 +30,18 @@ export const Verification = (props) => {
 	});
 
 	const handleChangeOTP = (event) => {
-		if(event.target.value === OTP) {
-			handleVerify();
-		}
+		setEnterOTP(event.target.value);
 	}
 
 	const handleVerify = () => {
-		dispatch(isVerifyOpen(false));
-		dispatch(resetVerifyTimer());
-		dispatch(changeForm(false));
+		if(enterOTP === OTP) {
+			dispatch(isVerifyOpen(false));
+			dispatch(resetVerifyTimer());
+			dispatch(changeForm(false));
+		} else {
+			dispatch(prepareSnackbar({ open: true, severity: 'error', message: "Please enter valid OTP." }));
+      		setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
+		}
 	}
 
 	const handleAutoCloseVerify = () => {

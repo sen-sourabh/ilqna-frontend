@@ -34,6 +34,7 @@ import QNA from './components/main/QNA/QNA';
 import { useSelector } from 'react-redux';
 import { Verification } from './components/Dialogs/Verification';
 import { Messages } from './components/Alerts/Messages';
+import { UpdateUsername } from './components/Dialogs/UpdateUsername';
 
 function App() {
   const { isLogin } = useSelector(state => state.login);
@@ -110,6 +111,7 @@ function App() {
         }
         <Verification />
         <Messages />
+        <UpdateUsername />
       </Router>
     </div>
   );

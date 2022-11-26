@@ -16,6 +16,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { isLogout } from '../../redux/loginRedux/login-slice';
 import { useDispatch } from 'react-redux';
+import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
+import * as functions from '../../functions/common/common';
 
 
 const categories = [
@@ -97,8 +99,10 @@ export default function Header() {
   };
 
   const handleClickLogout = () => {
+    dispatch(prepareSnackbar({ open: true, severity: 'success', message: 'Logout successfully.' }));
+    setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
     dispatch(isLogout(false));
-    navigate('/')
+    // navigate('/')
   };
 
   return (
@@ -132,7 +136,7 @@ export default function Header() {
           onClick={toggleDrawer('left', false)}
           onKeyDown={toggleDrawer('left', false)}
         >
-          <Typography variant="h2" class="drawer-title" sx={{ flexGrow: 1 }}>
+          <Typography variant="h2" className="drawer-title" sx={{ flexGrow: 1 }}>
             ilqna
           </Typography>
           <List>

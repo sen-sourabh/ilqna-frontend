@@ -26,10 +26,10 @@ import Password from '../../functions/validations/password';
 
 
 //Component
-import { Messages } from '../Alerts/Messages';
 import { useDispatch } from 'react-redux';
 import { isLogin, userData } from '../../redux/loginRedux/login-slice';
 import { signInWithEmailAndPassword } from '../../functions/APIs/login-api';
+import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -39,8 +39,6 @@ export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
-  const [options, setOptions] = useState(null);
-  const [showMessage, setShowMessage] = useState(false);
 
   const handleEmail = (event) => {
     setEmail(event.target.value.trim());
@@ -52,19 +50,13 @@ export default function Login() {
 
   const isValid = (email, password) => {
     if(!Email.isValidEmail(email)) {
-      setOptions({open: true, severity: 'error', message: 'Please enter a valid email.'});
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, functions.snackbarTimer);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid email.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     if(!Password.isValidPassword(password)) {
-      setOptions({open: true, severity: 'error', message: 'Please enter a valid password.'});
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, functions.snackbarTimer);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid password.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     return true;
@@ -85,27 +77,22 @@ export default function Login() {
     await signInWithEmailAndPassword(loginData).then((res) => {
       signInSuccess(res);
     }).catch((error) => {
-      console.log(error);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: error.message }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       setLoading(false);
     });
   }
 
   const signInSuccess = (res) => {
     setLoading(false);
-    if(res.code == 200) {
-      setOptions({open: true, severity: 'success', message: res.message});
-      setTimeout(() => {
-        setShowMessage(false);
-        dispatch(isLogin(true));
-        dispatch(userData(res.data[0]))
-      }, 1000);
+    if(res.code === 200) {
+      dispatch(prepareSnackbar({ open: true, severity: 'success', message: res.message }));
+      dispatch(isLogin(true));
+      dispatch(userData(res.data[0]))
     } else {
-      setOptions({open: true, severity: 'error', message: res.message});
-      setTimeout(() => {
-        setShowMessage(false);
-      }, functions.snackbarTimer);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: res.message }));
     }
-    setShowMessage(true);
+    setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
   }
 
   return (
@@ -182,7 +169,6 @@ export default function Login() {
           </Tooltip>
         </div>
       </Paper>
-      {showMessage && <Messages options={options} />}
     </div>
   )
 }
