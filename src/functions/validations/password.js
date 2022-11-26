@@ -4,11 +4,19 @@ const isValidPassword = (password) => {
 }
 
 const isEmpty = (password) => {
-    if(password === null || password === '') return false;
+    if(password === null || password === '' || password === undefined) return false;
     return true;
 }
 
+const isPasswordMatch = (newPassword, cnewPassword) => {
+    if(newPassword === cnewPassword){
+        return true;
+    }
+    return false;
+}
+
 const Password = {
-    isValidPassword
+    isValidPassword, 
+    isPasswordMatch
 };
 export default Password;

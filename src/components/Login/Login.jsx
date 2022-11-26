@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react'
 //Routers
 import {
   Link,
-  useNavigate
 } from "react-router-dom";
 
 //SCSS
@@ -11,7 +10,7 @@ import '../../sass/main.scss';
 import '../../sass/login.scss';
 
 //UI
-import { Divider, IconButton, Input, InputAdornment, Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
+import { Divider, Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 // import LoginIcon from '@mui/icons-material/Login';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -21,16 +20,18 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InfoIcon from '@mui/icons-material/Info';
 
 //Validations
+import * as functions from '../../functions/common/common';
 import Email from '../../functions/validations/email';
 import Password from '../../functions/validations/password';
 
+
 //Component
-import { Messages } from '../Alerts/Messages';
 import { useDispatch } from 'react-redux';
-import { isLogin } from '../../redux/loginRedux/login-slice';
+import { isLogin, userData } from '../../redux/loginRedux/login-slice';
+import { signInWithEmailAndPassword } from '../../functions/APIs/login-api';
+import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 
 export default function Login() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState(null);
@@ -38,9 +39,7 @@ export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
-  const [options, setOptions] = useState(null);
-  const [showMessage, setShowMessage] = useState(false);
-  
+
   const handleEmail = (event) => {
     setEmail(event.target.value.trim());
   }
@@ -51,19 +50,13 @@ export default function Login() {
 
   const isValid = (email, password) => {
     if(!Email.isValidEmail(email)) {
-      setOptions({open: true, severity: 'error', message: 'Please enter a valid email.'});
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, 3000);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid email.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     if(!Password.isValidPassword(password)) {
-      setOptions({open: true, severity: 'error', message: 'Please enter a valid password.'});
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, 3000);
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid password.' }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       return false;
     }
     return true;
@@ -73,19 +66,37 @@ export default function Login() {
     setShowPassword(!showPassword);
   }
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if(!isValid(email, password)) return false;
     setLoading(true);
-    setTimeout(() => {
-      dispatch(isLogin(true));
+    let loginData = {
+      email,
+      password,
+      loginDate: new Date().toISOString()
+    }
+    await signInWithEmailAndPassword(loginData).then((res) => {
+      signInSuccess(res);
+    }).catch((error) => {
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: error.message }));
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       setLoading(false);
-      navigate('/home');
-    }, 3000);
+    });
+  }
+
+  const signInSuccess = (res) => {
+    setLoading(false);
+    if(res.code === 200) {
+      dispatch(prepareSnackbar({ open: true, severity: 'success', message: res.message }));
+      dispatch(isLogin(true));
+      dispatch(userData(res.data[0]))
+    } else {
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: res.message }));
+    }
+    setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
   }
 
   return (
     <div className='login'>
-      {/* <LoginBg /> */}
       <Paper
           style={{backgroundColor: 'transparent'}}
           className='login-window'
@@ -106,6 +117,7 @@ export default function Login() {
               placeholder="example@example.com"
               onChange={handleEmail}
               ref={emailRef}
+              required
             />
             <TextField
               label="Password" 
@@ -114,6 +126,7 @@ export default function Login() {
               type={showPassword ? 'text' : 'password'}
               placeholder="••••••••••"
               ref={passwordRef}
+              required
             />
             <p 
               position="end" 
@@ -123,7 +136,7 @@ export default function Login() {
               <span>
                 <Tooltip title="Password should contain minimum 8 characters that includes capital letter, small letter, special character, and number." placement="right" arrow>
                   <InfoIcon className='info-icon'/>
-                </Tooltip>  
+                </Tooltip>
               </span>
             </p>
             <LoadingButton
@@ -156,7 +169,6 @@ export default function Login() {
           </Tooltip>
         </div>
       </Paper>
-      {showMessage && <Messages options={options} />}
     </div>
   )
 }
