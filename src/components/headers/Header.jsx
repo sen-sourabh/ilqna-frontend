@@ -58,7 +58,7 @@ const languages = [
   },
 ];
 
-const filterPage = ['/', '/user-questions', '/user-bookmark', '/notification'];
+const filterPage = ['/home', '/user-questions', '/user-bookmark', '/notification'];
 
 // HEADER
 export default function Header() {
@@ -102,7 +102,8 @@ export default function Header() {
     dispatch(prepareSnackbar({ open: true, severity: 'success', message: 'Logout successfully.' }));
     setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
     dispatch(isLogout(false));
-    // navigate('/')
+    navigate('/');
+    functions.goingForLogout();
   };
 
   return (

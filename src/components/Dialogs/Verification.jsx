@@ -48,6 +48,7 @@ export const Verification = (props) => {
 		dispatch(isVerifyOpen(false));
 		dispatch(resetVerifyTimer());
 		navigate('/');
+		functions.goingForLogout();
 	}
 
   	return (

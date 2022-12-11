@@ -35,9 +35,10 @@ import { useSelector } from 'react-redux';
 import { Verification } from './components/Dialogs/Verification';
 import { Messages } from './components/Alerts/Messages';
 import { UpdateUsername } from './components/Dialogs/UpdateUsername';
+import { ChangePassword } from './components/Dialogs/ChangePassword';
 
 function App() {
-  const { isLogin } = useSelector(state => state.login);
+  const { isLogin, userData } = useSelector(state => state.login);
 
   return (
     <div className="App">
@@ -52,7 +53,7 @@ function App() {
             {!isLogin && <Route path="/" element={<Login />}></Route>}
             {!isLogin && <Route path="/register" element={<Register />}></Route>}
             {!isLogin && <Route path="/forgot-password" element={<ForgotPassword />}></Route>}
-            {isLogin && <Route path="/" element={<Home />}></Route>}
+            {isLogin && <Route path="/home" element={<Home />}></Route>}
             {isLogin && <Route path="/qna" element={<QNA />}></Route>}
             {isLogin && <Route exact path="/user-questions" element={<UserQuestions />}></Route>}
             {isLogin && <Route exact path="/add-question" element={<AddQuestion />}></Route>}
@@ -71,7 +72,7 @@ function App() {
                   className="h-scroller"
                 >
                   <Tooltip title="Home" placement="top" arrow>
-                    <Link className='nav-link' to="/">
+                    <Link className='nav-link' to="/home">
                       <BottomNavigationAction
                         label="Home"
                         className="footer-icon"
@@ -112,6 +113,7 @@ function App() {
         <Verification />
         <Messages />
         <UpdateUsername />
+        <ChangePassword email={userData.email} />
       </Router>
     </div>
   );
