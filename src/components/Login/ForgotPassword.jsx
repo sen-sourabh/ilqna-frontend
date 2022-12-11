@@ -95,7 +95,7 @@ export const ForgotPassword = () => {
     }
     setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
     dispatch(changeForm(true));
-    navigate('/')
+    navigate('/');
   }
 
   const handleOpenVerify = async () => {

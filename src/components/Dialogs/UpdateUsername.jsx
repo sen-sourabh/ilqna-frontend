@@ -19,8 +19,8 @@ import { userData } from '../../redux/loginRedux/login-slice';
 export const UpdateUsername = () => {
     const dispatch = useDispatch();
     const { isOpen } = useSelector(state => state.update_username);
-    const { username, designation: desig, company: comp } = useSelector(state => state?.login?.userData)
-    console.log("USER: ", username, desig, comp);
+    // const { designation: desig, company: comp } = useSelector(state => state?.login?.userData)
+    // console.log("USER: ", desig, comp);
     // const datad = useSelector(state => state)
     // const [username, setUsername] = useState('');
 
@@ -56,21 +56,25 @@ export const UpdateUsername = () => {
     }
 
     const handleClickToVerifyOpen = async () => {
-        isValid();
-        let body = {
-            _id: !localStorage.getItem('userData') ? '' : JSON.parse(localStorage.getItem('userData'))._id,
-            designation,
-            company
-        };
-        setLoading(true)
-        await updateUsername(body).then((res) => {
-            updateSuccess(res);
-        }).catch((error) => {
-            dispatch(prepareSnackbar({ open: true, severity: 'error', message: error.message }));
-            setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
-            setLoading(false);
-            handleCloseUsername();
-        });
+        if(isValid()) {
+            let body = {
+                _id: !localStorage.getItem('userData') ? '' : JSON.parse(localStorage.getItem('userData'))._id,
+                designation,
+                company
+            };
+            setLoading(true)
+            await updateUsername(body).then((res) => {
+                updateSuccess(res);
+            }).catch((error) => {
+                dispatch(prepareSnackbar({ open: true, severity: 'error', message: error.message }));
+                setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
+                setLoading(false);
+                handleCloseUsername();
+            });
+        } else {
+            return false;
+        }
+        
     }
     
     const updateSuccess = (res) => {
@@ -92,7 +96,7 @@ export const UpdateUsername = () => {
             <DialogContentText>
             You will recieve a verification code at registered email...
             </DialogContentText>
-            <TextField
+            {/* <TextField
                 margin="dense"
                 label="Username"
                 type="text"
@@ -102,7 +106,7 @@ export const UpdateUsername = () => {
 					{ readOnly: true, }
 				}
                 defaultValue={username}
-            />
+            /> */}
             <TextField
                 autoFocus
                 margin="dense"
@@ -110,14 +114,14 @@ export const UpdateUsername = () => {
                 label="Designation"
                 type="text"
                 fullWidth
-                defaultValue={desig}
+                defaultValue={designation}
                 variant="standard"
                 required
             />
             <TextField
                 autoFocus
                 margin="dense"
-                defaultValue={comp}
+                defaultValue={company}
                 onChange={handleCompany}
                 label="Company"
                 type="text"

@@ -13,10 +13,7 @@ export const prepareHeaders = () => {
 export const updateUsername = async (body) => {
     return await axios.put(ENV.API_URL+"users/updateUser", body, prepareHeaders())
     .then((response) => {
-        console.log("res: " )
-        if(response.data[0].code === 100 && response.data[0].message === "jwt expired") {
-            logout();
-        }
+        functions.checkJWT(response);
         return functions.refactor(response);
     })
     .catch((error) => {
@@ -24,7 +21,13 @@ export const updateUsername = async (body) => {
     });
 }
 
-export const logout = () => {
-    localStorage.clear();
-    window.location.href = ENV.BASE_URL;
+export const changePassword = async (body) => {
+    return await axios.post(ENV.API_URL+'auth/changePassword', body, prepareHeaders())
+    .then((response) => {
+        functions.checkJWT(response);
+        return functions.refactor(response);
+    })
+    .catch((error) => {
+        return { code: 101, status: 'F_ERROR', message: error };
+    });
 }

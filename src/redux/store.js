@@ -4,6 +4,7 @@ import verificationReducer from "./dialogRedux/verification-slice";
 import forgotPasswordReducer from "./loginRedux/forgotPassword-slice";
 import snackbarReducer from "./snackbarRedux/snackbar-slice";
 import updateUsernameReducer from "./dialogRedux/update-username-slice";
+import changePasswordReducer from "./dialogRedux/change-password";
 
 const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
         verification: verificationReducer,
         forgotPassword: forgotPasswordReducer,
         snackbar: snackbarReducer,
-        update_username: updateUsernameReducer
+        update_username: updateUsernameReducer,
+        change_password: changePasswordReducer
     }
 })
 

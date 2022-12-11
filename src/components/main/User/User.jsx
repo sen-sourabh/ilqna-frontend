@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 //Routes
 import {
-  Link
+  Link, useNavigate
 } from "react-router-dom";
 //UI
 import { Avatar, Tooltip, Typography } from '@mui/material';
@@ -24,7 +24,6 @@ import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationSound from "../../../images/Notification_sound.wav";
-import InfoIcon from '@mui/icons-material/Info';
 // import Divider from '@mui/material/Divider';
 // import { deepOrange } from '@mui/material/colors';
 //SCSS
@@ -40,6 +39,7 @@ import { openUsername } from '../../../redux/dialogRedux/update-username-slice';
 
 //Component
 import { Messages } from '../../Alerts/Messages';
+import { openChangePassword } from '../../../redux/dialogRedux/change-password';
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -82,10 +82,11 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function User() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //UI Variables
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [password, setPassword] = useState('sourabh');
+  // const [password, setPassword] = useState('sourabh');
   // const [openUsername, setOpenUsername] = useState(false);
   const [openEmail, setOpenEmail] = useState(false);
   const [openVerify, setOpenVerify] = useState(false);
@@ -99,8 +100,8 @@ export default function User() {
   // const [username, setUsername] = useState('');
   // const [designation, setDesignation] = useState('');
   // const [company, setCompany] = useState('');
-  const { username, designation, company } = useSelector(state => state.login?.userData)
-  const [email, setEmail] = useState('');
+  const { username, email, password, designation, company } = useSelector(state => state.login?.userData)
+  // const [email, setEmail] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [cnewPassword, setCNewPassword] = useState('');
@@ -123,17 +124,19 @@ export default function User() {
 
   const handlePassword = () => {
     if(passwordVisible) {
-      playAudio();
+      // playAudio();
       return password;
     }
     return '••••••••';
   }
 
   //Enter Username
-  const handleClickOpenUsername = () => {
-    // setOpenPopup('Username');
-    // setOpenUsername(true);
+  const handleOpenUsername = () => {
     dispatch(openUsername(true));
+  };
+
+  const handleOpenChangePassword = () => {
+    dispatch(openChangePassword(true));
   };
 
   const handleCloseUsername = () => {
@@ -214,7 +217,6 @@ export default function User() {
   }, [verifyTimer]);
 
   const handleClickToVerifyClose = () => {
-    console.log("Verification done.")
     setOpenVerify(false);
     setOpenEmail(false);
     // setOpenUsername(false);
@@ -223,21 +225,22 @@ export default function User() {
   }
 
   //Change Password
-  const handleChangePassword = () => {
-    setOpenPopup('password');
-    console.log("Change password done.");
-    setOpenPassword(false);
-  }
+  // const handleChangePassword = () => {
+  //   setOpenPopup('password');
+  //   console.log("Change password done.");
+  //   setOpenPassword(false);
+  // }
 
-  const handleClickOpenPassword = () => {
-    setOpenPopup('Password');
-    setOpenPassword(true);
-  };
+  // const handleOpenUsername = () => {
+  //   // setOpenPopup('Password');
+  //   // setOpenPassword(true);
+  //   dispatch(openUsername(true));
+  // };
 
-  const handleClosePassword = () => {
-    setOpenPassword(false);
-    setOpenPopup('');
-  };
+  // const handleClosePassword = () => {
+  //   setOpenPassword(false);
+  //   setOpenPopup('');
+  // };
 
   //About
   const handleClickOpenAbout = () => {
@@ -256,6 +259,8 @@ export default function User() {
     dispatch(prepareSnackbar({ open: true, severity: 'success', message: 'Logout successfully.' }));
     setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
     dispatch(isLogout(false));
+    navigate('/');
+    functions.goingForLogout();
   }
 
   return (
@@ -277,11 +282,11 @@ export default function User() {
           <Typography 
             className="user-title"
           >
-            {username}
+            { functions.capitalizeFirstLetter(username) }
             <Tooltip title="Change Username" placement="right" arrow>
               <EditIcon
                 className='user-title-icon'
-                onClick={handleClickOpenUsername}
+                onClick={handleOpenUsername}
               />
             </Tooltip>
           </Typography>
@@ -302,38 +307,16 @@ export default function User() {
           {/* User */}
           <Grid className="ask-section-content" container spacing={1} columns={12}>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Item className='sections'><span className='user-email'>sourabhsen201313@gmail.com</span> 
-                <Tooltip title="Change Email" placement="top" arrow>
-                  <EditIcon 
-                    onClick={handleClickOpenEmail}
-                    className='user-icon' 
-                  />
-                </Tooltip>
+              <Item className='sections'><span className='user-email'> { email } </span>
               </Item>
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Item className='sections'><span className='user-email'>{ handlePassword() }</span>
-                { !passwordVisible ? 
-                  <Tooltip title="Show Password" placement="top" arrow>
-                    <VisibilityOffIcon 
-                      className='user-icon' 
-                      onClick={handlePasswordVisibility} 
-                    />
-                  </Tooltip> 
-                  : 
-                  <Tooltip title="Hide Password" placement="top" arrow>
-                    <VisibilityIcon 
-                      className='user-icon' 
-                      onClick={handlePasswordVisibility} 
-                    />
-                  </Tooltip> 
-                } 
-                <Tooltip title="Change Password" placement="top" arrow>
-                  <EditIcon 
-                    onClick={handleClickOpenPassword}
+                <EditIcon 
+                    onClick={handleOpenChangePassword}
                     className='user-icon'
-                  />
-                </Tooltip>
+                    title="Change Password"
+                />
               </Item>
             </Grid>
           </Grid>
@@ -390,102 +373,10 @@ export default function User() {
               </Item>
             </Grid>
           </Grid>
-
-          {/* Change Username */}
-          {/* <Dialog open={openUsername} onClose={handleCloseUsername}>
-            <DialogTitle>Username</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                You will recieve a verification code at registered email...
-              </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                onChange={handleUsername}
-                label="Username"
-                type="text"
-                fullWidth
-                variant="standard"
-                required
-              />
-              <TextField
-                autoFocus
-                margin="dense"
-                onChange={handleDesignation}
-                label="Designation"
-                type="text"
-                fullWidth
-                variant="standard"
-              />
-              <TextField
-                autoFocus
-                margin="dense"
-                onChange={handleCompany}
-                label="Company"
-                type="text"
-                fullWidth
-                variant="standard"
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseUsername}>Cancel</Button>
-              <Button variant="contained" onClick={handleClickToVerifyOpen}>Send</Button>
-            </DialogActions>
-          </Dialog> */}
-
-          {/* Change Email */}
-          <Dialog open={openEmail} onClose={handleCloseEmail}>
-            <DialogTitle>Email</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                You will recieve a verification code at entered email...
-              </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="email"
-                label="Email"
-                type="email"
-                fullWidth
-                variant="standard"
-                required
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseEmail}>Cancel</Button>
-              <Button variant="contained" onClick={handleClickToVerifyOpen}>Send</Button>
-            </DialogActions>
-          </Dialog>
           
-          {/* Verify Email */}
-          <Dialog open={openVerify} onClose={handleCloseEmail}>
-            <DialogTitle>Verify</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Please enter verification code to verify...
-              </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="verify"
-                label="Code"
-                type="text"
-                fullWidth
-                variant="standard"
-                required
-              />
-            </DialogContent>
-            <DialogActions>
-              <Tooltip title={`Try agian after ${ verifyTimer } seconds`} placement="top" arrow>
-                <Typography variant='h6' style={{cursor: 'default', userSelect: 'none'}}>{ verifyTimer }</Typography>
-              </Tooltip>
-              <Button onClick={handleCloseEmail}>Cancel</Button>
-              <Button variant="contained" onClick={handleClickToVerifyClose}>Verify</Button>
-            </DialogActions>
-          </Dialog>
-          
+
           {/* Change Password */}
-          <Dialog open={openPassword} onClose={handleClosePassword}>
+          {/* <Dialog open={openPassword} onClose={handleClosePassword}>
             <DialogTitle>Change Password</DialogTitle>
             <DialogContent>
               <DialogContentText>
@@ -538,7 +429,7 @@ export default function User() {
               <Button onClick={handleClosePassword}>Cancel</Button>
               <Button variant="contained" onClick={handleChangePassword}>Change</Button>
             </DialogActions>
-          </Dialog>
+          </Dialog> */}
            
           {/* About */}
           <Dialog open={openAbout} onClose={handleCloseAbout}>

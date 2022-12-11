@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 //Routers
 import {
-  Link,
+  Link, useNavigate
 } from "react-router-dom";
 
 //SCSS
@@ -32,6 +32,7 @@ import { signInWithEmailAndPassword } from '../../functions/APIs/login-api';
 import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 
 export default function Login() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState(null);
@@ -89,6 +90,7 @@ export default function Login() {
       dispatch(prepareSnackbar({ open: true, severity: 'success', message: res.message }));
       dispatch(isLogin(true));
       dispatch(userData(res.data[0]))
+      navigate('/home');
     } else {
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: res.message }));
     }
