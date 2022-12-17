@@ -2,16 +2,14 @@
 @import '../App.scss';
 
 .add-question {
-    // margin-top: 6%;
-    margin-bottom: 4%;
-    cursor: default;
-    user-select: none;
-}
 
-.btn-ask {
-    display: inline-flex;
 }
+.input-control {
+    margin-top: 1rem !important;
+}
+.input-autocomplete {
 
-.rdw-dropdown-carettoopen {
-    width:fit-content !important;
+}
+.input-control-btn {
+
 }

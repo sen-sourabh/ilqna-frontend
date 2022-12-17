@@ -44,7 +44,7 @@ export const ChangePassword = ({ email }) => {
         return false;
       }
       if(!Password.isValidPassword(oldPassword)) {
-        dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid new password.' }));
+        dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Please enter a valid old password.' }));
         setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
         return false;
       }

@@ -1,4 +1,4 @@
-import React, { Fragment, useState} from 'react';
+import React, { Fragment, useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -18,6 +18,7 @@ import { isLogout } from '../../redux/loginRedux/login-slice';
 import { useDispatch } from 'react-redux';
 import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 import * as functions from '../../functions/common/common';
+import { openFilter } from '../../redux/dialogRedux/filter-slice';
 
 
 const categories = [
@@ -67,17 +68,16 @@ export default function Header() {
   const [state, setState] = useState({
     left: false
   });
-  const [openFilter, setOpenFilter] = useState(false);
-  const [category, setCategory] = useState('EUR');
-  const [language, setLanguage] = useState('EUR');
 
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
-  }
-
-  const handleChangeLanguage = (event) => {
-    setLanguage(event.target.value);
-  }
+  useEffect(() => {
+    if(localStorage.getItem('isLogin')) {
+      if(window.location.pathname === '/'){
+        navigate('/home');
+      }
+    } else {
+      navigate('/')
+    }
+  }, [])
 
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -89,13 +89,8 @@ export default function Header() {
 
   const handleClickOpenFilter = () => {
     if(filterPage.includes(window.location.pathname)) {
-      setOpenFilter(true);
+      dispatch(openFilter(true))
     }
-    return;
-  };
-
-  const handleCloseFilter = () => {
-    setOpenFilter(false);
   };
 
   const handleClickLogout = () => {
@@ -138,7 +133,7 @@ export default function Header() {
           onKeyDown={toggleDrawer('left', false)}
         >
           <Typography variant="h2" className="drawer-title" sx={{ flexGrow: 1 }}>
-            ilqna
+            ILQNA
           </Typography>
           <List>
             <ListItem key='filter' disablePadding onClick={handleClickOpenFilter}>
@@ -158,67 +153,8 @@ export default function Header() {
               </ListItemButton>
             </ListItem>
           </List>
-          <Divider />
         </Box>
       </Drawer>
-
-
-      {/* Filter Dailog */}
-      <Dialog 
-          open={openFilter}
-          onClose={handleCloseFilter}
-        >
-          <DialogTitle>Filter</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Filter will be applied for current page...
-            </DialogContentText>
-            <TextField 
-              id="standard-basic" 
-              label="Seacrh..." 
-              variant="standard"
-              fullWidth
-              className='filter-field'
-            />
-            <TextField
-              fullWidth
-              id="select-category"
-              select
-              label="Category"
-              value={category}
-              onChange={handleChangeCategory}
-              variant="standard"
-              className='filter-field'
-              required
-            >
-              {categories.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              fullWidth
-              className='filter-field'
-              id="select-language"
-              select
-              label="Language"
-              value={language}
-              onChange={handleChangeLanguage}
-              variant="standard"
-            >
-              {languages.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseFilter}>Cancel</Button>
-            <Button variant="contained" onClick={handleCloseFilter}>Apply</Button>
-          </DialogActions>
-        </Dialog>
     </Fragment>
   )
 }

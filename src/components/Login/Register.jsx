@@ -8,7 +8,6 @@ import {
   useNavigate
 } from "react-router-dom";
 //SCSS
-import '../../sass/main.scss';
 import '../../sass/login.scss';
 //Component
 // import LoginBg from '../backgrounds/LoginBg';

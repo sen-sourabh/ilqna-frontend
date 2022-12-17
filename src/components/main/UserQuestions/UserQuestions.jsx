@@ -8,7 +8,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import TodayIcon from '@mui/icons-material/Today';
 
 //SCSS
-import '../../../sass/main.scss';
+// import '../../../sass/main.scss';
 import '../../../sass/home.scss';
 
 export default function UserQuestions() {

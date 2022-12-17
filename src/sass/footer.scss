@@ -1,16 +1,14 @@
 @import '../index.scss';
 @import '../App.scss';
 
-.footer {
-    // padding: 5px;
-    // border-top: 1px solid #333333;
-    // position: fixed; 
-    // // left: 0; 
-    // width: 100%;
-    // // overflow: hidden; 
-    // background: #FFFFFF;
-    // bottom: 0; 
-    // height: 5%;
+.footer-paper {
+    position: fixed;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, .15); //need to add
+	backdrop-filter: blur(15px); //need to add
+    z-index: 999;
 }
 .footer-icon:hover {
     color: #1976d2;

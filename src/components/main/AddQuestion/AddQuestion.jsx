@@ -1,173 +1,120 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 //UI
-import { Grid, MenuItem, Stack, TextField, Typography } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { Autocomplete, Button, Grid, TextField, Typography } from '@mui/material';
 //SCSS
 import '../../../sass/add-question.scss';
-import '../../../sass/main.scss';
+// import '../../../sass/main.scss';
+import { Box } from '@mui/system';
 
-
-const categories = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
-
-const languages = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
-
-export default function AddQuestion() {
+export default function AddQuestion({ category = [], language = [] }) {
   const [loadingAsk, setLoadingAsk] = useState(false);
   const [loadingSave, setLoadingSave] = useState(false);
   const [clickOnOne, setClickOnOne] = useState(false);
-  const [category, setCategory] = useState('EUR');
-  const [language, setLanguage] = useState('EUR');
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [question, setQuestion] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState([]);
 
-  const handleChangeCategory = (event) => {
-    setCategory(event.target.value);
+  const handleQuestion = (event) => {
+    setQuestion(event.target.value)
   }
 
-  const handleChangeLanguage = (event) => {
-    setLanguage(event.target.value);
+  const handleCategory = (newValue) => {
+    setSelectedCategory(newValue);
   }
 
-  const handleClickAsk = () => {
-    setClickOnOne(true);
-    setLoadingAsk(true);
+  const handleLanguage = (newValue) => {
+    setSelectedLanguage(newValue);
   }
 
-  const handleClickSave = () => {
-    setClickOnOne(true);
-    setLoadingSave(true);
+  const handleSubmit = (e, type) => {
+    e.preventDefault();
+    console.log(
+      type,
+      question,
+      description,
+      selectedCategory,
+      selectedLanguage
+    );
+      
   }
-
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
-  };
 
   return (
     <div className='ilqna-main'>
-      <Typography variant='h5' align='left'>ASK</Typography>
-      <Typography variant='subtitle1' align='left'>Ask questions from here. Hope, You will get answer soon...</Typography>
-      <Grid container spacing={2} column={12}>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <Stack
-            className='stack-style'
-            spacing={{ xs: 2, md: 2 }}
-          >
-              <TextField 
-                id="standard-basic" 
-                label="Question" 
-                variant="standard"
-                required
-              />
-              <Editor
-                editorState={editorState}
-                wrapperClassName="demo-wrapper"
-                editorClassName="demo-editor"
-                onEditorStateChange={onEditorStateChange}
-                wrapperStyle={{width: '100%', height: 'auto', border: '1px solid lightgrey', cursor: 'text', zIndex: '99', backgroundColor: 'white'}}
-              />
-          </Stack>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <Stack
-            className='stack-style'
-            spacing={{ xs: 2, md: 2 }}
-          >
+      <Box mt={2} className='add-question'>
+        <Typography variant='h5' align='left'><b>ASK</b></Typography>
+        <Typography variant='subtitle1' align='left'>Ask questions from here. Hope, You will get answer soon...</Typography>
+        <TextField
+          className='input-control' 
+          id="outlined-basic" 
+          label="Question" 
+          variant="outlined"
+          placeholder='Why you are human?'
+          fullWidth
+          onChange={handleQuestion}
+        />
+        <TextField 
+          className='input-control' 
+          id="outlined-basic" 
+          label="Question description" 
+          variant="outlined"
+          placeholder='Description...'
+          fullWidth
+          onChange={handleQuestion}
+        />
+        <Autocomplete
+          className='input-control input-autocomplete'
+          fullWidth
+          multiple
+          id="tags-outlined"
+          options={category}
+          renderInput={(params) => (
             <TextField
-              fullWidth
-              id="select-category"
-              select
-              label="Category"
-              value={category}
-              onChange={handleChangeCategory}
-              variant="standard"
-              required
-            >
-              {categories.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+              {...params}
+              label="Categories"
+              placeholder="Technology"
+            />
+          )}
+          onChange={(event, newValue) => { handleCategory(newValue) }}
+        />
+        <Autocomplete
+          fullWidth
+          className='input-control input-autocomplete'
+          multiple
+          id="tags-outlined"
+          options={language}
+          renderInput={(params) => (
             <TextField
-              fullWidth
-              id="select-language"
-              select
-              label="Language"
-              value={language}
-              onChange={handleChangeLanguage}
-              variant="standard"
-            >
-              {languages.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <div className='btn-ask'>
-              <LoadingButton
-                margin="normal" 
-                onClick={handleClickSave}
-                // endIcon={<LoginIcon />}
-                loading={loadingSave}
-                // loadingPosition="end"
+              {...params}
+              label="Languages"
+              placeholder="Java"
+            />
+          )}
+          onChange={(event, newValue) => { handleLanguage(newValue) }}
+        />
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid item xs={6}>
+              <Button
+                className='input-control'
                 variant="text"
                 fullWidth
-                disabled={clickOnOne}
+                onClick={(e) => handleSubmit(e, 'save')}
               >
-                <b>SAVE</b>
-              </LoadingButton>
-              <LoadingButton
-                margin="normal" 
-                onClick={handleClickAsk}
-                // endIcon={<LoginIcon />}
-                loading={loadingAsk}
-                // loadingPosition="end"
-                variant="contained"
-                fullWidth
-                disabled={clickOnOne}
-              >
-                <b>ASK</b>
-              </LoadingButton>
-            </div>
-          </Stack>
+                Save
+              </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              className='input-control'
+              variant="contained"
+              fullWidth
+              onClick={(e) => handleSubmit(e, 'ask')}
+            >
+              Ask
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      </Box>
     </div>
   )
 }
