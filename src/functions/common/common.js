@@ -27,7 +27,6 @@ export const goingForLogout = () => {
 
 //Refactor API Response
 export const refactor = (response) => {
-    console.log("ref: ", response);
     return response.data[0];
 }
 

@@ -27,7 +27,7 @@ import NotificationSound from "../../../images/Notification_sound.wav";
 // import Divider from '@mui/material/Divider';
 // import { deepOrange } from '@mui/material/colors';
 //SCSS
-import '../../../sass/main.scss';
+// import '../../../sass/main.scss';
 import '../../../sass/user.scss';
 
 import * as functions from '../../../functions/common/common';

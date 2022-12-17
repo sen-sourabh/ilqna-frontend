@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 
 //SCSS
-import '../../sass/main.scss';
 import '../../sass/login.scss';
 
 //UI

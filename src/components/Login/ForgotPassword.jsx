@@ -10,7 +10,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 //Icons
 import InfoIcon from '@mui/icons-material/Info';
 //SCSS
-import '../../sass/main.scss';
+// import '../../sass/main.scss';
 import Email from '../../functions/validations/email';
 import Password from '../../functions/validations/password';
 import { forgotPassword, resetPassword } from '../../functions/APIs/login-api';

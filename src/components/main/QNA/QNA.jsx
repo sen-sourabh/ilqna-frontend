@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 //UI
-import { Button, Typography, Avatar, Tooltip, Chip } from '@mui/material';
+import { Button, Typography, Avatar, Tooltip, Chip, TextField } from '@mui/material';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
@@ -12,12 +12,9 @@ import { useNavigate } from 'react-router-dom';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
-import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 //SCSS
-import '../../../sass/main.scss';
+// import '../../../sass/main.scss';
 import '../../../sass/qna.scss';
 import { LoadingButton } from '@mui/lab';
 
@@ -58,11 +55,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 export default function QNA(props) {
   let navigate = useNavigate();
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
-  };
   
   const handleGoBack = () => {
     navigate('/user-questions');
@@ -306,13 +299,7 @@ export default function QNA(props) {
             </Divider>
         </div>
         <div className='qna-user-editor'>
-            <Editor
-                editorState={editorState}
-                wrapperClassName="demo-wrapper"
-                editorClassName="demo-editor"
-                onEditorStateChange={onEditorStateChange}
-                wrapperStyle={{width: '100%', height: 'auto', border: '1px solid lightgrey', cursor: 'text', zIndex: '99', backgroundColor: 'white'}}
-            />
+            <TextField />
             &emsp;
             <LoadingButton
                 className='qna-answer-save-btn'
