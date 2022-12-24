@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 //Routes
 import {
-  Link, useNavigate
+  Link
 } from "react-router-dom";
 //UI
 import { Avatar, Tooltip, Typography } from '@mui/material';
@@ -10,36 +10,18 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import EditIcon from '@mui/icons-material/Edit';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationSound from "../../../images/Notification_sound.wav";
-// import Divider from '@mui/material/Divider';
-// import { deepOrange } from '@mui/material/colors';
+
 //SCSS
-// import '../../../sass/main.scss';
 import '../../../sass/user.scss';
 
 import * as functions from '../../../functions/common/common';
+import { getAllQuestionsCountOfUser } from '../../../functions/APIs/question-api';
 import { useDispatch, useSelector } from 'react-redux';
-import { isLogin, isLogout } from '../../../redux/loginRedux/login-slice';
-import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
 import { openUsername } from '../../../redux/dialogRedux/update-username-slice';
-
-
-//Component
-import { Messages } from '../../Alerts/Messages';
-import { openChangePassword } from '../../../redux/dialogRedux/change-password';
+import { getAllAnswersCountOfUser } from '../../../functions/APIs/answer-api';
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -82,199 +64,43 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function User() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   //UI Variables
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  // const [password, setPassword] = useState('sourabh');
-  // const [openUsername, setOpenUsername] = useState(false);
-  const [openEmail, setOpenEmail] = useState(false);
-  const [openVerify, setOpenVerify] = useState(false);
-  const [openPassword, setOpenPassword] = useState(false);
-  const [openAbout, setOpenAbout] = useState(false);
-  const [newNotification, setNewNotification] = useState(true);
+  const [questionCount, setQuestionCount] = useState(0);
+  const [answerCount, setAnswerCount] = useState(0);
   const audioPlayer = useRef(null);
-  const [verifyTimer, setVerifyTimer] = useState(null);
-  const [openPopup, setOpenPopup] = useState('');
-  //Operational Variables
-  // const [username, setUsername] = useState('');
-  // const [designation, setDesignation] = useState('');
-  // const [company, setCompany] = useState('');
-  const { username, email, password, designation, company } = useSelector(state => state.login?.userData)
-  // const [email, setEmail] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [cnewPassword, setCNewPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const { _id, username, designation, company } = useSelector(state => state.login?.userData)
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  }
-
-  //Validation Variables
-  const [options, setOptions] = useState(null);
-  const [showMessage, setShowMessage] = useState(false);
-
-
-  //Password Visibility
-  const handlePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-    handlePassword();
-  }
-
-  const handlePassword = () => {
-    if(passwordVisible) {
-      // playAudio();
-      return password;
-    }
-    return '••••••••';
-  }
+  useEffect(() => {
+    getAllQuestionsByUserId();
+    getAllAnswersByUserId();
+  });
 
   //Enter Username
   const handleOpenUsername = () => {
     dispatch(openUsername(true));
   };
 
-  const handleOpenChangePassword = () => {
-    dispatch(openChangePassword(true));
-  };
-
-  const handleCloseUsername = () => {
-    // setOpenUsername(false);
-    // setUsername('');
-    setOpenPopup('');
-  };
-
-  const handleUsername = (event) => {
-    // setUsername(event.target.value.trim())
+  const getAllQuestionsByUserId = async  () => {
+    const result = await getAllQuestionsCountOfUser({_id});
+    setQuestionCount(result.totalCount);
   }
 
-  const handleDesignation = (event) => {
-    // setDesignation(event.target.value.trim())
+  const getAllAnswersByUserId = async  () => {
+    const result = await getAllAnswersCountOfUser({_id});
+    setAnswerCount(result.totalCount);
   }
 
-  const handleCompany = (event) => {
-    // setCompany(event.target.value.trim())
-  }
-
-  //Enter Email
-  const handleClickOpenEmail = () => {
-    setOpenPopup('Email');
-    setOpenEmail(true);
-  };
-
-  const handleCloseEmail = () => {
-    setOpenEmail(false);
-    handleClickToVerifyClose();
-    setOpenPopup('');
-  };
-
-  //Verify Email
-  const handleClickToVerifyOpen = () => {
-    if(checkPopupValidation()) {
-      setOpenPopup('Verify');
-      console.log("Verification code sent.")
-      setOpenVerify(true);
-      setVerifyTimer(60);  
-    }
-  }
-
-  const checkPopupValidation = () => {
-    console.log(typeof username, username, openPopup);
-    if(openPopup === 'Username' && username == '') {
-      console.log("opopopo")
-      setOptions({open: true, severity: 'error', message: `Please enter ${openPopup}`});
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, 3000);
-      return false;
-    } else if(openPopup === 'Email' && email == '') {
-      setOptions({open: true, severity: 'error', message: `Please enter ${openPopup}`});
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, 3000);
-      return false;
-    } else if(openPopup === 'Password' && oldPassword == '') {
-      setOptions({open: true, severity: 'error', message: `Please enter ${openPopup}`});
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
-      }, 3000);
-      return false;
-    } else { 
-      return true; 
-    }
-    //  else if(openPopup === 'Email' && !email && email === '') {
-    // } else if(openPopup === 'Password' && !oldPassword && oldPassword === '') {
-    // }
-  }
-
-  useEffect(() => {
-    const timer = verifyTimer > 0 ? setInterval(() => setVerifyTimer(verifyTimer - 1), 1000) : handleClickToVerifyClose()
-    return () => clearInterval(timer);
-  }, [verifyTimer]);
-
-  const handleClickToVerifyClose = () => {
-    setOpenVerify(false);
-    setOpenEmail(false);
-    // setOpenUsername(false);
-    handleCloseUsername();
-    setOpenPopup('');
-  }
-
-  //Change Password
-  // const handleChangePassword = () => {
-  //   setOpenPopup('password');
-  //   console.log("Change password done.");
-  //   setOpenPassword(false);
-  // }
-
-  // const handleOpenUsername = () => {
-  //   // setOpenPopup('Password');
-  //   // setOpenPassword(true);
-  //   dispatch(openUsername(true));
-  // };
-
-  // const handleClosePassword = () => {
-  //   setOpenPassword(false);
-  //   setOpenPopup('');
-  // };
-
-  //About
-  const handleClickOpenAbout = () => {
-    setOpenAbout(true);
-  };
-
-  const handleCloseAbout = () => {
-    setOpenAbout(false);
-  };
-
-  const playAudio = () => {
-    audioPlayer.current.play();
-  }
-
-  const handleClickLogout = () => {
-    dispatch(prepareSnackbar({ open: true, severity: 'success', message: 'Logout successfully.' }));
-    setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
-    dispatch(isLogout(false));
-    navigate('/');
-    functions.goingForLogout();
-  }
 
   return (
     <div className='ilqna-main'>
       <div className="user">
-
-        {/* Profile */}
         <div className='user-image'>
           <StyledBadge
             overlap="circular"
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             variant="dot"
           >
-            {/* <Avatar {...stringAvatar('Kent Dodds')} /> */}
             <Avatar sx={{ bgcolor: '#1976d2' }} className="avatar-img" alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
           </StyledBadge>
           
@@ -297,31 +123,12 @@ export default function User() {
           </Typography>
           <Grid className="ask-section" container spacing={1} columns={12}>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Item className="ask-section-count sections">22<span className="ask-section-text">ANSWERs</span></Item>
+              <Item className="ask-section-count sections">{ answerCount ? answerCount : 0 }<span className="ask-section-text">ANSWERs</span></Item>
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Item className="ask-section-count sections">37<span className="ask-section-text">ASKs</span></Item>
+              <Item className="ask-section-count sections">{ questionCount ? questionCount : 0 }<span className="ask-section-text">ASKs</span></Item>
             </Grid>
           </Grid>
-
-          {/* User */}
-          <Grid className="ask-section-content" container spacing={1} columns={12}>
-            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Item className='sections'><span className='user-email'> { email } </span>
-              </Item>
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Item className='sections'><span className='user-email'>{ handlePassword() }</span>
-                <EditIcon 
-                    onClick={handleOpenChangePassword}
-                    className='user-icon'
-                    title="Change Password"
-                />
-              </Item>
-            </Grid>
-          </Grid>
-
-          {/* Options */}
           <Grid className="ask-section-content" container spacing={1} columns={12}>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Item className='sections'><span className='user-email'>Bookmarks</span>
@@ -336,115 +143,16 @@ export default function User() {
               <Item className='sections'><span className='user-email'>Notifications</span>
                 <Tooltip title="Notifications" placement="top" arrow>
                   <Link className='user-icon' to="/notification">
-                    {
-                      newNotification ? 
-                        <Badge color="error" className='noti-icon' variant="dot">
-                          <NotificationsIcon />
-                          <audio ref={audioPlayer} src={NotificationSound} />
-                        </Badge>
-                        :
-                        <NotificationsIcon />
-                    }
+                    <Badge color="error" className='noti-icon' variant="dot">
+                      <NotificationsIcon />
+                      <audio ref={audioPlayer} src={NotificationSound} />
+                    </Badge>
                   </Link>
                 </Tooltip>
               </Item>
             </Grid>
           </Grid>
-
-          {/* About */}
-          <Grid className="ask-section-content" container spacing={1} columns={12}>
-            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Item className='sections'><span className='user-email'>About</span>
-                <Tooltip title="About" placement="top" arrow>
-                  <Typography 
-                    onClick={handleClickOpenAbout}
-                    className='user-icon'
-                  >V1.0.0</Typography>
-                </Tooltip>
-              </Item>
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Item className='sections'><span className='user-email'>Logout</span>
-                <Tooltip title="Logout" placement="top" arrow>
-                  <Link className='user-icon logout-icon' to="/">
-                    <ExitToAppIcon onClick={handleClickLogout} />
-                  </Link>
-                </Tooltip>  
-              </Item>
-            </Grid>
-          </Grid>
-          
-
-          {/* Change Password */}
-          {/* <Dialog open={openPassword} onClose={handleClosePassword}>
-            <DialogTitle>Change Password</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                You have to login again after changing your password...
-              </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="password"
-                label="Current Password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="••••••••••"
-                fullWidth
-                variant="standard"
-                required
-              />
-              <TextField
-                margin="dense"
-                id="newpassword"
-                label="New Password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="••••••••••"
-                fullWidth
-                variant="standard"
-                required
-              />
-              <TextField
-                margin="dense"
-                id="cnewpassword"
-                label="Confirm New Password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="••••••••••"
-                fullWidth
-                variant="standard"
-                required
-              />
-              <p 
-                position="end" 
-                className="show-password"
-              >
-                <span onClick={handleClickShowPassword} >{showPassword ? 'Hide Password' : 'Show Password'}</span>
-                <span>
-                  <Tooltip title="Password should contain minimum 8 characters that includes capital letter, small letter, special character, and number." placement="right" arrow>
-                    <InfoIcon className='info-icon'/>
-                  </Tooltip>  
-                </span>
-              </p>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClosePassword}>Cancel</Button>
-              <Button variant="contained" onClick={handleChangePassword}>Change</Button>
-            </DialogActions>
-          </Dialog> */}
-           
-          {/* About */}
-          <Dialog open={openAbout} onClose={handleCloseAbout}>
-            <DialogTitle>ILQNA <span className='version-info'>V1.0.0</span></DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                <SelfImprovementIcon className='about-icon' />
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseAbout}>Close</Button>
-            </DialogActions>
-          </Dialog>
       </div>
-      {showMessage && <Messages options={options} />}
     </div>
   )
 }

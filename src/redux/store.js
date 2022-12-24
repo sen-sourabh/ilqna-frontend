@@ -6,6 +6,7 @@ import snackbarReducer from "./snackbarRedux/snackbar-slice";
 import updateUsernameReducer from "./dialogRedux/update-username-slice";
 import changePasswordReducer from "./dialogRedux/change-password";
 import filterReducer from "./dialogRedux/filter-slice";
+import aboutReducer from "./dialogRedux/about-slice";
 
 const store = configureStore({
     reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
         snackbar: snackbarReducer,
         update_username: updateUsernameReducer,
         change_password: changePasswordReducer,
-        filter: filterReducer
+        filter: filterReducer,
+        about: aboutReducer
     }
 })
 

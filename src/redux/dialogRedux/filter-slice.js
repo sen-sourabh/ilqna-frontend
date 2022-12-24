@@ -7,7 +7,6 @@ const filterSlice = createSlice({
     },
     reducers: {
         openFilter: (state, action) => {
-            console.log("handleCloseFilter: ", state, action)
             state.isOpen = action.payload
         }
     }

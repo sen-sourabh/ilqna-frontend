@@ -9,8 +9,6 @@ const verificationSlice = createSlice({
     },
     reducers: {
         isVerifyOpen: (state, action) => {
-            console.log("state: ", state)
-            console.log("action: ", action)
             state.isVerifyOpen = action.payload
         },
         verifyTimer: (state) => {

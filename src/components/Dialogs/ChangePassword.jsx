@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Tooltip } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 // import InfoIcon from '@mui/icons-material/Info';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,7 +37,6 @@ export const ChangePassword = ({ email }) => {
   }
   
   const isValid = () => {
-    console.log("is Valid: ", oldPassword, newPassword, cnewPassword);
       if(!functions.isEmpty(oldPassword) || !functions.isEmpty(oldPassword) || !functions.isEmpty(oldPassword)) {
         dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'All fields are required.' }));
         setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
@@ -63,7 +62,6 @@ export const ChangePassword = ({ email }) => {
         setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
         return false;
       }
-      console.log(oldPassword, newPassword, cnewPassword);
       return true;
   }
 
@@ -161,7 +159,13 @@ export const ChangePassword = ({ email }) => {
         </DialogContent>
         <DialogActions>
         <Button onClick={handleClosePassword}>Cancel</Button>
-        <Button variant="contained" onClick={handleChangePassword}>Change</Button>
+        <Button 
+          variant="contained" 
+          onClick={handleChangePassword}
+          loading={loading.toString()}
+        >
+          Change
+        </Button>
         </DialogActions>
     </Dialog>
   )

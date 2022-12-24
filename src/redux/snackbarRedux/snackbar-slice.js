@@ -17,7 +17,6 @@ const snackbarSlice = createSlice({
             state.message = action.payload.message;
         },
         resetSnackbar: (state) => {
-            console.log(state)
             state.isOpen = false;
             state.severity = 'success';
             state.message = '';

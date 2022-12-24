@@ -25,11 +25,9 @@ export const signUpWithEmailAndPassword = async (body) => {
 export const forgotPassword = async (body) => {
     return await axios.post(ENV.API_URL+'auth/forgotPassword', body)
     .then((response) => {
-        console.log("fp then: ", response)
         return functions.refactor(response);
     })
     .catch((error) => {
-        console.log("fp catch: ", error)
         return { code: 101, status: 'F_ERROR', message: error };
     });
 }
