@@ -19,10 +19,6 @@ import { userData } from '../../redux/loginRedux/login-slice';
 export const UpdateUsername = () => {
     const dispatch = useDispatch();
     const { isOpen } = useSelector(state => state.update_username);
-    // const { designation: desig, company: comp } = useSelector(state => state?.login?.userData)
-    // console.log("USER: ", desig, comp);
-    // const datad = useSelector(state => state)
-    // const [username, setUsername] = useState('');
 
     const [designation, setDesignation] = useState('');
     const [company, setCompany] = useState('');
@@ -37,7 +33,6 @@ export const UpdateUsername = () => {
     }
 
     const handleCloseUsername = () => {
-        console.log("hii")
         dispatch(openUsername(false))
     }
 

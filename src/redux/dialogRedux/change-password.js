@@ -7,7 +7,6 @@ const changePasswordSlice = createSlice({
     },
     reducers: {
         openChangePassword: (state, action) => {
-            console.log("change-password: ", state, action);
             state.isOpen = action.payload
         }
     }

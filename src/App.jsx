@@ -39,6 +39,7 @@ import { ChangePassword } from './components/Dialogs/ChangePassword';
 import { Filter } from './components/headers/parts/Filter';
 import { getCategories } from './functions/APIs/category-api';
 import { getLanguages } from './functions/APIs/language-api';
+import { About } from './components/Dialogs/About';
 
 function App() {
   const { isLogin, userData } = useSelector(state => state.login);
@@ -135,6 +136,7 @@ function App() {
         <UpdateUsername />
         <ChangePassword email={userData.email} />
         <Filter category={category} language={language} />
+        <About />
       </Router>
     </div>
   );

@@ -22,7 +22,8 @@ export const checkJWT = (response) => {
 }
 
 export const goingForLogout = () => {
-    window.location.href = window.location.href;
+    let currentLocation = window.location.href;
+    window.location.href = currentLocation;
 }
 
 //Refactor API Response
@@ -32,7 +33,6 @@ export const refactor = (response) => {
 
 //Generate Default Username By Email At The Time Of Sign Up
 export const generatedUsernameByEmail = (text) => {
-    console.log("username: ", text.split('@')[0].toString());
     return text.split('@')[0].toString();
 }
 

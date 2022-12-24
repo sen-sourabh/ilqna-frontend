@@ -1,12 +1,11 @@
-import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, TextField } from '@mui/material'
+import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { openFilter } from '../../../redux/dialogRedux/filter-slice';
 
 export const Filter = ({ category = [], language = [] }) => {
     const dispatch = useDispatch();
-    const { isOpen = false } = useSelector(state => state.filter)
-    console.log(isOpen)
+    const { isOpen = false } = useSelector(state => state.filter);
     const [searchInput, setSearchInput] = useState('')
     const [selectedCategory, setSelectedCategory] = useState([]);
     const [selectedLanguage, setSelectedLanguage] = useState([]);

@@ -7,7 +7,6 @@ const updateUsernameSlice = createSlice({
     },
     reducers: {
         openUsername: (state, action) => {
-            console.log("update-username: ", state, action);
             state.isOpen = action.payload
         }
     }
