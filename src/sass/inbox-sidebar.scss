@@ -1,0 +1,31 @@
+@import '../index.scss';
+@import '../App.scss';
+
+.inbox-sidebar {
+    width: 240px;
+
+    @include mediaMaxWidth(800px){
+        width: 35px !important;
+    }
+}
+
+.list-name {
+    display: block;
+    @include mediaMaxWidth(800px) {
+        display: none;
+    }
+}
+
+.inbox-sidebar > .MuiPaper-root {
+    z-index: auto;
+    width: 240px;
+
+    @include mediaMaxWidth(800px){
+        width: 56px !important;
+    }
+}
+
+// .sort-select {
+//     position: relative !important;
+//     left: 69% !important;
+// }

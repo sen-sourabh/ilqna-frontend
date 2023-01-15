@@ -1,13 +1,10 @@
 import React, { Fragment, useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import { Toolbar, Typography, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { Drawer, AppBar, Toolbar, Typography, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Badge, Box, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import '../../sass/header.scss';
-import Drawer from '@mui/material/Drawer';
 import PasswordIcon from '@mui/icons-material/Password';
 import InfoIcon from '@mui/icons-material/Info';
 import { isLogout } from '../../redux/loginRedux/login-slice';
@@ -17,45 +14,11 @@ import * as functions from '../../functions/common/common';
 import { openFilter } from '../../redux/dialogRedux/filter-slice';
 import { openChangePassword } from '../../redux/dialogRedux/change-password';
 import { openAbout } from '../../redux/dialogRedux/about-slice';
-
-
-// const categories = [
-//   {
-//     value: 'USD',
-//     label: '$',
-//   },
-//   {
-//     value: 'EUR',
-//     label: '€',
-//   },
-//   {
-//     value: 'BTC',
-//     label: '฿',
-//   },
-//   {
-//     value: 'JPY',
-//     label: '¥',
-//   },
-// ];
-
-// const languages = [
-//   {
-//     value: 'USD',
-//     label: '$',
-//   },
-//   {
-//     value: 'EUR',
-//     label: '€',
-//   },
-//   {
-//     value: 'BTC',
-//     label: '฿',
-//   },
-//   {
-//     value: 'JPY',
-//     label: '¥',
-//   },
-// ];
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import PhoneIcon from '@mui/icons-material/Phone';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import ChatIcon from '@mui/icons-material/Chat';
 
 const filterPage = ['/home', '/user-questions', '/user-bookmark', '/notification'];
 
@@ -125,9 +88,63 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            ilqna
+            ILQNA
           </Typography>
           {/* <Button color="inherit">Login</Button> */}
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Tooltip title="Call Request" placement="bottom" arrow>
+                <Link className='header-icon' to="/user-call-request">
+                  <Badge badgeContent={2} color="error">
+                    <PhoneIcon />
+                  </Badge>
+                </Link>
+              </Tooltip>
+            </IconButton>
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Tooltip title="New Message" placement="bottom" arrow>
+                <Link className='header-icon' to="/user-chats">
+                  <Badge badgeContent={8} color="error">
+                    <ChatIcon />
+                  </Badge>
+                </Link>
+              </Tooltip>
+            </IconButton>
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Tooltip title="Inbox" placement="bottom" arrow>
+                <Link className='header-icon' to="/user-inbox">
+                  <Badge badgeContent={4} color="error">
+                    <MailIcon />
+                  </Badge>
+                </Link>
+              </Tooltip>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
+            >
+              <Tooltip title="Notifications" placement="bottom" arrow>
+                <Link className='header-icon' to="/user-notification">
+                  <Badge badgeContent={17} color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </Link>
+              </Tooltip>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
+            >
+              <Tooltip title="Bookmarks" placement="bottom" arrow>
+                <Link className='header-icon' to="/user-bookmark">
+                  <BookmarkIcon />
+                </Link>
+              </Tooltip>
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer

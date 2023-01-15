@@ -1,0 +1,40 @@
+@import '../index.scss';
+@import '../App.scss';
+
+.chat-sidebar {
+    width: 240px;
+    // height: fit-content;
+    @include mediaMaxWidth(800px){
+        width: 35px !important;
+    }
+}
+
+.list-name {
+    display: block;
+    @include mediaMaxWidth(800px) {
+        display: none;
+    }
+}
+
+.list-name > .css-10hburv-MuiTypography-root {
+    font-size: 0.8rem !important;
+}
+
+.list-name > .css-10hburv-MuiTypography-root {
+    font-weight: bold !important;
+}
+
+.chat-sidebar > .MuiPaper-root {
+    z-index: auto;
+    width: 240px;
+    padding-bottom: 40px;
+    @include mediaMaxWidth(800px){
+        width: 56px !important;
+    }
+}
+
+.online-badge > .MuiBadge-dot{
+    position: relative;
+    top: 30px;
+    right: 11px;
+}

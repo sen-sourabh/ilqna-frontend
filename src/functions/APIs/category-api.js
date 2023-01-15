@@ -13,6 +13,7 @@ export const prepareHeaders = () => {
 export const getCategories = async (body) => {
     return await axios.get(ENV.API_URL+"categories/getAllCategories", prepareHeaders())
     .then((response) => {
+        functions.checkJWT(response);
         return functions.refactor(response);
     })
     .catch((error) => {

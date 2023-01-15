@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 //Routes
-import {
-  Link
-} from "react-router-dom";
+// import {
+//   Link
+// } from "react-router-dom";
 //UI
 import { Avatar, Tooltip, Typography } from '@mui/material';
 import Badge from '@mui/material/Badge';
@@ -10,9 +10,9 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import EditIcon from '@mui/icons-material/Edit';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import NotificationSound from "../../../images/Notification_sound.wav";
+// import BookmarkIcon from '@mui/icons-material/Bookmark';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationSound from "../../../images/Notification_sound.wav";
 
 //SCSS
 import '../../../sass/user.scss';
@@ -68,7 +68,6 @@ export default function User() {
   //UI Variables
   const [questionCount, setQuestionCount] = useState(0);
   const [answerCount, setAnswerCount] = useState(0);
-  const audioPlayer = useRef(null);
   const { _id, username, designation, company } = useSelector(state => state.login?.userData)
 
   useEffect(() => {
@@ -127,29 +126,6 @@ export default function User() {
             </Grid>
             <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
               <Item className="ask-section-count sections">{ questionCount ? questionCount : 0 }<span className="ask-section-text">ASKs</span></Item>
-            </Grid>
-          </Grid>
-          <Grid className="ask-section-content" container spacing={1} columns={12}>
-            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Item className='sections'><span className='user-email'>Bookmarks</span>
-                <Tooltip title="Bookmarks" placement="top" arrow>
-                  <Link className='user-icon' to="/user-bookmark">
-                    <BookmarkIcon />
-                  </Link>
-                </Tooltip>
-              </Item>
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-              <Item className='sections'><span className='user-email'>Notifications</span>
-                <Tooltip title="Notifications" placement="top" arrow>
-                  <Link className='user-icon' to="/notification">
-                    <Badge color="error" className='noti-icon' variant="dot">
-                      <NotificationsIcon />
-                      <audio ref={audioPlayer} src={NotificationSound} />
-                    </Badge>
-                  </Link>
-                </Tooltip>
-              </Item>
             </Grid>
           </Grid>
       </div>

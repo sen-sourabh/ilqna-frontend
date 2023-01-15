@@ -7,6 +7,8 @@ import updateUsernameReducer from "./dialogRedux/update-username-slice";
 import changePasswordReducer from "./dialogRedux/change-password";
 import filterReducer from "./dialogRedux/filter-slice";
 import aboutReducer from "./dialogRedux/about-slice";
+import showMessageReducer from "./dialogRedux/show-message-slice";
+import composeMessageReducer from "./dialogRedux/compose-message-slice";
 
 const store = configureStore({
     reducer: {
@@ -17,7 +19,9 @@ const store = configureStore({
         update_username: updateUsernameReducer,
         change_password: changePasswordReducer,
         filter: filterReducer,
-        about: aboutReducer
+        about: aboutReducer,
+        show_message: showMessageReducer,
+        compose_message: composeMessageReducer
     }
 })
 
