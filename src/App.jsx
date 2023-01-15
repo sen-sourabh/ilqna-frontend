@@ -40,6 +40,10 @@ import { Filter } from './components/headers/parts/Filter';
 import { getCategories } from './functions/APIs/category-api';
 import { getLanguages } from './functions/APIs/language-api';
 import { About } from './components/Dialogs/About';
+import { UserInbox } from './components/main/UserInbox/UserInbox';
+import { ShowMessage } from './components/Dialogs/ShowMessage';
+import { ComposeMessage } from './components/Dialogs/ComposeMessage';
+import { UserChat } from './components/main/UserChats/UserChat';
 
 function App() {
   const { isLogin, userData } = useSelector(state => state.login);
@@ -79,8 +83,10 @@ function App() {
             {isLogin && <Route exact path="/user-questions" element={<UserQuestions />}></Route>}
             {isLogin && <Route exact path="/add-question" element={<AddQuestion category={category} language={language} />}></Route>}
             {isLogin && <Route exact path="/user-bookmark" element={<UserBookmarks />}></Route>}
-            {isLogin && <Route exact path="/notification" element={<Notifications />}></Route>}
+            {isLogin && <Route exact path="/user-notification" element={<Notifications />}></Route>}
             {isLogin && <Route exact path="/user" element={<User />}></Route>}
+            {isLogin && <Route exact path="/user-inbox" element={<UserInbox />}></Route>}
+            {isLogin && <Route exact path="/user-chats" element={<UserChat />}></Route>}
           </Routes>
         {/* Footer */}
         {
@@ -137,6 +143,8 @@ function App() {
         <ChangePassword email={userData.email} />
         <Filter category={category} language={language} />
         <About />
+        <ComposeMessage />
+        <ShowMessage />
       </Router>
     </div>
   );

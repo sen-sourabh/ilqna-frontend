@@ -2,7 +2,7 @@ import axios from "axios";
 import ENV from "../../config.json";
 import * as functions from '../common/common';
 
-export const prepareHeaders = () => {
+export function prepareHeaders() {
     let token = !localStorage.getItem('userData') ? '' : JSON.parse(localStorage.getItem('userData')).token;
     return  { headers: {
             authorization: 'Bearer ' + token 
@@ -13,6 +13,7 @@ export const prepareHeaders = () => {
 export const getAllAnswersCountOfUser = async (body) => {
     return await axios.get(ENV.API_URL+"answers/getAllAnswersCountOfUser", body, prepareHeaders())
     .then((response) => {
+        functions.checkJWT(response);
         return functions.refactor(response);
     })
     .catch((error) => {

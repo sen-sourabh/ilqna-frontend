@@ -36,9 +36,9 @@ $medium: 900px;
 }
 
 .drawer-title {
-    width: 250px;
+    width: 220px;
     margin: 0%;
-    padding: 14px;
+    padding: 9px;
     text-align: center;
     background-color: #1976d2;
     color: #FFFFFF;
@@ -53,4 +53,8 @@ $medium: 900px;
     // @media screen and (min-width: $medium) {
     // //do Smth
     // }
+}
+
+.header-icon {
+    color: #FFFFFF;
 }

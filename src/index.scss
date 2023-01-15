@@ -54,3 +54,21 @@ code {
     cursor: default;
     user-select: none;
 }
+
+@mixin mediaMaxWidth($size){
+  @media screen and (max-width:$size) {
+      @content;
+  }
+}
+
+@mixin mediaMinWidth($size){
+  @media screen and (min-width:$size) {
+      @content;
+  }
+}
+
+@mixin mediaMaxHeight($size){
+  @media screen and (max-height:$size) {
+      @content;
+  }
+}
