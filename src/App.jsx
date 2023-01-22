@@ -44,6 +44,7 @@ import { UserInbox } from './components/main/UserInbox/UserInbox';
 import { ShowMessage } from './components/Dialogs/ShowMessage';
 import { ComposeMessage } from './components/Dialogs/ComposeMessage';
 import { UserChat } from './components/main/UserChats/UserChat';
+import { TextEditor } from './components/TextEditor/TextEditor';
 
 function App() {
   const { isLogin, userData } = useSelector(state => state.login);
@@ -87,6 +88,7 @@ function App() {
             {isLogin && <Route exact path="/user" element={<User />}></Route>}
             {isLogin && <Route exact path="/user-inbox" element={<UserInbox />}></Route>}
             {isLogin && <Route exact path="/user-chats" element={<UserChat />}></Route>}
+            {isLogin && <Route exact path="/user-text" element={<TextEditor />}></Route>}
           </Routes>
         {/* Footer */}
         {
