@@ -1,4 +1,4 @@
-.full-text-editor {
+.full-neat-editor {
     padding: 10px !important;
     border: 1px solid #1976d2;
     border-radius: 10px;
@@ -7,14 +7,14 @@
     box-shadow: 0px 1px 10px 2px rgba(153,153,153,0.5);
 }
 
-.text-editor {
+.neat-editor {
     margin-top: 10px !important;
     border: none;
     padding: 10px !important;
     border-radius: 10px !important;
     color: grey;
     width: 98.3%;
-    height: 200px;
+    height: 300px;
     overflow-y: auto;
     overflow-x: auto;
     outline: none;
@@ -27,12 +27,12 @@
 //     padding: 5px;
 // }
 
-.text-bold-icon:hover {
+.neat-bold-icon:hover {
     background-color: lightgrey !important;
     color: #1976d2 !important;
 }
 
-.text-clear-icon:hover {
+.neat-clear-icon:hover {
     background-color: lightgrey !important;
     color: #ff3636 !important;
 }

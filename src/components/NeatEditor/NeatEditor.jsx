@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import "../../sass/text-editor.scss";
+import "../../sass/neat-editor.scss";
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import IconButton from '@mui/material/IconButton';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
@@ -31,7 +31,7 @@ const toolbarFeatures = [
         name: 'Bold',
         command: 'bold',
         icon: <FormatBoldIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Italic
@@ -40,7 +40,7 @@ const toolbarFeatures = [
         name: 'Italic',
         command: 'italic',
         icon: <FormatItalicIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Underline
@@ -49,7 +49,7 @@ const toolbarFeatures = [
         name: 'Underline',
         command: 'underline',
         icon: <FormatUnderlinedIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Strike Through
@@ -58,7 +58,7 @@ const toolbarFeatures = [
         name: 'Strike Through',
         command: 'strikeThrough',
         icon: <StrikethroughSIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Justify Left
@@ -67,7 +67,7 @@ const toolbarFeatures = [
         name: 'Justify Left',
         command: 'justifyLeft',
         icon: <FormatAlignLeftIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Justify Center
@@ -76,7 +76,7 @@ const toolbarFeatures = [
         name: 'Justify Center',
         command: 'justifyCenter',
         icon: <FormatAlignCenterIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Justify Right
@@ -85,7 +85,7 @@ const toolbarFeatures = [
         name: 'Justify Right',
         command: 'justifyRight',
         icon: <FormatAlignRightIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Justify Full
@@ -94,7 +94,7 @@ const toolbarFeatures = [
         name: 'Justify Full',
         command: 'justifyFull',
         icon: <FormatAlignJustifyIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Horizontal Rule
@@ -103,7 +103,7 @@ const toolbarFeatures = [
         name: 'Horizontal Rule',
         command: 'insertHorizontalRule',
         icon: <HorizontalRuleIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Increase Font Size
@@ -112,7 +112,7 @@ const toolbarFeatures = [
         name: 'Increase Font Size',
         command: 'ifontSize',
         icon: <TextIncreaseIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: 1
     },
     //Decrease Font Size
@@ -121,7 +121,7 @@ const toolbarFeatures = [
         name: 'Decrease Font Size',
         command: 'dfontSize',
         icon: <TextDecreaseIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: 1
     },
     //Blockquote
@@ -130,7 +130,7 @@ const toolbarFeatures = [
         name: 'Blockquote',
         command: 'formatBlock',
         icon: <FormatQuoteIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: '<PRE>'
     },
     //Create Link
@@ -139,7 +139,7 @@ const toolbarFeatures = [
         name: 'Create Link',
         command: 'createLink',
         icon: <LinkIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: 'https://www.google.com/'
     },
     //Highlight Text
@@ -148,7 +148,7 @@ const toolbarFeatures = [
         name: 'Highlight Text',
         command: 'backColor',
         icon: <HighlightIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: 'yellow'
     },
     //Remove Highlight Text
@@ -157,7 +157,7 @@ const toolbarFeatures = [
         name: 'Remove Highlight Text',
         command: 'backColor',
         icon: <HighlightOffIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: 'transparent'
     },
     //Remove All Formatting
@@ -166,7 +166,7 @@ const toolbarFeatures = [
         name: 'Remove All Formatting',
         command: 'removeFormat',
         icon: <FormatClearIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: 'transparent'
     },
     //Undo
@@ -175,7 +175,7 @@ const toolbarFeatures = [
         name: 'Undo',
         command: 'undo',
         icon: <UndoIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Redo
@@ -184,7 +184,7 @@ const toolbarFeatures = [
         name: 'Redo',
         command: 'redo',
         icon: <RedoIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Superscript
@@ -193,7 +193,7 @@ const toolbarFeatures = [
         name: 'Superscript',
         command: 'superscript',
         icon: <SuperscriptIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Subscript
@@ -202,7 +202,7 @@ const toolbarFeatures = [
         name: 'Subscript',
         command: 'subscript',
         icon: <SubscriptIcon />,
-        class: 'text-bold-icon',
+        class: 'neat-bold-icon',
         value: null
     },
     //Clear All Text
@@ -211,27 +211,35 @@ const toolbarFeatures = [
         name: 'Clear All Text',
         command: 'clear',
         icon: <ClearIcon />,
-        class: 'text-clear-icon',
+        class: 'neat-clear-icon',
         value: null
     },
 ];
 
-export const TextEditor = () => {
+export const NeatEditor = (
+    {
+        customId = "neat-editor",
+        customOnChange = () => {},
+        defaultValue = "You can write your description here...",
+        customClassName = "neat-editor",
+        customStyle = {},
+        editable = true
+    }
+) => {
   
   useEffect(() => { localStorage.setItem('fontSize', 3) }, [])
   
-
   const handleOnTextEditorFocus = (event)  => {
-    if(event.target.innerText === "You can write your description here...") {
+    if(event.target.innerText === defaultValue) {
         var element = document.getElementById(event.target.id);
         element.childNodes[0].remove();
     }
   }
 
   const handleOnTextEditorBlur = (event)  => {
-    if(event.target.innerText === "You can write your description here..." || event.target.innerText === "") {
+    if(event.target.innerText === defaultValue || event.target.innerText === "") {
         var element = document.getElementById(event.target.id);
-        element.append(`You can write your description here...`);
+        element.append(defaultValue);
     }
   }
 
@@ -250,9 +258,9 @@ export const TextEditor = () => {
   }
 
   const handleOnClickEditorChange = (event, command, value) => {
-    var editor = document.getElementById('editor');
+    var editor = document.getElementById(customId);
     if(command === "clear") {
-        editor.innerText = "You can write your description here...";
+        editor.innerText = defaultValue;
         return;
     }
     if((command === "dfontSize" || command === "ifontSize") && +localStorage.getItem('fontSize') > 0) {
@@ -270,12 +278,11 @@ export const TextEditor = () => {
   }
 
    return (
-    <div className="ilqna-main">
         <div 
-            className="full-text-editor"
+            className="full-neat-editor"
         >
             <div 
-                className='text-editor-toolbar'
+                className='neat-editor-toolbar'
             >
                 {
                     toolbarFeatures && toolbarFeatures.map((feat) => {
@@ -466,16 +473,18 @@ export const TextEditor = () => {
             </div>
             <Divider />
             <div 
-                id="editor" 
-                contentEditable 
+                id={customId}
+                contentEditable={editable}
                 role="textbox"
-                className="text-editor"
+                className={`neat-editor ${customClassName}`}
                 onFocus={handleOnTextEditorFocus}
                 onBlur={handleOnTextEditorBlur}
+                style={{...customStyle}}
+                onChange={() => customOnChange}
+                suppressContentEditableWarning={true}
             >
-                You can write your description here...
+                {defaultValue}
             </div>
         </div>
-    </div>
   )
 }

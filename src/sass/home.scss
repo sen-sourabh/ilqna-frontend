@@ -27,6 +27,7 @@
     margin-bottom: 0px;
     color: #0a1929;
     cursor: pointer;
+    text-overflow: ellipsis;
 }
 
 .home-h6 {
@@ -38,6 +39,32 @@
     font-size: .9rem;
     color: #3e5060;
 }
+
+.qna-chip {
+    font-weight: 500;
+    float: right;
+    font-size: 0.5rem !important;
+    margin-right: 2px;
+}
+
+// .bg-success {
+//     background-color: #0fe10f;
+//     color: whitesmoke;
+// }
+
+// .bg-error {
+//     background-color: #ff7c7c;
+//     color: whitesmoke;
+// }
+
+// .bg-primary {
+//     background-color: #1976d2;
+//     color: whitesmoke;
+// }
+
+// .icon-color {
+//     color: whitesmoke;
+// }
 
 @media only screen and (max-width: 400px) {
     .home {

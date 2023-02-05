@@ -162,7 +162,7 @@ export const ChangePassword = ({ email }) => {
         <Button 
           variant="contained" 
           onClick={handleChangePassword}
-          loading={loading.toString()}
+          loading={loading}
         >
           Change
         </Button>

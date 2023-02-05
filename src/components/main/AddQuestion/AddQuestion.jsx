@@ -1,42 +1,80 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 //UI
 import { Autocomplete, Button, Grid, TextField, Typography } from '@mui/material';
 //SCSS
 import '../../../sass/add-question.scss';
 // import '../../../sass/main.scss';
 import { Box } from '@mui/system';
+import { NeatEditor } from '../../NeatEditor/NeatEditor';
+import { addQuestion } from '../../../functions/APIs/question-api';
+import { isEmpty } from '../../../functions/common/common';
+import { useDispatch } from 'react-redux';
+import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
+import * as functions from '../../../functions/common/common';
 
 export default function AddQuestion({ category = [], language = [] }) {
-  const [loadingAsk, setLoadingAsk] = useState(false);
-  const [loadingSave, setLoadingSave] = useState(false);
-  const [clickOnOne, setClickOnOne] = useState(false);
+  const dispatch = useDispatch();
   const [question, setQuestion] = useState('');
-  const [description, setDescription] = useState('');
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
-
+  const [languageDropdownVisibility, setLanguageDropdownVisibility] = useState(false)
+  const [editorValue, setEditorValue] = useState("Add question description here...")
+  
   const handleQuestion = (event) => {
     setQuestion(event.target.value)
   }
 
   const handleCategory = (newValue) => {
-    setSelectedCategory(newValue);
+    let categoryIds = [];
+    let tech = newValue.filter(val => val.label === 'technology' || val.label === 'Technology');
+    if(tech.length) { setLanguageDropdownVisibility(true) } else { setLanguageDropdownVisibility(false) }
+    newValue.map((val) => {
+      categoryIds = [...categoryIds, { _id: val.value }]
+    })
+    setSelectedCategory(categoryIds);
   }
 
   const handleLanguage = (newValue) => {
-    setSelectedLanguage(newValue);
+    let languageIds = [];
+    newValue.map((val) => {
+      languageIds = [...languageIds, { _id: val.value }]
+    })
+    setSelectedLanguage(languageIds);
   }
 
-  const handleSubmit = (e, type) => {
+  const handleSubmit = async (e, type) => {
     e.preventDefault();
-    console.log(
-      type,
-      question,
-      description,
-      selectedCategory,
-      selectedLanguage
-    );
-      
+    if(isEmpty(question)) {
+      var desc = document.getElementById("ilqna-editor");
+      let body = {
+        draft: type === "draft" ? true : false,
+        question,
+        whatYouHaveTried: (desc.innerHTML === "Add question description here..." || desc.innerHTML === '') ? '' : desc.innerHTML,
+        categoryId: selectedCategory,
+        languageId: selectedLanguage,
+        questionUserId: JSON.parse(localStorage.getItem('userData'))._id,
+        ipAddress: localStorage.getItem('ipLocationData') ? JSON.parse(localStorage.getItem('ipLocationData')).ipAddress : '',
+        location: localStorage.getItem('ipLocationData') ? JSON.parse(localStorage.getItem('ipLocationData')).location : ''
+      };
+      const response = await addQuestion(body);
+      if(response.code !== 200 && response.status !== "OK") {
+        dispatch(prepareSnackbar({ open: true, severity: 'error', message: response.message }))
+        setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
+      } else {
+        handleClearForm();
+      }
+    } else {
+      dispatch(prepareSnackbar({ open: true, severity: 'error', message: 'Question is required.' }))
+      setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
+    }
+  }
+
+  const handleClearForm = () => {
+    setQuestion('');
+    setSelectedCategory([]);
+    setSelectedLanguage([]);
+    var desc = document.getElementById("ilqna-editor");
+    desc.innerHTML = "Add question description here...";
   }
 
   return (
@@ -51,9 +89,10 @@ export default function AddQuestion({ category = [], language = [] }) {
           variant="outlined"
           placeholder='Why you are human?'
           fullWidth
+          value={question}
           onChange={handleQuestion}
         />
-        <TextField 
+        {/* <TextField 
           className='input-control' 
           id="outlined-basic" 
           label="Question description" 
@@ -61,18 +100,22 @@ export default function AddQuestion({ category = [], language = [] }) {
           placeholder='Description...'
           fullWidth
           onChange={handleQuestion}
+        /> */}
+        <NeatEditor
+          customId='ilqna-editor'
+          defaultValue={editorValue}
         />
         <Autocomplete
           className='input-control input-autocomplete'
           fullWidth
           multiple
-          id="tags-outlined"
+          id="auto-category"
           options={category}
           renderInput={(params) => (
             <TextField
               {...params}
               label="Categories"
-              placeholder="Technology"
+              placeholder={selectedCategory.length ? '' : 'Finance'}
             />
           )}
           onChange={(event, newValue) => { handleCategory(newValue) }}
@@ -81,29 +124,41 @@ export default function AddQuestion({ category = [], language = [] }) {
           fullWidth
           className='input-control input-autocomplete'
           multiple
-          id="tags-outlined"
+          id="auto-language"
           options={language}
           renderInput={(params) => (
             <TextField
               {...params}
               label="Languages"
-              placeholder="Java"
+              placeholder={selectedLanguage.length ? '' : 'Java'}
             />
           )}
+          style={{ display: languageDropdownVisibility ? 'block' : 'none' }}
           onChange={(event, newValue) => { handleLanguage(newValue) }}
         />
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={6}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2 }}>
+          <Grid item xs={4}>
               <Button
                 className='input-control'
                 variant="text"
                 fullWidth
-                onClick={(e) => handleSubmit(e, 'save')}
+                color='error'
+                onClick={handleClearForm}
               >
-                Save
+                Clear
               </Button>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
+              <Button
+                className='input-control'
+                variant="outlined"
+                fullWidth
+                onClick={(e) => handleSubmit(e, 'draft')}
+              >
+                Draft
+              </Button>
+          </Grid>
+          <Grid item xs={4}>
             <Button
               className='input-control'
               variant="contained"
