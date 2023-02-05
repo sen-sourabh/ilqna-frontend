@@ -44,7 +44,8 @@ import { UserInbox } from './components/main/UserInbox/UserInbox';
 import { ShowMessage } from './components/Dialogs/ShowMessage';
 import { ComposeMessage } from './components/Dialogs/ComposeMessage';
 import { UserChat } from './components/main/UserChats/UserChat';
-import { TextEditor } from './components/TextEditor/TextEditor';
+import { NeatEditor } from './components/NeatEditor/NeatEditor';
+import { getGeoLocation, getIpAddress } from './functions/APIs/geolocation-api';
 
 function App() {
   const { isLogin, userData } = useSelector(state => state.login);
@@ -54,6 +55,11 @@ function App() {
   useEffect(() => {
     getAllCategories();
     getAllLanguages();
+    getIpAddress().then((ip) => {
+      getGeoLocation(ip)
+    }).catch((err) => {
+      console.log("Error: ", err)
+    });
   }, [isLogin])
 
   const getAllCategories = async () => {
@@ -75,21 +81,23 @@ function App() {
           <Header />
         }
         {/* Body */}
-          <Routes>
-            {!isLogin && <Route path="/" element={<Login />}></Route>}
-            {!isLogin && <Route path="/register" element={<Register />}></Route>}
-            {!isLogin && <Route path="/forgot-password" element={<ForgotPassword />}></Route>}
-            {isLogin && <Route path="/home" element={<Home />}></Route>}
-            {isLogin && <Route path="/qna" element={<QNA />}></Route>}
-            {isLogin && <Route exact path="/user-questions" element={<UserQuestions />}></Route>}
-            {isLogin && <Route exact path="/add-question" element={<AddQuestion category={category} language={language} />}></Route>}
-            {isLogin && <Route exact path="/user-bookmark" element={<UserBookmarks />}></Route>}
-            {isLogin && <Route exact path="/user-notification" element={<Notifications />}></Route>}
-            {isLogin && <Route exact path="/user" element={<User />}></Route>}
-            {isLogin && <Route exact path="/user-inbox" element={<UserInbox />}></Route>}
-            {isLogin && <Route exact path="/user-chats" element={<UserChat />}></Route>}
-            {isLogin && <Route exact path="/user-text" element={<TextEditor />}></Route>}
-          </Routes>
+          {!isLogin && <Routes>
+            <Route path="/" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+            <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+          </Routes> }
+          {isLogin && <Routes>
+            <Route path="/home" element={<Home />}></Route>
+            <Route path="/qna" element={<QNA />}></Route>
+            <Route exact path="/user-questions" element={<UserQuestions />}></Route>
+            <Route exact path="/add-question" element={<AddQuestion category={category} language={language} />}></Route>
+            <Route exact path="/user-bookmark" element={<UserBookmarks />}></Route>
+            <Route exact path="/user-notification" element={<Notifications />}></Route>
+            <Route exact path="/user" element={<User />}></Route>
+            <Route exact path="/user-inbox" element={<UserInbox />}></Route>
+            <Route exact path="/user-chats" element={<UserChat />}></Route>
+            <Route exact path="/user-text" element={<NeatEditor />}></Route>
+          </Routes> }
         {/* Footer */}
         {
           isLogin && 

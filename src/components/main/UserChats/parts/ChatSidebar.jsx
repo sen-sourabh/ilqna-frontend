@@ -4,48 +4,45 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import OutboxIcon from '@mui/icons-material/Outbox';
-import StarIcon from '@mui/icons-material/Star';
-import CreateIcon from '@mui/icons-material/Create';
-import PersonIcon from '@mui/icons-material/Person';
+// import InboxIcon from '@mui/icons-material/MoveToInbox';
+// import OutboxIcon from '@mui/icons-material/Outbox';
+// import StarIcon from '@mui/icons-material/Star';
+// import CreateIcon from '@mui/icons-material/Create';
+// import PersonIcon from '@mui/icons-material/Person';
 import CallIcon from '@mui/icons-material/Call';
 
 import '../../../../sass/chat-sidebar.scss'
-import { useDispatch } from 'react-redux';
-import { Avatar, Badge, IconButton, MenuItem, Select } from '@mui/material';
-import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
+// import { useDispatch } from 'react-redux';
+import { Avatar, Badge, IconButton } from '@mui/material';
+// import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import { ChatMessages } from './ChatMessages';
 
 // const drawerWidth = 40;
 
 export const ChatSidebar = () => {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const [pageName, setPageName] = useState('Chat');
     const [sortSelect, setSortSelect] = useState('default');
     const [selectedUser, setSelectedUser] = useState(false);
 
-    const handleSortChange = (e) => {
-        setSortSelect(e.target.value)
-    }
+    // const handleSortChange = (e) => {
+    //     setSortSelect(e.target.value)
+    // }
 
     const handleSelectedUser = (e) => {
         console.log("handleSelectedUser: ", e);
         setSelectedUser(true)
     }
 
-    const handleComposeMessage = () => {
-    }
-
-    const handlePageChanges = (pageName) => {
-        setPageName(pageName);
-    }
+    // const handlePageChanges = (pageName) => {
+    //     setPageName(pageName);
+    // }
 
   return (
     <Box sx={{ display: 'flex' }}>

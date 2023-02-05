@@ -28,7 +28,9 @@ export const goingForLogout = () => {
 
 //Refactor API Response
 export const refactor = (response) => {
-    return response.data[0];
+    console.log("response: ", response)
+    if(!response || !response?.data) return [];
+    return response?.data[0] || [];
 }
 
 //Generate Default Username By Email At The Time Of Sign Up

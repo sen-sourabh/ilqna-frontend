@@ -21,7 +21,7 @@ export const InboxMessages = ({ badgeLabel = 'New', pageName = 'Inbox' }) => {
             <Checkbox aria-label="Checkbox demo" color="warning" icon={<GradeOutlinedIcon />} checkedIcon={<GradeIcon />} />
             <h5>Hi! How are you? Are you coming here. 
                 <span className='message-date'>
-                    <Chip size="small" label={badgeLabel} className={badgeLabel == 'New' ? 'new-badge' : 'today-badge'}/>
+                    <Chip size="small" label={badgeLabel} className={badgeLabel === 'New' ? 'new-badge' : 'today-badge'}/>
                     {new Date().toDateString()}
                 </span>
             </h5>

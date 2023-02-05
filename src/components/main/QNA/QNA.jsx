@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 //UI
-import { Button, Typography, Avatar, Tooltip, Chip, TextField } from '@mui/material';
+import { Button, Typography, Avatar, Tooltip, Chip } from '@mui/material';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
@@ -20,6 +20,7 @@ import { LoadingButton } from '@mui/lab';
 
 //Common Functions
 import { generateRandomColor } from '../../../functions/common/common';
+import { NeatEditor } from '../../NeatEditor/NeatEditor';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -55,6 +56,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 export default function QNA(props) {
   let navigate = useNavigate();
+  const [editorValue, setEditorValue] = useState("Add your answers here...")
 
   
   const handleGoBack = () => {
@@ -299,7 +301,9 @@ export default function QNA(props) {
             </Divider>
         </div>
         <div className='qna-user-editor'>
-            <TextField />
+            <NeatEditor
+                defaultValue={editorValue}
+            />
             &emsp;
             <LoadingButton
                 className='qna-answer-save-btn'

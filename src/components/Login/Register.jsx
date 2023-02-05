@@ -1,6 +1,6 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 //UI
-import { Divider, Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
+import { Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 //Routers
 import {
@@ -84,7 +84,7 @@ export default function Register() {
 
   const signUpSuccess = (res) => {
     setLoading(false);
-    if(res.code == 200) {
+    if(res.code === 200) {
       dispatch(prepareSnackbar({ open: true, severity: 'success', message: res.message }));
       setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
       navigate('/');

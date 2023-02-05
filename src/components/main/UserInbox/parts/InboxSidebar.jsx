@@ -19,7 +19,7 @@ import '../../../../sass/inbox-sidebar.scss'
 import { InboxMessages } from './InboxMessages';
 import { useDispatch } from 'react-redux';
 import { openComposeMessage, setDiscardLoading, setDraftLoading, setSendLoading } from '../../../../redux/dialogRedux/compose-message-slice';
-import { MenuItem, Select } from '@mui/material';
+// import { MenuItem, Select } from '@mui/material';
 import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 
 // const drawerWidth = 40;
