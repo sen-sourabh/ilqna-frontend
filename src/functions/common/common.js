@@ -11,6 +11,39 @@ export const generateRandomColor = () => {
     return `#${randColor.toUpperCase()}`
 }
 
+//It will return Chip color of priority badge whereever question is visible
+export const getPriorityColor = (priority) => {
+    if(priority === 'medium') {
+        return 'bg-warning'
+    } else if(priority === 'high') {
+        return 'bg-success'
+    } else if(priority === 'critical') {
+        return 'bg-error'
+    } else {
+        return 'bg-primary'
+    }
+
+    // let colorClass = [
+    //   'bg-primary',
+    //   'bg-success',
+    //   'bg-error'
+    // ];
+    // let randomNumber = Math.floor(Math.random() * colorClass.length);
+    // return colorClass[randomNumber];
+}
+
+//It will return Chip color of priority badge whereever question is visible
+export const getStatusColor = (status) => {
+    if(status === 'hold') {
+        return 'bg-warning'
+    } else if(status === 'close') {
+        return 'bg-error'
+    } else {
+        return 'bg-success'
+    }
+
+}
+
 //Check JWT token
 export const checkJWT = (response) => {
     if(response.data[0].code === 100 && response.data[0].message === "jwt expired") {

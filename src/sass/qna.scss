@@ -44,19 +44,20 @@
 // }
 
 .qna-home-h3 {
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin-top: 12px;
     margin-bottom: 0px;
     color: #0a1929;
+    font-weight: 500;
 }
 
 .qna-home-h6 {
-    margin-top: 10px;
-    margin-bottom: 12px;
+    margin-top: 4px;
+    margin-bottom: 10px;
 }
 
 .qna-home-span {
-    font-size: .9rem;
+    font-size: 1rem;
     color: #3e5060;
 }
 
@@ -67,6 +68,8 @@
 .qna-user-data {
     width: fit-content;
     display: inline-flex;
+
+    margin-bottom: 1%;
 }
 
 .qna-user-image {
@@ -84,6 +87,10 @@
     justify-content: right;
     width: 100%;
     display: inline-flex;
+
+    // border: 1px solid grey;
+    height: 44px;
+    margin-top: 1%;
 }
 
 .qna-user-upvote-list {
@@ -94,16 +101,40 @@
 
 .qna-svg-icon {
     cursor: pointer;
-    // padding-left: 10px;
-    // padding-right: 3px;
-    // position: relative;
-    // // top: 3px;
-    // font-size: 1.3rem !important;
+    padding-left: 6px;
+    padding-right: 6px;
+    position: relative;
+    top: 9px;
+    font-size: 1.5rem !important;
 }
 
 .qna-user-editor {
-    margin-top: 4%;
+    margin-top: 2%;
 }
+
+.qna-chip {
+    font-weight: 500;
+    float: right;
+    padding: 0px !important;
+    border-radius: 100px !important;
+    margin-right: 2px;
+}
+
+.qna-regular-chip {
+    font-weight: 500;
+    padding: 0px !important;
+    border-radius: 100px !important;
+    margin-right: 2px;
+}
+
+.qna-chip > span {
+    font-size: 0.9rem !important;
+}
+
+.qna-regular-chip > span {
+    font-size: 0.9rem !important;
+}
+
 
 
 @media only screen and (max-width: 400px) {

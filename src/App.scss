@@ -4,8 +4,8 @@
     padding-left: 10px;
     padding-right: 3px;
     position: relative;
-    top: 3px;
-    font-size: 1rem !important;
+    top: 9px;
+    font-size: 1.66rem !important;
 }
 
 .nav-link {
@@ -44,18 +44,26 @@
 }
 
 .bg-success {
-    background-color: #0fe10f !important;
+    // background-color: #0fe10f !important;
+    background-color: #01b101 !important;
     color: white !important;
 }
 
 .bg-error {
-    background-color: #ff7c7c !important;
+    // background-color: #ff7c7c !important;
+    background-color: #ff4646 !important;
     color: white !important;
 }
 
 .bg-primary {
-    background-color: #1976d2 !important;
+    // background-color: #1976d2 !important;
+    background-color: #006cd8 !important;
     color: white !important;
+}
+
+.bg-warning {
+    background-color: #FFD700 !important;
+    color: #0e1318 !important;
 }
 
 .icon-color {
