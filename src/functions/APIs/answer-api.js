@@ -10,6 +10,16 @@ export function prepareHeaders() {
     }
 }
 
+export const fetchAllAnswersByQuestionId = async (body) => {
+    return await axios.post(ENV.API_URL+"questions/getAllAnswersByQuestionId", body, prepareHeaders())
+    .then((response) => {
+        return functions.refactor(response);
+    })
+    .catch((error) => {
+        return { code: 101, status: 'F_ERROR', message: error };
+    });
+}
+
 export const getAllAnswersCountOfUser = async (body) => {
     return await axios.get(ENV.API_URL+"answers/getAllAnswersCountOfUser", body, prepareHeaders())
     .then((response) => {

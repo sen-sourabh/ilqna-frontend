@@ -4,8 +4,6 @@ import {useNavigate} from 'react-router-dom';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import { Chip, Divider } from '@mui/material';
-import CommentIcon from '@mui/icons-material/Comment';
-import TodayIcon from '@mui/icons-material/Today';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
@@ -16,6 +14,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllQuestions } from '../../../functions/APIs/question-api';
 import { setQuestionData } from '../../../redux/questionRedux/question-slice';
 import Loader from '../../Loaders/loader';
+import { capitalizeFirstLetter, getPriorityColor, getStatusColor } from '../../../functions/common/common';
+import { setAnswerData } from '../../../redux/answerRedux/answer-slice';
+import { fetchAllAnswersByQuestionId } from '../../../functions/APIs/answer-api';
 
 export default function UserQuestions() {
   let navigate = useNavigate();
@@ -38,8 +39,16 @@ export default function UserQuestions() {
     dispatch(setQuestionData(response.data));
     setIsLoading(false);
   }
-  const OpenQna = (_id) => {
-    navigate(`/qna/${_id}`);
+
+  const OpenQna = async (_id) => {
+    let body = {
+      questionUserId: userData?._id,
+      _id
+    }
+    const response = await fetchAllAnswersByQuestionId(body);
+    dispatch(setAnswerData(response.data));
+    setIsLoading(false);
+    navigate(`/qna`);
   }
 
   return (
@@ -49,20 +58,43 @@ export default function UserQuestions() {
         questionData && questionData.map((quest) => {
           return (<Fragment key={ quest._id }>
             <div className="question-list" >
-              <h3 className="home-h3" onClick={() => {OpenQna(quest._id)}}>{ quest.question }</h3>
+              <h6 className="home-h3" onClick={() => {OpenQna(quest._id)}}>{ quest.question }</h6>
               <h6 className="home-h6">
-                <span className="home-span">Open</span> • 
-                <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-                <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-                <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-                <TodayIcon className="svg-icon" /><span className="home-span">{ new Date(quest.updatedDate).toDateString() }</span>
+                <span className="home-span">
+                    <Chip 
+                      size="small"
+                      className={`regular-chip ${getStatusColor(quest.status)}`}
+                      label={ !quest.status ? 'Open' : capitalizeFirstLetter(quest.status)  }
+                    />
+                </span>
+                &nbsp; • &nbsp;
+                <span className="home-span">
+                    <Chip 
+                      size="small"
+                      className={`regular-chip ${getPriorityColor(quest.priority)}`}
+                      label={ !quest.priority ? 'Normal' : capitalizeFirstLetter(quest.priority)  }
+                    />
+                </span>
+                &nbsp; • 
+                <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" />
+                  <span className="home-span">
+                    { !quest.answers?.upRating ? 0 : quest.answers?.upRating }
+                  </span>
+                &nbsp; • 
+                <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" />
+                  <span className="home-span">
+                    { !quest.answers?.downRating ? 0 : quest.answers?.downRating }
+                  </span>
+                &nbsp; • &nbsp; 
+                {/* <TodayIcon className="svg-icon" /> */}
+                <span className="home-span">{ new Date(quest.updatedDate).toDateString() }</span>
                 <span 
                   style={{float: 'right'}}
                 >
                   {!quest.draft && 
                     <Chip 
                       size="small"
-                      className={quest.active ? `qna-chip bg-success` : `qna-chip bg-error`}
+                      className={quest.active ? `home-chip bg-success` : `home-chip bg-error`}
                       label={quest.active ? 'Active' : 'Not Active'}
                       icon={quest.active ? <SentimentSatisfiedAltIcon className='icon-color' /> : <SentimentVeryDissatisfiedIcon className='icon-color' />}
                     />
@@ -70,7 +102,7 @@ export default function UserQuestions() {
                   {quest.active && 
                     <Chip 
                       size="small" 
-                      className={quest.draft ? `qna-chip bg-primary` : `qna-chip bg-success`}
+                      className={quest.draft ? `home-chip bg-primary` : `home-chip bg-success`}
                       label={quest.draft ? 'Draft' : 'Asked'}
                       icon={quest.draft ? <SentimentSatisfiedIcon className='icon-color' /> : <SentimentSatisfiedAltIcon className='icon-color' />}
                     /> 

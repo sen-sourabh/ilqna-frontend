@@ -11,6 +11,7 @@ import showMessageReducer from "./dialogRedux/show-message-slice";
 import composeMessageReducer from "./dialogRedux/compose-message-slice";
 import { questionApiSlice } from "./api-saga/questions-api";
 import questionReducer from "./questionRedux/question-slice";
+import answerReducer from "./answerRedux/answer-slice";
 
 const store = configureStore({
     reducer: {
@@ -25,6 +26,7 @@ const store = configureStore({
         show_message: showMessageReducer,
         compose_message: composeMessageReducer,
         question: questionReducer,
+        answer: answerReducer,
         [questionApiSlice.reducerPath]: questionApiSlice.reducer
     },
     middleware: (curryGetDefaultMiddleware) => {
