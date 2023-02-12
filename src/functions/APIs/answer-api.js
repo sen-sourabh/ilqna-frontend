@@ -30,3 +30,13 @@ export const getAllAnswersCountOfUser = async (body) => {
         return { code: 101, status: 'F_ERROR', message: error };
     });
 }
+
+export const addAnswer = async (body) => {
+    return await axios.post(ENV.API_URL+"answers/addAnswer", body, prepareHeaders())
+    .then((response) => {
+        return functions.refactor(response);
+    })
+    .catch((error) => {
+        return { code: 101, status: 'F_ERROR', message: error };
+    });
+}

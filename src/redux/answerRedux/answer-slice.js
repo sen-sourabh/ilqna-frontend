@@ -8,6 +8,7 @@ const answerSlice = createSlice({
     reducers: {
         setAnswerData: (state, action) => {
             state.answerData = action.payload
+            localStorage.qna = JSON.stringify(action.payload);
         }
     }
 })

@@ -40,6 +40,7 @@ export const Filter = ({ category = [], language = [] }) => {
 
   return (
     <Dialog 
+        fullWidth
         open={isOpen}
         onClose={handleCloseFilter}
     >

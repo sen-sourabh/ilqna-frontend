@@ -87,7 +87,7 @@ export default function Register() {
     if(res.code === 200) {
       dispatch(prepareSnackbar({ open: true, severity: 'success', message: res.message }));
       setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
-      navigate('/');
+      navigate('/login');
     } else {
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: res.message }));
       setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
@@ -102,7 +102,7 @@ export default function Register() {
         className='login-window'
         elevation={12}
       >
-        <Typography variant='h4' align='center'>Sign Up</Typography>
+        <Typography variant='h4' align='center'>Register</Typography>
         <Typography variant='h6' align='center'>Continue with us</Typography>
         <Typography variant='subtitle2' align='center'>😃 You will get the answers here 😃</Typography>
         <Stack
@@ -162,7 +162,7 @@ export default function Register() {
               <b>SIGN UP</b>
             </LoadingButton>
             <div className='other-link'>
-              <Link to="/">Sign In?</Link>
+              <Link to="/login">Log In?</Link>
             </div>
         </Stack>
       </Paper>

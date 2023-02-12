@@ -19,8 +19,9 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PhoneIcon from '@mui/icons-material/Phone';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ChatIcon from '@mui/icons-material/Chat';
+import LoginIcon from '@mui/icons-material/Login';
 
-const filterPage = ['/home', '/user-questions', '/user-bookmark', '/notification'];
+const filterPage = ['/', '/user-questions', '/user-bookmark', '/notification'];
 
 // HEADER
 export default function Header() {
@@ -29,23 +30,24 @@ export default function Header() {
   const [state, setState] = useState({
     left: false
   });
+  const authPages = ['/login', '/register', '/forgot-password'];
 
   useEffect(() => {
-    initComponent();
+    // initComponent();
   })
 
   const initComponent = () => {
-    if(localStorage.getItem('isLogin')) {
-      if(window.location.pathname === '/'){
-        navigate('/home');
-      }
-    } else {
-      navigate('/')
-    }
+    // if(localStorage.getItem('isLogin')) {
+    //   if(window.location.pathname === '/'){
+    //     navigate('/home');
+    //   }
+    // } else {
+      // navigate('/')
+    // }
   }
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (authPages.includes(window.location.pathname) || (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift'))) {
       return;
     }
     setState({ left: open });
@@ -73,6 +75,15 @@ export default function Header() {
     functions.goingForLogout();
   };
 
+  const handleClickLogin = () => {
+    navigate('/login');
+    functions.goingForLogout();
+  }
+
+  const handleLogoClick = () => {
+    navigate('/')
+  }
+
   return (
     <Fragment>
       <AppBar position="fixed">
@@ -87,64 +98,75 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography  
+            style={{cursor: 'pointer'}}
+            variant="h6" 
+            component="div" 
+            sx={{ flexGrow: 1 }} 
+            onClick={() => {handleLogoClick()}}
+          >
             ILQNA
           </Typography>
           {/* <Button color="inherit">Login</Button> */}
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Tooltip title="Call Request" placement="bottom" arrow>
-                <Link className='header-icon' to="/user-call-request">
-                  <Badge badgeContent={2} color="error">
-                    <PhoneIcon />
-                  </Badge>
-                </Link>
-              </Tooltip>
-            </IconButton>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Tooltip title="New Message" placement="bottom" arrow>
-                <Link className='header-icon' to="/user-chats">
-                  <Badge badgeContent={8} color="error">
-                    <ChatIcon />
-                  </Badge>
-                </Link>
-              </Tooltip>
-            </IconButton>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Tooltip title="Inbox" placement="bottom" arrow>
-                <Link className='header-icon' to="/user-inbox">
-                  <Badge badgeContent={4} color="error">
-                    <MailIcon />
-                  </Badge>
-                </Link>
-              </Tooltip>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Tooltip title="Notifications" placement="bottom" arrow>
-                <Link className='header-icon' to="/user-notification">
-                  <Badge badgeContent={17} color="error">
-                    <NotificationsIcon />
-                  </Badge>
-                </Link>
-              </Tooltip>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Tooltip title="Bookmarks" placement="bottom" arrow>
-                <Link className='header-icon' to="/user-bookmark">
-                  <BookmarkIcon />
-                </Link>
-              </Tooltip>
-            </IconButton>
-          </Box>
+          {
+            localStorage.getItem('isLogin') ? 
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                  <Tooltip title="Call Request" placement="bottom" arrow>
+                    <Link className='header-icon' to="/user-call-request">
+                      <Badge badgeContent={2} color="error">
+                        <PhoneIcon />
+                      </Badge>
+                    </Link>
+                  </Tooltip>
+                </IconButton>
+                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                  <Tooltip title="New Message" placement="bottom" arrow>
+                    <Link className='header-icon' to="/user-chats">
+                      <Badge badgeContent={8} color="error">
+                        <ChatIcon />
+                      </Badge>
+                    </Link>
+                  </Tooltip>
+                </IconButton>
+                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                  <Tooltip title="Inbox" placement="bottom" arrow>
+                    <Link className='header-icon' to="/user-inbox">
+                      <Badge badgeContent={4} color="error">
+                        <MailIcon />
+                      </Badge>
+                    </Link>
+                  </Tooltip>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="show 17 new notifications"
+                  color="inherit"
+                >
+                  <Tooltip title="Notifications" placement="bottom" arrow>
+                    <Link className='header-icon' to="/user-notification">
+                      <Badge badgeContent={17} color="error">
+                        <NotificationsIcon />
+                      </Badge>
+                    </Link>
+                  </Tooltip>
+                </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="show 17 new notifications"
+                  color="inherit"
+                >
+                  <Tooltip title="Bookmarks" placement="bottom" arrow>
+                    <Link className='header-icon' to="/user-bookmark">
+                      <BookmarkIcon />
+                    </Link>
+                  </Tooltip>
+                </IconButton>
+              </Box>
+            :
+              null
+          }
         </Toolbar>
       </AppBar>
       <Drawer
@@ -170,14 +192,17 @@ export default function Header() {
                 <ListItemText primary='Filter' className='drawer-option' />
               </ListItemButton>
             </ListItem>
-            <ListItem key='change-password' disablePadding onClick={handleOpenChangePassword}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <PasswordIcon />
-                </ListItemIcon>
-                <ListItemText primary='Change Password' className='drawer-option' />
-              </ListItemButton>
-            </ListItem>
+            {
+              localStorage.getItem('isLogin') && 
+                <ListItem key='change-password' disablePadding onClick={handleOpenChangePassword}>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <PasswordIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='Change Password' className='drawer-option' />
+                  </ListItemButton>
+                </ListItem>
+            }
             <ListItem key='about' disablePadding onClick={handleClickOpenAbout}>
               <ListItemButton>
                 <ListItemIcon>
@@ -186,14 +211,26 @@ export default function Header() {
                 <ListItemText primary='About' className='drawer-option' />
               </ListItemButton>
             </ListItem>
-            <ListItem key='logout' disablePadding onClick={handleClickLogout}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <ExitToAppIcon />
-                </ListItemIcon>
-                <ListItemText primary='Logout' className='drawer-option' />
-              </ListItemButton>
-            </ListItem>
+            {
+              localStorage.getItem('isLogin') ?
+                <ListItem key='logout' disablePadding onClick={handleClickLogout}>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <ExitToAppIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='Logout' className='drawer-option' />
+                  </ListItemButton>
+                </ListItem>
+              :
+                <ListItem key='login' disablePadding onClick={handleClickLogin}>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <LoginIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='Login' className='drawer-option' />
+                  </ListItemButton>
+                </ListItem>
+            }
           </List>
         </Box>
       </Drawer>

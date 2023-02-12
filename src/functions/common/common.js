@@ -84,3 +84,24 @@ export const capitalizeFirstLetter = (str) => {
         return word[0].toUpperCase() + word.substring(1); 
     }).join(" ");
 }
+
+//Remove all HTML tags from string to check valid string
+export const removeTags = (str) => {
+    if ((str===null) || (str===''))
+        return false;
+    else
+        str = str.toString();
+          
+    // Regular expression to identify HTML tags in
+    // the input string. Replacing the identified
+    // HTML tag with a null string.
+    return str.replace( /(<([^>]+)>)/ig, '');
+}
+
+export const createMarkup = (str) => {
+    return { __html: str };
+}
+
+export const generateHTML = (str) => {
+    return <div dangerouslySetInnerHTML={createMarkup(str)} />;
+}
