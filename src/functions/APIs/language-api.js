@@ -11,9 +11,8 @@ export const prepareHeaders = () => {
 }
 
 export const getLanguages = async (body) => {
-    return await axios.get(ENV.API_URL+"languages/getAllLanguages", prepareHeaders())
+    return await axios.get(ENV.API_URL+"languages/getAllLanguages")
     .then((response) => {
-        functions.checkJWT(response);
         return functions.refactor(response);
     })
     .catch((error) => {

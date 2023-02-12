@@ -52,7 +52,7 @@ code {
     padding-left: 2%;
     padding-right: 2%;
     cursor: default;
-    user-select: none;
+    // user-select: none;
 }
 
 @mixin mediaMaxWidth($size){

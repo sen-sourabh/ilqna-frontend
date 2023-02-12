@@ -11,9 +11,8 @@ export const prepareHeaders = () => {
 }
 
 export const getCategories = async (body) => {
-    return await axios.get(ENV.API_URL+"categories/getAllCategories", prepareHeaders())
+    return await axios.get(ENV.API_URL+"categories/getAllCategories")
     .then((response) => {
-        functions.checkJWT(response);
         return functions.refactor(response);
     })
     .catch((error) => {

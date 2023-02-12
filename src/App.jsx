@@ -46,11 +46,20 @@ import { ComposeMessage } from './components/Dialogs/ComposeMessage';
 import { UserChat } from './components/main/UserChats/UserChat';
 import { NeatEditor } from './components/NeatEditor/NeatEditor';
 import { getGeoLocation, getIpAddress } from './functions/APIs/geolocation-api';
+import { AppBar, Badge, Box, IconButton, Typography, Toolbar } from '@mui/material';
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import PhoneIcon from '@mui/icons-material/Phone';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import ChatIcon from '@mui/icons-material/Chat';
 
 function App() {
   const { isLogin, userData } = useSelector(state => state.login);
   const [category, setCategory] = useState([]);
   const [language, setLanguage] = useState([]);
+  const authPages = ['/login', '/register', '/forgot-password'];
+
+  console.log("window: ", isLogin, userData)
 
   useEffect(() => {
     getAllCategories();
@@ -60,7 +69,7 @@ function App() {
     }).catch((err) => {
       console.log("Error: ", err)
     });
-  }, [isLogin])
+  }, [])
 
   const getAllCategories = async () => {
     const response = await getCategories();
@@ -77,47 +86,44 @@ function App() {
       <Router>
         {/* Header */}
         {
-          isLogin &&
           <Header />
         }
         {/* Body */}
-          {!isLogin && <Routes>
-            <Route path="/" element={<Login />}></Route>
-            <Route path="/register" element={<Register />}></Route>
-            <Route path="/forgot-password" element={<ForgotPassword />}></Route>
-          </Routes> }
-          {isLogin && <Routes>
-            <Route path="/home" element={<Home />}></Route>
-            <Route path="/qna" element={<QNA />}></Route>
-            <Route exact path="/user-questions" element={<UserQuestions />}></Route>
-            <Route exact path="/add-question" element={<AddQuestion category={category} language={language} />}></Route>
-            <Route exact path="/user-bookmark" element={<UserBookmarks />}></Route>
-            <Route exact path="/user-notification" element={<Notifications />}></Route>
-            <Route exact path="/user" element={<User />}></Route>
-            <Route exact path="/user-inbox" element={<UserInbox />}></Route>
-            <Route exact path="/user-chats" element={<UserChat />}></Route>
-            <Route exact path="/user-text" element={<NeatEditor />}></Route>
-          </Routes> }
+          {/* Before Login */}
+            <Routes>
+              <Route exact path="/" element={<Home />}></Route>
+              <Route exact path="/register" element={<Register />}></Route>
+              <Route exact path="/forgot-password" element={<ForgotPassword />}></Route>
+              <Route exact path="/login" element={<Login />}></Route>
+              <Route exact path="/qna" element={<QNA />}></Route>
+            </Routes>
+          {/* After Login */}
+            {isLogin && <Routes>
+              <Route exact path="/user-questions" element={<UserQuestions />}></Route>
+              <Route exact path="/add-question" element={<AddQuestion category={category} language={language} />}></Route>
+              <Route exact path="/user-bookmark" element={<UserBookmarks />}></Route>
+              <Route exact path="/user-notification" element={<Notifications />}></Route>
+              <Route exact path="/user" element={<User />}></Route>
+              <Route exact path="/user-inbox" element={<UserInbox />}></Route>
+              <Route exact path="/user-chats" element={<UserChat />}></Route>
+            </Routes> }
         {/* Footer */}
         {
           isLogin && 
             <Paper
               className='footer-paper'
               elevation={12}
-            >
+            > 
                 <BottomNavigation 
                   className="h-scroller"
                 >
-                  <Tooltip title="Home" placement="top" arrow>
-                    <Link className='nav-link' to="/home">
+                    <Link className='nav-link' to="/">
                       <BottomNavigationAction
                         label="Home"
                         className="footer-icon"
                         icon={<HomeIcon />}
                       />
                     </Link>
-                  </Tooltip>
-                  <Tooltip title="Asked By You" placement="top" arrow>
                     <Link className='nav-link' to="/user-questions">
                       <BottomNavigationAction 
                         label="QuestionAnswer" 
@@ -125,8 +131,6 @@ function App() {
                         icon={<QuestionAnswerIcon />} 
                       />
                     </Link>
-                  </Tooltip>
-                  <Tooltip title="You Can Ask" placement="top" arrow>
                     <Link className='nav-link' to="/add-question">
                       <BottomNavigationAction
                         label="AddBox"
@@ -134,8 +138,6 @@ function App() {
                         icon={<AddBoxIcon />}
                       />
                     </Link>
-                  </Tooltip>
-                  <Tooltip title="You" placement="top" arrow>
                     <Link className='nav-link' to="/user">
                       <BottomNavigationAction
                         label="Person"
@@ -143,8 +145,7 @@ function App() {
                         icon={<PersonIcon />}
                       />
                     </Link>
-                  </Tooltip>
-                </BottomNavigation>
+                 </BottomNavigation>
             </Paper>
         }
         <Verification />

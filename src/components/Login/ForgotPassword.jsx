@@ -199,7 +199,7 @@ export const ForgotPassword = () => {
               </>
             }
             <div className='other-link'>
-              <Link to="/">Remember Password?</Link>
+              <Link to="/login">Remember Password?</Link>
             </div>
         </Stack>
       </Paper>

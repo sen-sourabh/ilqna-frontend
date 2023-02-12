@@ -89,7 +89,7 @@ export default function Login() {
       dispatch(prepareSnackbar({ open: true, severity: 'success', message: res.message }));
       dispatch(isLogin(true));
       dispatch(userData(res.data[0]))
-      navigate('/home');
+      navigate('/');
     } else {
       dispatch(prepareSnackbar({ open: true, severity: 'error', message: res.message }));
     }
@@ -103,7 +103,7 @@ export default function Login() {
           className='login-window'
           elevation={12}
       >
-        <Typography variant='h4' align='center'>Sign In</Typography>
+        <Typography variant='h4' align='center'>Log In</Typography>
         <Typography variant='h6' align='center'>Continue with us</Typography>
         <Typography variant='subtitle2' align='center'>😃 You will get the answers here 😃</Typography>
         <Stack
@@ -150,7 +150,7 @@ export default function Login() {
               <b>SIGN IN</b>
             </LoadingButton>
             <div className='other-link'>
-              <Link to="/register">Sign Up?</Link>
+              <Link to="/register">Do not have an account?</Link>
               <Link to="/forgot-password">Forgot Password?</Link>
             </div>
             <Divider><small><b><i>CONTINUE WITH</i></b></small></Divider>

@@ -16,11 +16,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setQuestionData } from '../../../redux/questionRedux/question-slice';
 import { capitalizeFirstLetter, getPriorityColor, getStatusColor } from '../../../functions/common/common';
 import { useFetchQuestionsQuery } from '../../../redux/api-saga/questions-api';
+import { fetchAllAnswersByQuestionId } from '../../../functions/APIs/answer-api';
+import { setAnswerData } from '../../../redux/answerRedux/answer-slice';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   // const { data: questionData } = refactor(useFetchQuestionsQuery());
+  const { userData } = useSelector(state => state.login);
   const { questionData } = useSelector(state => state.question);
   // console.log("questionsData: ", questionData);
 
@@ -34,6 +39,20 @@ export default function Home() {
     setIsLoading(false);
   }
 
+  const OpenQna = async (_id) => {
+    setIsLoading(true);
+    let body = {
+      _id
+    }
+    // if(userData?._id) {
+    //   body = {...body, questionUserId: userData?._id}
+    // }
+    const response = await fetchAllAnswersByQuestionId(body);
+    dispatch(setAnswerData(response.data));
+    setIsLoading(false);
+    navigate(`/qna`);
+  }
+
   return (
     <div className='ilqna-main'>
       {isLoading && <Loader />}
@@ -41,7 +60,7 @@ export default function Home() {
         questionData && questionData.map((quest) => {
           return (<Fragment key={ quest._id }>
             <div className="question-list" >
-              <h6 className="home-h3">{ capitalizeFirstLetter(quest.question) }</h6>
+              <h6 className="home-h3" onClick={() => {OpenQna(quest._id)}}>{ capitalizeFirstLetter(quest.question) }</h6>
               <h6 className="home-h6">
                 <span className="home-span">
                     <Chip 
