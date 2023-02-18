@@ -1,6 +1,11 @@
 import ENV from "../../config.json";
 
 export const snackbarTimer = 5000;
+
+export const isUserLooggedIn = (userData) => {
+    return userData._id ? true : false
+}
+
 //User Avatar Dynamic Color
 export const generateRandomColor = () => {
     let maxVal = 0xFFFFFF; // 16777215
@@ -61,7 +66,7 @@ export const goingForLogout = () => {
 
 //Refactor API Response
 export const refactor = (response) => {
-    console.log("response: ", response)
+    // console.log("response: ", response)
     if(!response || !response?.data) return [];
     return response?.data[0] || [];
 }

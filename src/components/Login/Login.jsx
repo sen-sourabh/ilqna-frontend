@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 
 //Routers
 import {
@@ -29,16 +29,22 @@ import { useDispatch } from 'react-redux';
 import { isLogin, userData } from '../../redux/loginRedux/login-slice';
 import { signInWithEmailAndPassword } from '../../functions/APIs/login-api';
 import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
+import Loader from '../Loaders/loader';
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const emailRef = useRef();
   const passwordRef = useRef();
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
 
   const handleEmail = (event) => {
     setEmail(event.target.value.trim());
@@ -97,79 +103,82 @@ export default function Login() {
   }
 
   return (
-    <div className='login'>
-      <Paper
-          style={{backgroundColor: 'transparent'}}
-          className='login-window'
-          elevation={12}
-      >
-        <Typography variant='h4' align='center'>Log In</Typography>
-        <Typography variant='h6' align='center'>Continue with us</Typography>
-        <Typography variant='subtitle2' align='center'>😃 You will get the answers here 😃</Typography>
-        <Stack
-          className='stack-style'
-          spacing={{ xs: 2, md: 2 }}
+    <Fragment>
+      {isLoading && <Loader />}
+      <div className='login'>
+        <Paper
+            style={{backgroundColor: 'transparent'}}
+            className='login-window'
+            elevation={12}
         >
-            <TextField
-              autoFocus
-              type="email"
-              label="Email"
-              variant="standard"
-              placeholder="example@example.com"
-              onChange={handleEmail}
-              ref={emailRef}
-              required
-            />
-            <TextField
-              label="Password" 
-              variant="standard"
-              onChange={handlePassword}
-              type={showPassword ? 'text' : 'password'}
-              placeholder="••••••••••"
-              ref={passwordRef}
-              required
-            />
-            <p 
-              position="end" 
-              className="show-password"
-            >
-              <span onClick={handleClickShowPassword} >{showPassword ? 'Hide Password' : 'Show Password'}</span>
-              <span>
-                <Tooltip title="Password should contain minimum 8 characters that includes capital letter, small letter, special character, and number." placement="right" arrow>
-                  <InfoIcon className='info-icon'/>
-                </Tooltip>
-              </span>
-            </p>
-            <LoadingButton
-              className="loading-btn"
-              margin="normal" 
-              onClick={handleLogin}
-              loading={loading}
-              variant="contained"
-            >
-              <b>SIGN IN</b>
-            </LoadingButton>
-            <div className='other-link'>
-              <Link to="/register">Do not have an account?</Link>
-              <Link to="/forgot-password">Forgot Password?</Link>
-            </div>
-            <Divider><small><b><i>CONTINUE WITH</i></b></small></Divider>
-        </Stack>
-        <div className="login-icon-palette">
-          <Tooltip title="Google" placement="bottom" arrow>
-            <GoogleIcon className="login-icon google" />
-          </Tooltip>
-          <Tooltip title="Reddit" placement="bottom" arrow>
-            <RedditIcon className="login-icon reddit" />
-          </Tooltip>
-          <Tooltip title="LinkedIn" placement="bottom" arrow>
-            <LinkedInIcon className="login-icon linkedin" />
-          </Tooltip>
-          <Tooltip title="GitHub" placement="bottom" arrow>
-            <GitHubIcon className="login-icon github" />
-          </Tooltip>
-        </div>
-      </Paper>
-    </div>
+          <Typography variant='h4' align='center'>Log In</Typography>
+          <Typography variant='h6' align='center'>Continue with us</Typography>
+          <Typography variant='subtitle2' align='center'>😃 You will get the answers here 😃</Typography>
+          <Stack
+            className='stack-style'
+            spacing={{ xs: 2, md: 2 }}
+          >
+              <TextField
+                autoFocus
+                type="email"
+                label="Email"
+                variant="standard"
+                placeholder="example@example.com"
+                onChange={handleEmail}
+                ref={emailRef}
+                required
+              />
+              <TextField
+                label="Password" 
+                variant="standard"
+                onChange={handlePassword}
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••••"
+                ref={passwordRef}
+                required
+              />
+              <p 
+                position="end" 
+                className="show-password"
+              >
+                <span onClick={handleClickShowPassword} >{showPassword ? 'Hide Password' : 'Show Password'}</span>
+                <span>
+                  <Tooltip title="Password should contain minimum 8 characters that includes capital letter, small letter, special character, and number." placement="right" arrow>
+                    <InfoIcon className='info-icon'/>
+                  </Tooltip>
+                </span>
+              </p>
+              <LoadingButton
+                className="loading-btn"
+                margin="normal" 
+                onClick={handleLogin}
+                loading={loading}
+                variant="contained"
+              >
+                <b>SIGN IN</b>
+              </LoadingButton>
+              <div className='other-link'>
+                <Link to="/register">Do not have an account?</Link>
+                <Link to="/forgot-password">Forgot Password?</Link>
+              </div>
+              <Divider><small><b><i>CONTINUE WITH</i></b></small></Divider>
+          </Stack>
+          <div className="login-icon-palette">
+            <Tooltip title="Google" placement="bottom" arrow>
+              <GoogleIcon className="login-icon google" />
+            </Tooltip>
+            <Tooltip title="Reddit" placement="bottom" arrow>
+              <RedditIcon className="login-icon reddit" />
+            </Tooltip>
+            <Tooltip title="LinkedIn" placement="bottom" arrow>
+              <LinkedInIcon className="login-icon linkedin" />
+            </Tooltip>
+            <Tooltip title="GitHub" placement="bottom" arrow>
+              <GitHubIcon className="login-icon github" />
+            </Tooltip>
+          </div>
+        </Paper>
+      </div>
+    </Fragment>
   )
 }

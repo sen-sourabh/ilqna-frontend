@@ -8,6 +8,16 @@
     user-select: none;
 }
 
+.no-question {
+    left: 0;
+    line-height: 200px;
+    margin-top: -100px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+}
+
 .question-list {
     padding-left: 2%;
     padding-right: 2%;
@@ -39,6 +49,41 @@
 .home-span {
     font-size: .9rem;
     color: #3e5060;
+}
+
+.filter-head {
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.filter-chip {
+    font-weight: normal !important;
+    margin: 5px !important;
+}
+
+.active-filter {
+    background-color: green !important;
+    color: whitesmoke !important;
+    font-weight: 600 !important;
+}
+
+.inactive-filter {
+    background-color: white !important;
+    color: black !important;
+}
+
+.inactive-filter:hover {
+    background-color: #00800099 !important;
+    color: whitesmoke !important;
+}
+
+.filter-clear {
+    cursor: pointer;
+    float: right;
+}
+
+.filter-clear:hover {
+    color: $errorColor;
 }
 
 .home-chip {

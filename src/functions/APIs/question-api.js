@@ -20,8 +20,8 @@ export const fetchAllQuestions = async (body) => {
     });
 }
 
-export const getAllQuestionsCountOfUser = async (body) => {
-    return await axios.get(ENV.API_URL+"questions/getAllQuestionsCountOfUser", body, prepareHeaders())
+export const getAllQuestionsCountOfUser = async (_id) => {
+    return await axios.get(ENV.API_URL+`questions/getAllQuestionsCountOfUser?questionUserId=${_id}`, prepareHeaders())
     .then((response) => {
         functions.checkJWT(response);
         return functions.refactor(response);

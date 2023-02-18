@@ -19,11 +19,11 @@ import '../../../sass/qna.scss';
 import { LoadingButton } from '@mui/lab';
 
 //Common Functions
-import { capitalizeFirstLetter, generateHTML, generateRandomColor, getPriorityColor, getStatusColor, removeTags, snackbarTimer } from '../../../functions/common/common';
+import { capitalizeFirstLetter, generateHTML, generateRandomColor, getPriorityColor, getStatusColor, isUserLooggedIn, removeTags, snackbarTimer } from '../../../functions/common/common';
 import { NeatEditor } from '../../NeatEditor/NeatEditor';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../Loaders/loader';
-import { addAnswer, fetchAllAnswersByQuestionId } from '../../../functions/APIs/answer-api';
+import { addAnswer, fetchAllAnswersByQuestionId, updateAnswer } from '../../../functions/APIs/answer-api';
 import { setAnswerData } from '../../../redux/answerRedux/answer-slice';
 import { initializeConnect } from 'react-redux/es/components/connect';
 import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
@@ -79,7 +79,7 @@ export default function QNA(props) {
         if(localStorage.getItem('qna') && JSON.parse(localStorage.getItem('qna')).length) {
             let qna = JSON.parse(localStorage.getItem('qna'))[0]
             getQna(qna._id);
-            console.log(JSON.parse(localStorage.getItem('qna')));
+            // console.log(JSON.parse(localStorage.getItem('qna')));
         }
     }
     setIsLoading(false)
@@ -128,6 +128,29 @@ export default function QNA(props) {
   const handleClearForm = () => {
     var desc = document.getElementById("ilqna-editor");
     desc.innerHTML = "Add your answers here...";
+  }
+
+  const handleTrendingClick = async (questionId, answer, upRatingVal) => {
+    if(isUserLooggedIn(userData)) {
+        let body = {
+            _id: answer._id,
+            upRatingVal,
+            upRating: upRatingVal ? Number(answer.upRating) + 1 : Number(answer.upRating),
+            downRating: !upRatingVal ? Number(answer.downRating) + 1 : Number(answer.downRating)
+        }
+        const response = await updateAnswer(body);
+        if(response.code !== 200 && response.status !== "OK") {
+            dispatch(prepareSnackbar({ open: true, severity: 'error', message: response.message }))
+            setTimeout(() => { dispatch(resetSnackbar()) }, snackbarTimer)
+        } else {
+            dispatch(prepareSnackbar({ open: true, severity: 'success', message: "Thanks for Rating." }))
+            setTimeout(() => { dispatch(resetSnackbar()) }, snackbarTimer)
+            getQna(questionId);
+        }
+    } else {
+        dispatch(prepareSnackbar({ open: true, severity: 'warning', message: "You have to login first. Please login." }))
+        setTimeout(() => { dispatch(resetSnackbar()) }, snackbarTimer)
+    }
   }
 
   return (
@@ -197,6 +220,7 @@ export default function QNA(props) {
                                             <TrendingUpIcon 
                                                 className="qna-svg-icon qna-icon qna-icon-hover-up" 
                                                 label="trendingUp"
+                                                onClick={() => handleTrendingClick(answerData[0]._id, ans, true)}
                                             /> { !ans.upRating ? 0 : ans.upRating }
                                         </span>
                                         &nbsp; • &nbsp;
@@ -204,6 +228,7 @@ export default function QNA(props) {
                                             <TrendingDownIcon 
                                                 className="qna-svg-icon qna-icon qna-icon-hover-down" 
                                                 label="trendingDown"
+                                                onClick={() => handleTrendingClick(answerData[0]._id, ans, false)}
                                             /> { !ans.downRating ? 0 : ans.downRating }
                                         </span>
                                         &nbsp; • &nbsp;
