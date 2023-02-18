@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 //UI
 import { Autocomplete, Button, Grid, TextField, Typography } from '@mui/material';
 //SCSS
@@ -11,6 +11,7 @@ import { isEmpty } from '../../../functions/common/common';
 import { useDispatch } from 'react-redux';
 import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
 import * as functions from '../../../functions/common/common';
+import Loader from '../../Loaders/loader';
 
 export default function AddQuestion({ category = [], language = [] }) {
   const dispatch = useDispatch();
@@ -18,7 +19,12 @@ export default function AddQuestion({ category = [], language = [] }) {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [languageDropdownVisibility, setLanguageDropdownVisibility] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
   const [editorValue, setEditorValue] = useState("Add question description here...")
+  
+  useEffect(() => {
+    setIsLoading(false);
+  }, [])
   
   const handleQuestion = (event) => {
     setQuestion(event.target.value)
@@ -73,103 +79,107 @@ export default function AddQuestion({ category = [], language = [] }) {
     setQuestion('');
     setSelectedCategory([]);
     setSelectedLanguage([]);
+    setLanguageDropdownVisibility(false)
     var desc = document.getElementById("ilqna-editor");
     desc.innerHTML = "Add question description here...";
   }
 
   return (
-    <div className='ilqna-main'>
-      <Box mt={2} className='add-question'>
-        <Typography variant='h5' align='left'><b>ASK</b></Typography>
-        <Typography variant='subtitle1' align='left'>Ask questions from here. Hope, You will get answer soon...</Typography>
-        <TextField
-          className='input-control' 
-          id="outlined-basic" 
-          label="Question" 
-          variant="outlined"
-          placeholder='Why you are human?'
-          fullWidth
-          value={question}
-          onChange={handleQuestion}
-        />
-        {/* <TextField 
-          className='input-control' 
-          id="outlined-basic" 
-          label="Question description" 
-          variant="outlined"
-          placeholder='Description...'
-          fullWidth
-          onChange={handleQuestion}
-        /> */}
-        <NeatEditor
-          customId='ilqna-editor'
-          defaultValue={editorValue}
-        />
-        <Autocomplete
-          className='input-control input-autocomplete'
-          fullWidth
-          multiple
-          id="auto-category"
-          options={category}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Categories"
-              placeholder={selectedCategory.length ? '' : 'Finance'}
-            />
-          )}
-          onChange={(event, newValue) => { handleCategory(newValue) }}
-        />
-        <Autocomplete
-          fullWidth
-          className='input-control input-autocomplete'
-          multiple
-          id="auto-language"
-          options={language}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Languages"
-              placeholder={selectedLanguage.length ? '' : 'Java'}
-            />
-          )}
-          style={{ display: languageDropdownVisibility ? 'block' : 'none' }}
-          onChange={(event, newValue) => { handleLanguage(newValue) }}
-        />
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2 }}>
-          <Grid item xs={4}>
+    <Fragment>
+      {isLoading && <Loader />}
+      <div className='ilqna-main'>
+        <Box mt={2} className='add-question'>
+          <Typography variant='h5' align='left'><b>ASK</b></Typography>
+          <Typography variant='subtitle1' align='left'>Ask questions from here. Hope, You will get answer soon...</Typography>
+          <TextField
+            className='input-control' 
+            id="outlined-basic" 
+            label="Question" 
+            variant="outlined"
+            placeholder='Why you are human?'
+            fullWidth
+            value={question}
+            onChange={handleQuestion}
+          />
+          {/* <TextField 
+            className='input-control' 
+            id="outlined-basic" 
+            label="Question description" 
+            variant="outlined"
+            placeholder='Description...'
+            fullWidth
+            onChange={handleQuestion}
+          /> */}
+          <NeatEditor
+            customId='ilqna-editor'
+            defaultValue={editorValue}
+          />
+          <Autocomplete
+            className='input-control input-autocomplete'
+            fullWidth
+            multiple
+            id="auto-category"
+            options={category}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Categories"
+                placeholder={selectedCategory.length ? '' : 'Finance'}
+              />
+            )}
+            onChange={(event, newValue) => { handleCategory(newValue) }}
+          />
+          <Autocomplete
+            fullWidth
+            className='input-control input-autocomplete'
+            multiple
+            id="auto-language"
+            options={language}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Languages"
+                placeholder={selectedLanguage.length ? '' : 'Java'}
+              />
+            )}
+            style={{ display: languageDropdownVisibility ? 'block' : 'none' }}
+            onChange={(event, newValue) => { handleLanguage(newValue) }}
+          />
+          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2 }}>
+            <Grid item xs={4}>
+                <Button
+                  className='input-control'
+                  variant="text"
+                  fullWidth
+                  color='error'
+                  onClick={handleClearForm}
+                >
+                  Clear
+                </Button>
+            </Grid>
+            <Grid item xs={4}>
+                <Button
+                  className='input-control'
+                  variant="outlined"
+                  fullWidth
+                  onClick={(e) => handleSubmit(e, 'draft')}
+                >
+                  Draft
+                </Button>
+            </Grid>
+            <Grid item xs={4}>
               <Button
                 className='input-control'
-                variant="text"
+                variant="contained"
                 fullWidth
-                color='error'
-                onClick={handleClearForm}
+                onClick={(e) => handleSubmit(e, 'ask')}
               >
-                Clear
+                Ask
               </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={4}>
-              <Button
-                className='input-control'
-                variant="outlined"
-                fullWidth
-                onClick={(e) => handleSubmit(e, 'draft')}
-              >
-                Draft
-              </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Button
-              className='input-control'
-              variant="contained"
-              fullWidth
-              onClick={(e) => handleSubmit(e, 'ask')}
-            >
-              Ask
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
-    </div>
+        </Box>
+      </div>
+    </Fragment>
   )
 }

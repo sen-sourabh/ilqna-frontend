@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 //Routers
 import {
   Link,
@@ -19,16 +19,22 @@ import { changeForm } from '../../redux/loginRedux/forgotPassword-slice';
 import { isVerifyOpen, setOTP } from '../../redux/dialogRedux/verification-slice';
 import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 import * as functions from '../../functions/common/common';
+import Loader from '../Loaders/loader';
 
 export const ForgotPassword = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { isForm } = useSelector(state => state.forgotPassword)
   const [email, setEmail] = useState();
   const [newPassword, setNewPassword] = useState();
   const [cnewPassword, setCNewPassword] = useState();
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
 
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
@@ -125,6 +131,7 @@ export const ForgotPassword = () => {
 
   return (
     <Fragment>
+      {isLoading && <Loader />}
       <Paper
          style={{backgroundColor: 'transparent'}}
          className='login-window'

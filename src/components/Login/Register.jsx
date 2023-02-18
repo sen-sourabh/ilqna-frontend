@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 //UI
 import { Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -21,15 +21,22 @@ import Phone from '../../functions/validations/phone';
 import { useDispatch } from 'react-redux';
 import { signUpWithEmailAndPassword } from '../../functions/APIs/login-api';
 import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
+import Loader from '../Loaders/loader';
 
 export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
+  
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -96,7 +103,7 @@ export default function Register() {
 
   return (
     <Fragment>
-      {/* <LoginBg /> */}
+      {isLoading && <Loader />}
       <Paper
         style={{backgroundColor: 'transparent'}}
         className='login-window'

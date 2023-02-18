@@ -36,7 +36,7 @@ export const ChatSidebar = () => {
     // }
 
     const handleSelectedUser = (e) => {
-        console.log("handleSelectedUser: ", e);
+        // console.log("handleSelectedUser: ", e);
         setSelectedUser(true)
     }
 

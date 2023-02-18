@@ -25,7 +25,7 @@ export default function UserQuestions() {
   // const { data: questionData } = refactor(useFetchQuestionsQuery());
   const { questionData } = useSelector(state => state.question);
   const { userData } = useSelector(state => state.login);
-  console.log("questionsData: ", questionData);
+  // console.log("questionsData: ", questionData);
 
   useEffect(() => {
       initialize();
@@ -45,9 +45,9 @@ export default function UserQuestions() {
     let body = {
       _id
     }
-    // if(userData?._id) {
-    //   body = {...body, questionUserId: userData?._id}
-    // }
+    if(userData?._id) {
+      body = {...body, questionUserId: userData?._id}
+    }
     const response = await fetchAllAnswersByQuestionId(body);
     dispatch(setAnswerData(response.data));
     setIsLoading(false);

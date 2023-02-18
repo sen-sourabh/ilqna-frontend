@@ -59,7 +59,7 @@ function App() {
   const [language, setLanguage] = useState([]);
   const authPages = ['/login', '/register', '/forgot-password'];
 
-  console.log("window: ", isLogin, userData)
+  // console.log("window: ", isLogin, userData)
 
   useEffect(() => {
     getAllCategories();
