@@ -1,11 +1,10 @@
-import { Autocomplete, Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, TextField, Typography } from '@mui/material'
+import { Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllQuestions } from '../../../functions/APIs/question-api';
-import { openFilter } from '../../../redux/dialogRedux/filter-slice';
+import { openFilter, setSearchInput, setSelectedCategory, setSelectedLanguage } from '../../../redux/dialogRedux/filter-slice';
 import { setQuestionData } from '../../../redux/questionRedux/question-slice';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { LocalConvenienceStoreOutlined } from '@mui/icons-material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Stack } from '@mui/system';
 import '../../../sass/home.scss'
@@ -16,35 +15,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export const Filter = ({ category = [], language = [] }) => {
     const dispatch = useDispatch();
-    const { isOpen = false } = useSelector(state => state.filter);
-    const [searchInput, setSearchInput] = useState('')
-    const [selectedCategory, setSelectedCategory] = useState([]);
-    const [selectedLanguage, setSelectedLanguage] = useState([]);
+    const { isOpen = false, searchInput, selectedCategory, selectedLanguage } = useSelector(state => state.filter);
     const [loading, setLoading] = useState(false);
     const { userData } = useSelector(state => state.login);
-    const [languageDropdownVisibility, setLanguageDropdownVisibility] = useState(false)
   
     useEffect(() => {
-      // console.log("USEEFFECT")
-      if(selectedLanguage.length === 0){
-        setLanguageDropdownVisibility(false);
-      }
       if(localStorage.getItem('filter')) {
-        // console.log("clera")
-        setSearchInput('')
-        setSelectedCategory([])
-        setSelectedLanguage([])
+        dispatch(setSearchInput(''));
+        dispatch(setSelectedCategory([]))
+        dispatch(setSelectedLanguage([]))
       }
     }, [])
     
-
     const handleSearchInput = (event) => {
-      setSearchInput(event.target.value)
+      dispatch(setSearchInput(event.target.value))
     }
   
     //On Apply Filter
     const handleSubmit = () => {
-      // e.preventDefault();
       setLoading(true)
       let body = {
         question: searchInput,
@@ -57,12 +45,11 @@ export const Filter = ({ category = [], language = [] }) => {
     //On Reset Filter
     const handleResetFilter = () => {
       getFilterQuestion();
-      setSearchInput('')
-      setSelectedCategory([])
-      setSelectedLanguage([])
+      dispatch(setSearchInput(''))
+      dispatch(setSelectedCategory([]))
+      dispatch(setSelectedLanguage([]))
       handleClearCategoryFilter()
       handleClearLanguageFilter()
-      setLanguageDropdownVisibility(false);
     }
 
     //API to get filter data
@@ -83,11 +70,11 @@ export const Filter = ({ category = [], language = [] }) => {
       console.log("handleSelectCategory: ", cat)
       if(selectedCategory.includes(cat.value)) {
         category[index].selected = false
-        setSelectedCategory(selectedCategory.filter(x => cat.value != x));
+        dispatch(setSelectedCategory(selectedCategory.filter(x => cat.value != x)));
         
       } else {
         category[index].selected = true
-        setSelectedCategory([...selectedCategory, cat.value ]);
+        dispatch(setSelectedCategory([...selectedCategory, cat.value ]));
       }
     }
 
@@ -95,10 +82,10 @@ export const Filter = ({ category = [], language = [] }) => {
       console.log("handleSelectLanguage: ", lang)
       if(selectedLanguage.includes(lang.value)) {
         language[index].selected = false
-        setSelectedLanguage(selectedLanguage.filter(x => lang.value != x));
+        dispatch(setSelectedLanguage(selectedLanguage.filter(x => lang.value != x)));
       } else {
         language[index].selected = true
-        setSelectedLanguage([...selectedLanguage, lang.value ]);
+        dispatch(setSelectedLanguage([...selectedLanguage, lang.value ]));
       }
     }
 
@@ -107,7 +94,7 @@ export const Filter = ({ category = [], language = [] }) => {
       category.forEach((cat) => {
         cat.selected = false
       })
-      setSelectedCategory([])
+      dispatch(setSelectedCategory([]))
     }
 
     const handleClearLanguageFilter = () => {
@@ -115,7 +102,7 @@ export const Filter = ({ category = [], language = [] }) => {
       language.map((lang) => {
         lang.selected = false
       })
-      setSelectedLanguage([]);
+      dispatch(setSelectedLanguage([]));
     }
 
 
@@ -129,7 +116,7 @@ export const Filter = ({ category = [], language = [] }) => {
         onClose={handleResetFilter}
         TransitionComponent={Transition}
     >
-        <div style={{display: 'inline-flex', zIndex: '99999999', boxShadow: '0px 10px 13px 0px rgb(0 0 0 / 10%)'}}>
+        <div style={{display: 'inline-flex', zIndex: '99999999', boxShadow: '0px 10px 13px 0px rgb(0 0 0 / 6%)'}}>
           <DialogTitle style={{width: '50%' }}>
             <Typography variant='h5' align='left'>Filter</Typography>
             <DialogContentText>
