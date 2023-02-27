@@ -7,6 +7,8 @@ import { Chip, Divider } from '@mui/material';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import TodayIcon from '@mui/icons-material/Today';
 
 //SCSS
 import '../../../sass/home.scss';
@@ -14,9 +16,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllQuestions } from '../../../functions/APIs/question-api';
 import { setQuestionData } from '../../../redux/questionRedux/question-slice';
 import Loader from '../../Loaders/loader';
-import { capitalizeFirstLetter, getPriorityColor, getStatusColor } from '../../../functions/common/common';
+import { capitalizeFirstLetter, checkIsBookmarkedByLoggedInUser, getPriorityColor, getStatusColor } from '../../../functions/common/common';
 import { setAnswerData } from '../../../redux/answerRedux/answer-slice';
 import { fetchAllAnswersByQuestionId } from '../../../functions/APIs/answer-api';
+import { NotFoundByFilter } from '../../headers/parts/NotFoundByFilter';
 
 export default function UserQuestions() {
   let navigate = useNavigate();
@@ -25,6 +28,7 @@ export default function UserQuestions() {
   // const { data: questionData } = refactor(useFetchQuestionsQuery());
   const { questionData } = useSelector(state => state.question);
   const { userData } = useSelector(state => state.login);
+
   // console.log("questionsData: ", questionData);
 
   useEffect(() => {
@@ -57,6 +61,7 @@ export default function UserQuestions() {
   return (
     <div className='ilqna-main'>
       {isLoading && <Loader />}
+      <NotFoundByFilter />
       {
         questionData && questionData.map((quest) => {
           return (<Fragment key={ quest._id }>
@@ -89,8 +94,13 @@ export default function UserQuestions() {
                     { !quest.answers?.downRating ? 0 : quest.answers?.downRating }
                   </span>
                 &nbsp; • &nbsp; 
-                {/* <TodayIcon className="svg-icon" /> */}
+                <TodayIcon className="svg-icon" />
                 <span className="home-span">{ new Date(quest.updatedDate).toDateString() }</span>
+                &nbsp; • 
+                <BookmarkIcon className={`svg-icon ${checkIsBookmarkedByLoggedInUser(quest, userData) ? 'bookmarked' : ''}`} />
+                    <span className="home-span">
+                      { quest?.total_bookmark?.length > 0 ? quest?.total_bookmark?.length : 0 }
+                    </span>
                 <span 
                   style={{float: 'right'}}
                 >

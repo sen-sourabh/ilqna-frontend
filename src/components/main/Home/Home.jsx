@@ -3,22 +3,23 @@ import React, { Fragment, useEffect, useState } from 'react';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import { Chip, Divider, Typography } from '@mui/material';
-import CommentIcon from '@mui/icons-material/Comment';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 import TodayIcon from '@mui/icons-material/Today';
 //SCSS
 // import '../../../sass/main.scss';
 import '../../../sass/home.scss';
 // import { useFetchQuestionsQuery } from '../../../redux/api-saga/questions-api';
-// import { refactor } from '../../../functions/common/common';
+import { checkIsBookmarkedByLoggedInUser } from '../../../functions/common/common';
 import Loader from '../../Loaders/loader';
 import { fetchAllQuestions } from '../../../functions/APIs/question-api';
 import { useDispatch, useSelector } from 'react-redux';
 import { setQuestionData } from '../../../redux/questionRedux/question-slice';
 import { capitalizeFirstLetter, getPriorityColor, getStatusColor } from '../../../functions/common/common';
-import { useFetchQuestionsQuery } from '../../../redux/api-saga/questions-api';
 import { fetchAllAnswersByQuestionId } from '../../../functions/APIs/answer-api';
 import { setAnswerData } from '../../../redux/answerRedux/answer-slice';
 import { useNavigate } from 'react-router-dom';
+import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
+import { NotFoundByFilter } from '../../headers/parts/NotFoundByFilter';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function Home() {
   // const { data: questionData } = refactor(useFetchQuestionsQuery());
   const { userData } = useSelector(state => state.login);
   const { questionData } = useSelector(state => state.question);
+  const { searchInput, selectedCategory, selectedLanguage } = useSelector(state => state.filter);
   // console.log("questionsData: ", questionData);
 
   useEffect(() => {
@@ -56,15 +58,7 @@ export default function Home() {
   return (
     <div className='ilqna-main'>
       {isLoading && <Loader />}
-      {questionData.length === 0 && 
-        <Fragment>
-          <div className="question-list" >
-            <Typography variant="h2" className='no-question' >
-              Sorry! Didn't found any questions with this filter.
-            </Typography>
-          </div>
-        </Fragment>
-      }
+      <NotFoundByFilter />
       {
         questionData.length > 0 && questionData.map((quest) => {
           return (<Fragment key={ quest._id }>
@@ -97,8 +91,13 @@ export default function Home() {
                     { !quest.answers?.downRating ? 0 : quest.answers?.downRating }
                   </span>
                 &nbsp; • &nbsp; 
-                {/* <TodayIcon className="svg-icon" /> */}
+                <TodayIcon className="svg-icon" />
                 <span className="home-span">{ new Date(quest.updatedDate).toDateString() }</span>
+                &nbsp; • 
+                <BookmarkIcon className={`svg-icon ${checkIsBookmarkedByLoggedInUser(quest, userData) ? 'bookmarked' : ''}`}  />
+                    <span className="home-span">
+                        { quest?.total_bookmark?.length > 0 ? quest?.total_bookmark?.length : 0 }
+                    </span>
               </h6>
             </div>
             <Divider variant="middle" />

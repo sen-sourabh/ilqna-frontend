@@ -110,3 +110,14 @@ export const createMarkup = (str) => {
 export const generateHTML = (str) => {
     return <div dangerouslySetInnerHTML={createMarkup(str)} />;
 }
+
+//get Bookmarked By Logged in User or Not
+export const checkIsBookmarkedByLoggedInUser = (data, userData) => {
+    for (let i = 0; i < data?.total_bookmark?.length; i++) {
+        const bookmark = data?.total_bookmark[i];
+        if(bookmark.bookmarkUserId === userData?._id) {
+            return true;
+        }
+    }
+    return false;
+}

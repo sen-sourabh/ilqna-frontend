@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 //UI
-import { Typography, Avatar, Tooltip, Chip, Button } from '@mui/material';
-import AvatarGroup from '@mui/material/AvatarGroup';
+import { Typography, Avatar, Tooltip, Chip } from '@mui/material';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import { Divider } from '@mui/material';
@@ -13,20 +12,22 @@ import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import CheckIcon from '@mui/icons-material/Check';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 //SCSS
 import '../../../sass/qna.scss';
 import { LoadingButton } from '@mui/lab';
 
 //Common Functions
-import { capitalizeFirstLetter, generateHTML, generateRandomColor, getPriorityColor, getStatusColor, isUserLooggedIn, removeTags, snackbarTimer } from '../../../functions/common/common';
+import { capitalizeFirstLetter, checkIsBookmarkedByLoggedInUser, generateHTML, generateRandomColor, getPriorityColor, getStatusColor, isUserLooggedIn, removeTags, snackbarTimer } from '../../../functions/common/common';
 import { NeatEditor } from '../../NeatEditor/NeatEditor';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../Loaders/loader';
 import { addAnswer, fetchAllAnswersByQuestionId, updateAnswer } from '../../../functions/APIs/answer-api';
 import { setAnswerData } from '../../../redux/answerRedux/answer-slice';
-import { initializeConnect } from 'react-redux/es/components/connect';
 import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
+import { updateRating } from '../../../functions/APIs/rating-api';
+import { updateBookmark } from '../../../functions/APIs/bookmark-api';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -138,12 +139,13 @@ export default function QNA(props) {
             upRating: upRatingVal ? Number(answer.upRating) + 1 : Number(answer.upRating),
             downRating: !upRatingVal ? Number(answer.downRating) + 1 : Number(answer.downRating)
         }
-        const response = await updateAnswer(body);
+        updateAnswer(body);
+        const response = await updateRating({ answerId: body._id, ratingType: upRatingVal ? "up" : "down" });
         if(response.code !== 200 && response.status !== "OK") {
             dispatch(prepareSnackbar({ open: true, severity: 'error', message: response.message }))
             setTimeout(() => { dispatch(resetSnackbar()) }, snackbarTimer)
         } else {
-            dispatch(prepareSnackbar({ open: true, severity: 'success', message: "Thanks for Rating." }))
+            dispatch(prepareSnackbar({ open: true, severity: 'success', message: response.message }))
             setTimeout(() => { dispatch(resetSnackbar()) }, snackbarTimer)
             getQna(questionId);
         }
@@ -152,6 +154,28 @@ export default function QNA(props) {
         setTimeout(() => { dispatch(resetSnackbar()) }, snackbarTimer)
     }
   }
+
+  const handleBookmark = async (questionId) => {
+    if(isUserLooggedIn(userData)) {
+        let body = {
+            questionId
+        }
+        const response = await updateBookmark(body);
+        if(response.code !== 200 && response.status !== "OK") {
+            dispatch(prepareSnackbar({ open: true, severity: 'error', message: response.message }))
+            setTimeout(() => { dispatch(resetSnackbar()) }, snackbarTimer)
+        } else {
+            dispatch(prepareSnackbar({ open: true, severity: 'success', message: response.message }))
+            setTimeout(() => { dispatch(resetSnackbar()) }, snackbarTimer)
+            getQna(questionId);
+        }
+    } else {
+        dispatch(prepareSnackbar({ open: true, severity: 'warning', message: "You have to login first. Please login." }))
+        setTimeout(() => { dispatch(resetSnackbar()) }, snackbarTimer)
+    }
+  }
+
+  
 
   return (
     <div className='ilqna-main'>
@@ -187,7 +211,14 @@ export default function QNA(props) {
                             </span>
                         &nbsp; • &nbsp; 
                         <TodayIcon className="qna-svg-icon" />
-                        <span className="qna-home-span">{ new Date(answerData[0]?.updatedDate).toDateString() }</span>
+                            <span className="qna-home-span">
+                                { new Date(answerData[0]?.updatedDate).toDateString() }
+                            </span>
+                        &nbsp; • 
+                        <BookmarkIcon className={`qna-svg-icon ${checkIsBookmarkedByLoggedInUser(answerData[0], userData) ? 'bookmarked' : ''}`} onClick={() => handleBookmark(answerData[0]._id)} />
+                            <span className="qna-home-span">
+                                { answerData[0]?.total_bookmark?.length > 0 ? answerData[0]?.total_bookmark?.length : 0 }
+                            </span>
                     </h6>
                 </div>
                 { 
