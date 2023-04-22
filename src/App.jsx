@@ -10,7 +10,6 @@ import {
 import Paper from '@mui/material/Paper';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import Tooltip from '@mui/material/Tooltip';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -52,6 +51,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import PhoneIcon from '@mui/icons-material/Phone';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ChatIcon from '@mui/icons-material/Chat';
+import { checkJWT } from './functions/common/common';
 
 function App() {
   const { isLogin, userData } = useSelector(state => state.login);
@@ -91,7 +91,8 @@ function App() {
         {/* Body */}
           {/* Before Login */}
             <Routes>
-              <Route exact path="/" element={<Home />}></Route>
+              <Route exact path="" element={<Home />}></Route>
+              {/* <Route exact path='/NeatEditor' element={<NeatEditor />}></Route> */}
               <Route exact path="/register" element={<Register />}></Route>
               <Route exact path="/forgot-password" element={<ForgotPassword />}></Route>
               <Route exact path="/login" element={<Login />}></Route>

@@ -4,7 +4,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 //   Link
 // } from "react-router-dom";
 //UI
-import { Avatar, Tooltip, Typography } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import Badge from '@mui/material/Badge';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
@@ -113,12 +113,11 @@ export default function User() {
               className="user-title"
             >
               { functions.capitalizeFirstLetter(username) }
-              <Tooltip title="Change Username" placement="right" arrow>
-                <EditIcon
+              <EditIcon
                   className='user-title-icon'
                   onClick={handleOpenUsername}
-                />
-              </Tooltip>
+              />
+              
             </Typography>
             <Typography
               className='caption-text'

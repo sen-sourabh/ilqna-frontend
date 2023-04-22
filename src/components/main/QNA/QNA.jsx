@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 //UI
-import { Typography, Avatar, Tooltip, Chip } from '@mui/material';
+import { Typography, Avatar, Chip } from '@mui/material';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import { Divider } from '@mui/material';
@@ -28,6 +28,7 @@ import { setAnswerData } from '../../../redux/answerRedux/answer-slice';
 import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
 import { updateRating } from '../../../functions/APIs/rating-api';
 import { updateBookmark } from '../../../functions/APIs/bookmark-api';
+import { HtmlTooltip, TooltipProfileCard } from '../../Tooltips/HtmlTooltip';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -227,21 +228,22 @@ export default function QNA(props) {
                             <>
                             <Divider variant='middle' />
                             <div className='qna-user-answers'>
-                                <div className='qna-user-data' key={ans._id}>
+                                {/* <div className='qna-user-data' key={ans._id}>
                                     <div className='qna-user-image'>
                                         <StyledBadge
+                                            className='user-image-status'
                                             overlap="circular"
                                             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                             variant="dot"
                                         >
-                                            <Avatar sx={{ bgcolor: generateRandomColor() }}>{ ans.answer_user?.username[0]?.toUpperCase() }</Avatar>
+                                            <Avatar className='qna-user-image' sx={{ bgcolor: generateRandomColor() }}>{ ans.answer_user?.username[0]?.toUpperCase() }</Avatar>
                                         </StyledBadge>
                                     </div>
                                     <div className='qna-user-info'>
                                         <Typography variant='subtitle1'><b>{ ans.answer_user?.username }</b></Typography>
                                         <Typography variant='subtitle2'>{ capitalizeFirstLetter(ans.answer_user?.designation) }</Typography>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className='answer-place'>
                                     { generateHTML(ans.answer) }
                                 </div>
@@ -269,11 +271,12 @@ export default function QNA(props) {
                                         </span>
                                     </h6>
                                     <div className='qna-user-upvote-list'>
-                                        <Tooltip title='Vote by' placement='top' arrow>
-                                            {/* <AvatarGroup total={24}> */}
-                                                <Avatar sx={{ bgcolor: generateRandomColor() }}>{ ans.answer_user?.username[0]?.toUpperCase() }</Avatar>
-                                            {/* </AvatarGroup> */}
-                                        </Tooltip>
+                                        <HtmlTooltip
+                                            title={ <TooltipProfileCard userData={ans.answer_user} /> }
+                                            placement="top-start"
+                                        >
+                                            <Avatar className='qna-user-image' sx={{ bgcolor: generateRandomColor() }}>{ ans.answer_user?.username[0]?.toUpperCase() }</Avatar>
+                                        </HtmlTooltip>
                                     </div>
                                 </div>
                             </div>

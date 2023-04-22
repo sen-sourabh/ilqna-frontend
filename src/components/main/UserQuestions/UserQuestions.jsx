@@ -66,7 +66,7 @@ export default function UserQuestions() {
         questionData && questionData.map((quest) => {
           return (<Fragment key={ quest._id }>
             <div className="question-list" >
-              <h6 className="home-h3" onClick={() => {OpenQna(quest._id)}}>{ quest.question }</h6>
+              <h6 className="home-h3" onClick={() => {OpenQna(quest._id)}}>{ capitalizeFirstLetter(quest.question) }</h6>
               <h6 className="home-h6">
                 <span className="home-span">
                     <Chip 
@@ -102,7 +102,7 @@ export default function UserQuestions() {
                       { quest?.total_bookmark?.length > 0 ? quest?.total_bookmark?.length : 0 }
                     </span>
                 <span 
-                  style={{float: 'right'}}
+                  className='draft-status'
                 >
                   {!quest.draft && 
                     <Chip 

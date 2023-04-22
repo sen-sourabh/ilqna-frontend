@@ -5,7 +5,7 @@ import {
   useNavigate
 } from "react-router-dom";
 //UI
-import { Tooltip, Paper, Stack, TextField, Typography } from '@mui/material';
+import { Paper, Stack, TextField, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 //Icons
 import InfoIcon from '@mui/icons-material/Info';
@@ -190,9 +190,7 @@ export const ForgotPassword = () => {
                 >
                   <span onClick={handleClickShowPassword} >{showPassword ? 'Hide Password' : 'Show Password'}</span>
                   <span>
-                    <Tooltip title="Password should contain minimum 8 characters that includes capital letter, small letter, special character, and number." placement="right" arrow>
-                      <InfoIcon className='info-icon'/>
-                    </Tooltip>  
+                    <InfoIcon className='info-icon'/>  
                   </span>
                 </p>
                 <LoadingButton

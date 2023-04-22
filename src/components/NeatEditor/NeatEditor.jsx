@@ -22,7 +22,7 @@ import RedoIcon from '@mui/icons-material/Redo';
 import SuperscriptIcon from '@mui/icons-material/Superscript';
 import SubscriptIcon from '@mui/icons-material/Subscript';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Tooltip, Divider } from '@mui/material';
+import { Divider } from '@mui/material';
 
 const toolbarFeatures = [
     //Bold
@@ -287,189 +287,18 @@ export const NeatEditor = (
                 {
                     toolbarFeatures && toolbarFeatures.map((feat) => {
                         return (
-                            <Tooltip title={feat.name} key={feat.id} placement="bottom" arrow>
-                                <IconButton 
-                                    id={feat.id}
-                                    className={feat.class}
-                                    style={{ float: (feat.command === "clear" ? 'right' : '' ) }}
-                                    onClick={(e) => {handleOnClickEditorChange(e, feat.command, feat.value)}}
-                                >
-                                    {feat.icon}
-                                </IconButton>
-                            </Tooltip>
+                            <IconButton 
+                                key={feat.id}
+                                id={feat.id}
+                                className={feat.class}
+                                style={{ float: (feat.command === "clear" ? 'right' : '' ) }}
+                                onClick={(e) => {handleOnClickEditorChange(e, feat.command, feat.value)}}
+                            >
+                                {feat.icon}
+                            </IconButton>
                         )
                     })
                 }
-                {/* <Tooltip title="Bold" placement="bottom" arrow>
-                    <IconButton 
-                        id="boldButton"
-                        className='text-bold-icon'
-                        onClick={(e) => { handleOnClickEditorChange(e, 'bold') }}
-                    >
-                        <FormatBoldIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Italic" placement="bottom" arrow>
-                    <IconButton 
-                        id="italicButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'italic') }}
-                    >
-                        <FormatItalicIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Underline" placement="bottom" arrow>
-                    <IconButton 
-                        id="underlineButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'underline') }}
-                    >
-                        <FormatUnderlinedIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Strike Through" placement="bottom" arrow>
-                    <IconButton 
-                        id="strikeThroughButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'strikeThrough') }}
-                    >
-                        <StrikethroughSIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Justify Left" placement="bottom" arrow>
-                    <IconButton 
-                        id="justifyLeftButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'justifyLeft') }}
-                    >
-                        <FormatAlignLeftIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Justify Center" placement="bottom" arrow>
-                    <IconButton 
-                        id="justifyCenterButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'justifyCenter') }}
-                    >
-                        <FormatAlignCenterIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Justify Right" placement="bottom" arrow>
-                    <IconButton 
-                        id="justifyRightButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'justifyRight') }}
-                    >
-                        <FormatAlignRightIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Justify Full" placement="bottom" arrow>
-                    <IconButton 
-                        id="justifyFullButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'justifyFull') }}
-                    >
-                        <FormatAlignJustifyIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Horizontal Rule" placement="bottom" arrow>
-                    <IconButton 
-                        id="insertHorizontalRuleButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'insertHorizontalRule') }}
-                    >
-                        <HorizontalRuleIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Increase Font Size" placement="bottom" arrow>
-                    <IconButton 
-                        id="increaseFontSizeButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'increaseFontSize') }}
-                    >
-                        <TextIncreaseIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Decrease Font Size" placement="bottom" arrow>
-                    <IconButton 
-                        id="decreaseFontSizeButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'decreaseFontSize') }}
-                    >
-                        <TextDecreaseIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Blockquote" placement="bottom" arrow>
-                    <IconButton 
-                        id="formatBlockButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'formatBlock', '<PRE>') }}
-                    >
-                        <FormatQuoteIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Create Link" placement="bottom" arrow>
-                    <IconButton 
-                        id="createLinkButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'createLink', 'https://www.google.com/') }}
-                    >
-                        <LinkIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Highlight Text" placement="bottom" arrow>
-                    <IconButton 
-                        id="backColorButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'backColor', 'yellow') }}
-                    >
-                        <HighlightIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Remove Highlight Text" placement="bottom" arrow>
-                    <IconButton 
-                        id="backClearColorButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'backColor', 'transparent') }}
-                    >
-                        <HighlightOffIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Remove All Formatting" placement="bottom" arrow>
-                    <IconButton 
-                        id="removeFormatButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'removeFormat') }}
-                    >
-                        <FormatClearIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Undo" placement="bottom" arrow>
-                    <IconButton 
-                        id="undoButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'undo') }}
-                    >
-                        <UndoIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Redo" placement="bottom" arrow>
-                    <IconButton 
-                        id="RedoButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'redo') }}
-                    >
-                        <RedoIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Superscript" placement="bottom" arrow>
-                    <IconButton 
-                        id="superscriptButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'superscript') }}
-                    >
-                        <SuperscriptIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Subscript" placement="bottom" arrow>
-                    <IconButton 
-                        id="subscriptButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'subscript') }}
-                    >
-                        <SubscriptIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Clear All Text" placement="bottom" arrow>
-                    <IconButton 
-                        style={{float: 'right'}}
-                        id="clearAllButton"
-                        onClick={(e) => { handleOnClickEditorChange(e, 'clear') }}
-                    >
-                        <ClearIcon />
-                    </IconButton>
-                </Tooltip> */}
             </div>
             <Divider />
             <div 

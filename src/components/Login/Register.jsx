@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 //UI
-import { Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
+import { Paper, Stack, TextField, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 //Routers
 import {
@@ -138,9 +138,7 @@ export default function Register() {
             >
               <span onClick={handleClickShowPassword} >{showPassword ? 'Hide Password' : 'Show Password'}</span>
               <span>
-                <Tooltip title="Password should contain minimum 8 characters that includes capital letter, small letter, special character, and number." placement="right" arrow>
-                  <InfoIcon className='info-icon'/>
-                </Tooltip>  
+                <InfoIcon className='info-icon'/>
               </span>
             </p>
             <TextField 
@@ -155,9 +153,7 @@ export default function Register() {
               className="show-password"
             >
               <span>
-                <Tooltip title="Please enter mobile no. should be of 10 digits in valid format. For example: +XX1234567890 / +XX 1234567890 / 1234567890" placement="right" arrow>
-                  <InfoIcon className='info-icon'/>
-                </Tooltip>
+                <InfoIcon className='info-icon'/>
               </span>
             </p>
             <LoadingButton

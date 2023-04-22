@@ -1,6 +1,6 @@
 import axios from "axios";
 import ENV from "../../config.json";
-import * as functions from '../common/common';
+import { refactor } from '../common/common';
 
 export const prepareHeaders = () => {
     let token = !localStorage.getItem('userData') ? '' : JSON.parse(localStorage.getItem('userData')).token;
@@ -13,7 +13,7 @@ export const prepareHeaders = () => {
 export const getLanguages = async (body) => {
     return await axios.get(ENV.API_URL+"languages/getAllLanguages")
     .then((response) => {
-        return functions.refactor(response);
+        return refactor(response);
     })
     .catch((error) => {
         return { code: 101, status: 'F_ERROR', message: error };

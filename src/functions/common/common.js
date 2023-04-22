@@ -83,11 +83,16 @@ export const isEmpty = (text) => {
 }
 
 //Capitalize first letter of each word in given string
-export const capitalizeFirstLetter = (str) => {
+export const capitalizeFirstLetterOfEachWord = (str) => {
     const words = str.split(" ");
     return words.map((word) => { 
         return word[0].toUpperCase() + word.substring(1); 
     }).join(" ");
+}
+
+//Capitalize first letter of each word in given string
+export const capitalizeFirstLetter = (str) => {
+    return str[0].toUpperCase() + str.substring(1);
 }
 
 //Remove all HTML tags from string to check valid string

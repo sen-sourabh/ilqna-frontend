@@ -4,8 +4,8 @@ const snackbarSlice = createSlice({
     name: 'snackbar',
     initialState: {
         isOpen: false,
-        severity: '',
-        message: ''
+        severity: 'success',
+        message: 'All Good.'
     },
     reducers: {
         isOpen: (state, action) => {
