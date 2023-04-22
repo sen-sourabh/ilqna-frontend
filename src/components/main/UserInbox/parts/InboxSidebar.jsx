@@ -48,14 +48,10 @@ export const InboxSidebar = () => {
     <Box sx={{ display: 'flex' }}>
       <Drawer
         variant="permanent"
-        sx={{
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { boxSizing: 'border-box' },
-        }}
         className="inbox-sidebar"
       >
         <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
+        <Box>
             <List>
                 <ListItem key='compose' disablePadding onClick={handleComposeMessage}>
                 <ListItemButton>
@@ -95,8 +91,8 @@ export const InboxSidebar = () => {
             </List>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar style={{ justifyContent: 'space-between' }}>
+      <Box component="main" className='inbox-messages'>
+        <Toolbar>
             <Typography variant="h6" noWrap component="div">
                 { pageName } Toolbar Options
             </Typography>

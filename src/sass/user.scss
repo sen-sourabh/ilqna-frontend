@@ -19,6 +19,9 @@
     justify-content: center;
     width: 100%;
     height: auto;
+    @include media("<=smallPhone") {
+        font-size: 1.2rem;
+    }
 }
 
 .user-image .MuiBadge-badge {

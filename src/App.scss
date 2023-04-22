@@ -6,6 +6,16 @@
     position: relative;
     top: 9px;
     font-size: 1.66rem !important;
+
+    @include media("<=smallPhone") {
+        font-size: 1.3rem !important;
+    }
+
+    @include media(">=smallPhone", "<=mediumPhone") {
+        font-size: 1.3rem !important;
+        padding-left: 1px;
+        padding-right: 1px;
+    }
 }
 
 .nav-link {
@@ -78,9 +88,84 @@
     color: #1976d2 !important;
 }
 
+.filter-dialog {
+    margin-top: 40%;
+    
+    @include media(">=smallPhone", "<=mediumPhone") {
+        margin-top: 80%;
+    }
+    @include media(">=largePhone", "<=tablet") {
+        margin-top: 35%;
+    }
+    
+    @include media(">=tablet", "<=desktop") {
+        margin-top: 35%;
+    }
+}
+
 .filter-dialog > .MuiDialog-container > .MuiPaper-root {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
 
+.filter-dialog-box {
+    display: inline-flex; 
+    z-index: 99999999;
+    box-shadow: "0px 10px 13px 0px rgb(0 0 0 / 6%)";
+    @include media(">=smallPhone", "<=mediumPhone") {
+        // display: inline-flex; 
+        // z-index: 99999999;
+        box-shadow: "0px 10px 13px 0px rgb(0 0 0 / 6%) !important";
+    }
+    @include media(">=largePhone", "<=tablet") {
+        box-shadow: "0px 10px 13px 0px rgb(0 0 0 / 6%) !important";
+    }
+    
+    @include media(">=tablet", "<=desktop") {
+        box-shadow: "0px 10px 13px 0px rgb(0 0 0 / 6%) !important";
+    }
+}
 
+.left-header-content {
+    @include media(">=smallPhone", "<=mediumPhone") {
+        padding: 3% !important;
+        width: 50%;
+    }
+    @include media(">=largePhone", "<=tablet") {
+        padding: 2% !important;
+        width: 77.5%;
+    }
+    
+    @include media(">=tablet", "<=desktop") {
+        padding: 2% !important;
+        width: 77.5%;
+    }
+}
+
+.right-header-content {
+    @include media(">=smallPhone", "<=mediumPhone") {
+        padding: 3% !important;
+    }
+    @include media(">=largePhone", "<=tablet") {
+        padding: 1% !important;
+    }
+    
+    @include media(">=tablet", "<=desktop") {
+        padding: 1% !important;
+    }
+}
+
+.filter-content-data { 
+    overflow-x: hidden;
+    @include media(">=smallPhone", "<=mediumPhone") {
+        padding: 3% !important;
+        overflow-x: hidden;
+    }
+    @include media(">=largePhone", "<=tablet") {
+        padding: 2% !important;
+    }
+    
+    @include media(">=tablet", "<=desktop") {
+        padding: 2% !important;
+    }
+}

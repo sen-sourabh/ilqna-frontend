@@ -9,7 +9,7 @@ import {
 import '../../sass/login.scss';
 
 //UI
-import { Divider, Paper, Stack, TextField, Tooltip, Typography } from '@mui/material';
+import { Divider, Paper, Stack, TextField, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 // import LoginIcon from '@mui/icons-material/Login';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -109,7 +109,7 @@ export default function Login() {
         <Paper
             style={{backgroundColor: 'transparent'}}
             className='login-window'
-            elevation={12}
+            // elevation={12}
         >
           <Typography variant='h4' align='center'>Log In</Typography>
           <Typography variant='h6' align='center'>Continue with us</Typography>
@@ -143,9 +143,7 @@ export default function Login() {
               >
                 <span onClick={handleClickShowPassword} >{showPassword ? 'Hide Password' : 'Show Password'}</span>
                 <span>
-                  <Tooltip title="Password should contain minimum 8 characters that includes capital letter, small letter, special character, and number." placement="right" arrow>
-                    <InfoIcon className='info-icon'/>
-                  </Tooltip>
+                  <InfoIcon className='info-icon'/>
                 </span>
               </p>
               <LoadingButton
@@ -164,18 +162,10 @@ export default function Login() {
               <Divider><small><b><i>CONTINUE WITH</i></b></small></Divider>
           </Stack>
           <div className="login-icon-palette">
-            <Tooltip title="Google" placement="bottom" arrow>
               <GoogleIcon className="login-icon google" />
-            </Tooltip>
-            <Tooltip title="Reddit" placement="bottom" arrow>
               <RedditIcon className="login-icon reddit" />
-            </Tooltip>
-            <Tooltip title="LinkedIn" placement="bottom" arrow>
               <LinkedInIcon className="login-icon linkedin" />
-            </Tooltip>
-            <Tooltip title="GitHub" placement="bottom" arrow>
               <GitHubIcon className="login-icon github" />
-            </Tooltip>
           </div>
         </Paper>
       </div>

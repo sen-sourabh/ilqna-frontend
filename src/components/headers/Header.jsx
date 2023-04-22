@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Drawer, AppBar, Toolbar, Typography, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Badge, Box, Tooltip } from '@mui/material';
+import { Drawer, AppBar, Toolbar, Typography, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Badge, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -20,6 +20,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ChatIcon from '@mui/icons-material/Chat';
 import LoginIcon from '@mui/icons-material/Login';
+import { RightMenu } from './parts/RightMenu';
 
 const filterPage = ['/', '/user-questions', '/user-bookmark', '/notification'];
 
@@ -109,64 +110,7 @@ export default function Header() {
           </Typography>
           {/* <Button color="inherit">Login</Button> */}
           <Box sx={{ flexGrow: 1 }} />
-          {
-            localStorage.getItem('isLogin') ? 
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                  <Tooltip title="Call Request" placement="bottom" arrow>
-                    <Link className='header-icon' to="/user-call-request">
-                      <Badge badgeContent={2} color="error">
-                        <PhoneIcon />
-                      </Badge>
-                    </Link>
-                  </Tooltip>
-                </IconButton>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                  <Tooltip title="New Message" placement="bottom" arrow>
-                    <Link className='header-icon' to="/user-chats">
-                      <Badge badgeContent={8} color="error">
-                        <ChatIcon />
-                      </Badge>
-                    </Link>
-                  </Tooltip>
-                </IconButton>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                  <Tooltip title="Inbox" placement="bottom" arrow>
-                    <Link className='header-icon' to="/user-inbox">
-                      <Badge badgeContent={4} color="error">
-                        <MailIcon />
-                      </Badge>
-                    </Link>
-                  </Tooltip>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Tooltip title="Notifications" placement="bottom" arrow>
-                    <Link className='header-icon' to="/user-notification">
-                      <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
-                      </Badge>
-                    </Link>
-                  </Tooltip>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Tooltip title="Bookmarks" placement="bottom" arrow>
-                    <Link className='header-icon' to="/user-bookmark">
-                      <BookmarkIcon />
-                    </Link>
-                  </Tooltip>
-                </IconButton>
-              </Box>
-            :
-              null
-          }
+          <RightMenu />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -180,7 +124,7 @@ export default function Header() {
           onClick={toggleDrawer('left', false)}
           onKeyDown={toggleDrawer('left', false)}
         >
-          <Typography className="drawer-title" sx={{ flexGrow: 1 }}>
+          <Typography className='drawer-title' sx={{ flexGrow: 1 }}>
             ILQNA
           </Typography>
           <List>

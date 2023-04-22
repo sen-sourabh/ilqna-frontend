@@ -4,25 +4,33 @@
 .inbox-sidebar {
     width: 240px;
 
-    @include mediaMaxWidth(800px){
-        width: 35px !important;
+    @include media(">=smallPhone", "<=mediumPhone") {
+        display: none;
+    }
+}
+
+.inbox-messages {
+    width: 100%;
+    overflow-x: hidden;
+    @include media(">=smallPhone", "<=mediumPhone") {
+        
     }
 }
 
 .list-name {
     display: block;
-    @include mediaMaxWidth(800px) {
-        display: none;
-    }
+    // @include mediaMaxWidth(800px) {
+    //     display: none;
+    // }
 }
 
 .inbox-sidebar > .MuiPaper-root {
     z-index: auto;
     width: 240px;
 
-    @include mediaMaxWidth(800px){
-        width: 56px !important;
-    }
+    // @include mediaMaxWidth(800px){
+    //     width: 56px !important;
+    // }
 }
 
 // .sort-select {

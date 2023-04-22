@@ -39,21 +39,65 @@
     cursor: pointer;
     font-weight: 500;
     text-overflow: ellipsis;
+
+    @include media("<=smallPhone") {
+        font-size: 1rem;
+    }
+
+    @include media(">=smallPhone", "<=mediumPhone") {
+        font-size: 1rem;
+    }
+
+    @include media(">=largePhone", "<=tablet") {
+        font-size: 1.2rem;
+    }
+    
+    @include media(">=tablet", "<=desktop") {
+        font-size: 1.2rem;
+    }
+
 }
 
 .home-h6 {
     margin-top: 10px;
     margin-bottom: 14px;
+    @include media("<=smallPhone") {
+        font-size: 0rem;
+    }
 }
 
 .home-span {
     font-size: .9rem;
     color: #3e5060;
+    font-weight: normal;
+    @include media("<=smallPhone") {
+        margin-right: 1px;
+        font-size: 0.7rem;
+    }
+
+    @include media(">=smallPhone", "<=mediumPhone") {
+        font-size: 0.7rem;
+        font-weight: normal;
+    }
+
+    @include media(">=largePhone", "<=tablet") {
+        font-size: 0.8rem;
+        font-weight: normal;
+    }
+    
+    @include media(">=tablet", "<=desktop") {
+        font-size: 0.8rem;
+        font-weight: normal;
+    }
 }
 
 .filter-head {
     padding-top: 1%;
     padding-bottom: 1%;
+    @include media(">=smallPhone", "<=mediumPhone") {
+        padding-top: 3%;
+        padding-bottom: 3%;
+    }
 }
 
 .filter-chip {
@@ -62,8 +106,8 @@
 }
 
 .active-filter {
-    background-color: green !important;
     color: whitesmoke !important;
+    background-color: green !important;
     font-weight: 600 !important;
 }
 
@@ -73,8 +117,8 @@
 }
 
 .inactive-filter:hover {
-    background-color: #00800099 !important;
     color: whitesmoke !important;
+    background-color: #00800099 !important;
 }
 
 .filter-clear {
@@ -99,14 +143,46 @@
     padding: 0px !important;
     border-radius: 100px !important;
     margin-right: 2px;
+    @include media("<=smallPhone") {
+        height: 16px !important;
+        margin-right: 5px !important;
+    }
+    @include media(">=smallPhone", "<=mediumPhone") {
+        margin-right: 0px;
+    }
+
+    @include media(">=largePhone", "<=tablet") {
+        margin-right: 5px !important;
+    }
+    
+    @include media(">=tablet", "<=desktop") {
+        margin-right: 5px !important;
+    }
 }
 
 .home-chip > span {
     font-size: 0.7rem !important;
+    @include media(">=smallPhone", "<=mediumPhone") {
+        // margin-right: 0px;
+    }
 }
 
 .regular-chip > span {
     font-size: 0.7rem !important;
+    @include media("<=smallPhone") {
+        font-size: 0rem !important;
+    }
+    @include media(">=smallPhone", "<=mediumPhone") {
+        font-size: 0.6rem !important;
+    }
+
+    @include media(">=largePhone", "<=tablet") {
+        font-size: 0.7rem !important;
+    }
+    
+    @include media(">=tablet", "<=desktop") {
+        font-size: 0.7rem !important;
+    }
 }
 
 .notify-question {
@@ -116,6 +192,24 @@
 
 .bookmarked {
     color: #FFD700;
+}
+
+.draft-status {
+    float: right;
+
+    @include media("<=smallPhone") {
+        display: none;
+    }
+    @include media(">=smallPhone", "<=mediumPhone") {
+        display: none;
+    }
+    @include media(">=largePhone", "<=tablet") {
+        // display: none;
+    }
+    
+    @include media(">=tablet", "<=desktop") {
+        // display: none;
+    }
 }
 
 // .bg-success {
@@ -137,9 +231,9 @@
 //     color: whitesmoke;
 // }
 
-@media only screen and (max-width: 400px) {
-    .home {
-        margin-top: 18%;
-        margin-bottom: 12%;
-    }
-}
+// @media only screen and (max-width: 400px) {
+//     .home {
+//         margin-top: 18%;
+//         margin-bottom: 12%;
+//     }
+// }

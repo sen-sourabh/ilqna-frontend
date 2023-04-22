@@ -3,6 +3,7 @@ import React from 'react'
 import { openAbout } from '../../redux/dialogRedux/about-slice';
 import LOGO from '../../images/Team Q&A-2.png'
 import { useDispatch, useSelector } from 'react-redux';
+import '../../sass/about.scss';
 
 export const About = () => {
     const dispatch = useDispatch();
@@ -17,7 +18,7 @@ export const About = () => {
         <DialogTitle>ILQNA <span className='version-info'>V1.0.0</span></DialogTitle>
         <DialogContent>
             <DialogContentText>
-            <img style={{height: '300px'}} src={LOGO} alt='LOGO' />
+            <img className='about-body' src={LOGO} alt='LOGO' />
             {/* <SelfImprovementIcon className='about-icon' /> */}
             </DialogContentText>
         </DialogContent>

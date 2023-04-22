@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 //UI
-import { Tooltip, TextField, Typography } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -71,9 +71,7 @@ export const Verification = (props) => {
 			/>
 			</DialogContent>
 			<DialogActions>
-			<Tooltip title={`Try agian after ${ verifyTimerChange } seconds`} placement="top" arrow>
-				<Typography variant='h6' style={{cursor: 'default', userSelect: 'none'}}>{ verifyTimerChange }</Typography>
-			</Tooltip>
+			<Typography variant='h6' style={{cursor: 'default', userSelect: 'none'}}>{ verifyTimerChange }</Typography>
 			<Button onClick={handleAutoCloseVerify}>Cancel</Button>
 			<Button variant="contained" onClick={handleVerify}>Verify</Button>
 			</DialogActions>

@@ -7,7 +7,9 @@ import { setQuestionData } from '../../../redux/questionRedux/question-slice';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Stack } from '@mui/system';
-import '../../../sass/home.scss'
+import '../../../sass/home.scss';
+import '../../../sass/filter.scss';
+import { fetchAllBookmarkQuestions } from '../../../functions/APIs/bookmark-api';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -54,10 +56,16 @@ export const Filter = ({ category = [], language = [] }) => {
 
     //API to get filter data
     const getFilterQuestion = async (body = {}) => {
+      let response;
       if(userData?._id && window.location.pathname.includes('/user-questions')) {
         body = {...body, questionUserId: userData?._id}
+        response = await fetchAllQuestions(body);
+      } else if(userData?._id && window.location.pathname.includes('/user-bookmark')) {
+        body = {...body, questionUserId: userData?._id}
+        response = await fetchAllBookmarkQuestions(body);
+      } else {
+        response = await fetchAllQuestions(body);
       }
-      const response = await fetchAllQuestions(body);
       dispatch(setQuestionData(response.data))
       dispatch(openFilter(false));
       setLoading(false)
@@ -107,23 +115,21 @@ export const Filter = ({ category = [], language = [] }) => {
 
 
   return (
-    <Dialog 
-       
+    <Dialog
         fullScreen
-        style={{marginTop: '20%', maxHeight: '60%'}}
         className="filter-dialog"
         open={isOpen}
         onClose={handleResetFilter}
         TransitionComponent={Transition}
     >
-        <div style={{display: 'inline-flex', zIndex: '99999999', boxShadow: '0px 10px 13px 0px rgb(0 0 0 / 6%)'}}>
-          <DialogTitle style={{width: '50%' }}>
-            <Typography variant='h5' align='left'>Filter</Typography>
-            <DialogContentText>
+        <div className='filter-dialog-box'>
+          <DialogTitle className='left-header-content'>
+            <Typography variant='h5' align='left' className='main-filter-name'>Filter</Typography>
+            <DialogContentText className='main-filter-caption'>
                 Filter will be applied for current page...
             </DialogContentText>
           </DialogTitle>
-          <DialogActions style={{float: 'right', width: '44%' }}>
+          <DialogActions className='right-header-content'>
               <LoadingButton 
                 onClick={handleResetFilter}
                 loading={loading}
@@ -139,7 +145,7 @@ export const Filter = ({ category = [], language = [] }) => {
               </LoadingButton>
           </DialogActions>
         </div>
-        <DialogContent style={{paddingTop: '0px', overflowX: 'hidden'}}>            
+        <DialogContent className='filter-content-data'>            
             <TextField 
                 id="standard-basic" 
                 label="Search with text..." 
