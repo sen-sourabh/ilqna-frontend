@@ -112,7 +112,7 @@ export default function User() {
             <Typography 
               className="user-title"
             >
-              { functions.capitalizeFirstLetter(username) }
+              { username }
               <EditIcon
                   className='user-title-icon'
                   onClick={handleOpenUsername}
@@ -122,7 +122,7 @@ export default function User() {
             <Typography
               className='caption-text'
             >
-              {designation}, {company}
+              { designation ? designation + ', ' + company : company ? company : '' }
             </Typography>
             <Grid className="ask-section" container spacing={1} columns={12}>
               <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>

@@ -9,7 +9,8 @@ body {
     sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f9f9f9;  //#f1f3f4;
+  //background-color: #f9f9f9;  //#f1f3f4;
+  background-color: white;
 
   @include media("<=smallPhone") {
     background-color: red;
@@ -32,7 +33,8 @@ body {
   }
 
   @include media(">=desktop", "<=largeDesktop") {
-    background-color: #80808054;
+    // background-color: #80808054;
+    background-color: white;
   }
   
   @include media(">=largeDesktop", "<=TV") {

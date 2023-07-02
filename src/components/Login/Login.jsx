@@ -78,7 +78,9 @@ export default function Login() {
     let loginData = {
       email,
       password,
-      loginDate: new Date().toISOString()
+      loginDate: new Date().toISOString(),
+      ipAddress: localStorage.getItem('ipLocationData') ? JSON.parse(localStorage.getItem('ipLocationData')).ipAddress : null,
+      location: localStorage.getItem('ipLocationData') ? JSON.parse(localStorage.getItem('ipLocationData')).location : null,
     }
     await signInWithEmailAndPassword(loginData).then((res) => {
       signInSuccess(res);

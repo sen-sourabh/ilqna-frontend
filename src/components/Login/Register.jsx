@@ -79,6 +79,8 @@ export default function Register() {
       email,
       password,
       phone,
+      ipAddress: localStorage.getItem('ipLocationData') ? JSON.parse(localStorage.getItem('ipLocationData')).ipAddress : null,
+      location: localStorage.getItem('ipLocationData') ? JSON.parse(localStorage.getItem('ipLocationData')).location : null,
     };
     await signUpWithEmailAndPassword(newUserData).then((res) => {
       signUpSuccess(res);
