@@ -1,171 +1,171 @@
 @import 'index';
 
 .svg-icon {
-    padding-left: 10px;
-    padding-right: 3px;
-    position: relative;
-    top: 9px;
-    font-size: 1.66rem !important;
+  padding-left: 10px;
+  padding-right: 3px;
+  position: relative;
+  top: 9px;
+  font-size: 1.66rem !important;
 
-    @include media("<=smallPhone") {
-        font-size: 1.3rem !important;
-    }
+  @include media('<=smallPhone') {
+    font-size: 1.3rem !important;
+  }
 
-    @include media(">=smallPhone", "<=mediumPhone") {
-        font-size: 1.3rem !important;
-        padding-left: 1px;
-        padding-right: 1px;
-    }
+  @include media('>=smallPhone', '<=mediumPhone') {
+    font-size: 1.3rem !important;
+    padding-left: 1px;
+    padding-right: 1px;
+  }
 }
 
 .nav-link {
+  padding-inline: 0%;
+  @media screen and (max-width: $small) {
     padding-inline: 0%;
-    @media screen and (max-width: $small) {
-        padding-inline: 0%;
-    }
-    @media screen and (min-width: $medium) {
+  }
+  @media screen and (min-width: $medium) {
     //do Smth
-    }
+  }
 }
 
 .h-scroller {
-    background-color: #333;
-    overflow: auto;
-    // white-space: nowrap;
+  background-color: #333;
+  overflow: auto;
+  // white-space: nowrap;
 }
-  
+
 .h-scroller {
-    display: inline-flex;
-    color: white;
-    text-align: center;
-    // padding: 14px;
-    // text-decoration: none;
+  display: inline-flex;
+  color: white;
+  text-align: center;
+  // padding: 14px;
+  // text-decoration: none;
 }
 
 .custom-loader {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transform: -webkit-translate(-50%, -50%);
-    transform: -moz-translate(-50%, -50%);
-    transform: -ms-translate(-50%, -50%);
-    z-index: 9999;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform: -webkit-translate(-50%, -50%);
+  transform: -moz-translate(-50%, -50%);
+  transform: -ms-translate(-50%, -50%);
+  z-index: 9999;
 }
 
 .bg-success {
-    // background-color: #0fe10f !important;
-    background-color: #01b101 !important;
-    color: white !important;
+  // background-color: #0fe10f !important;
+  background-color: #01b101 !important;
+  color: white !important;
 }
 
 .bg-error {
-    // background-color: #ff7c7c !important;
-    background-color: #ff4646 !important;
-    color: white !important;
+  // background-color: #ff7c7c !important;
+  background-color: #ff4646 !important;
+  color: white !important;
 }
 
 .bg-primary {
-    // background-color: #1976d2 !important;
-    background-color: #006cd8 !important;
-    color: white !important;
+  // background-color: #1976d2 !important;
+  background-color: #006cd8 !important;
+  color: white !important;
 }
 
 .bg-warning {
-    background-color: #FFD700 !important;
-    color: #0e1318 !important;
+  background-color: #ffd700 !important;
+  color: #0e1318 !important;
 }
 
 .icon-color {
-    color: white !important;
+  color: white !important;
 }
 
 .app-navigation {
-    position: sticky !important;
-    bottom: 0px;
-    background-color: #f9f9f9 !important;
-    align-items: center;
-    color: #1976d2 !important;
+  position: sticky !important;
+  bottom: 0px;
+  background-color: #f9f9f9 !important;
+  align-items: center;
+  color: #1976d2 !important;
 }
 
 .filter-dialog {
-    margin-top: 40%;
-    
-    @include media(">=smallPhone", "<=mediumPhone") {
-        margin-top: 80%;
-    }
-    @include media(">=largePhone", "<=tablet") {
-        margin-top: 35%;
-    }
-    
-    @include media(">=tablet", "<=desktop") {
-        margin-top: 35%;
-    }
+  margin-top: 40%;
+
+  @include media('>=smallPhone', '<=mediumPhone') {
+    margin-top: 80%;
+  }
+  @include media('>=largePhone', '<=tablet') {
+    margin-top: 35%;
+  }
+
+  @include media('>=tablet', '<=desktop') {
+    margin-top: 35%;
+  }
 }
 
 .filter-dialog > .MuiDialog-container > .MuiPaper-root {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .filter-dialog-box {
-    display: inline-flex; 
-    z-index: 99999999;
-    box-shadow: "0px 10px 13px 0px rgb(0 0 0 / 6%)";
-    @include media(">=smallPhone", "<=mediumPhone") {
-        // display: inline-flex; 
-        // z-index: 99999999;
-        box-shadow: "0px 10px 13px 0px rgb(0 0 0 / 6%) !important";
-    }
-    @include media(">=largePhone", "<=tablet") {
-        box-shadow: "0px 10px 13px 0px rgb(0 0 0 / 6%) !important";
-    }
-    
-    @include media(">=tablet", "<=desktop") {
-        box-shadow: "0px 10px 13px 0px rgb(0 0 0 / 6%) !important";
-    }
+  display: inline-flex;
+  z-index: 99999999;
+  box-shadow: '0px 10px 13px 0px rgb(0 0 0 / 6%)';
+  @include media('>=smallPhone', '<=mediumPhone') {
+    // display: inline-flex;
+    // z-index: 99999999;
+    box-shadow: '0px 10px 13px 0px rgb(0 0 0 / 6%) !important';
+  }
+  @include media('>=largePhone', '<=tablet') {
+    box-shadow: '0px 10px 13px 0px rgb(0 0 0 / 6%) !important';
+  }
+
+  @include media('>=tablet', '<=desktop') {
+    box-shadow: '0px 10px 13px 0px rgb(0 0 0 / 6%) !important';
+  }
 }
 
 .left-header-content {
-    @include media(">=smallPhone", "<=mediumPhone") {
-        padding: 3% !important;
-        width: 50%;
-    }
-    @include media(">=largePhone", "<=tablet") {
-        padding: 2% !important;
-        width: 77.5%;
-    }
-    
-    @include media(">=tablet", "<=desktop") {
-        padding: 2% !important;
-        width: 77.5%;
-    }
+  @include media('>=smallPhone', '<=mediumPhone') {
+    padding: 3% !important;
+    width: 50%;
+  }
+  @include media('>=largePhone', '<=tablet') {
+    padding: 2% !important;
+    width: 77.5%;
+  }
+
+  @include media('>=tablet', '<=desktop') {
+    padding: 2% !important;
+    width: 77.5%;
+  }
 }
 
 .right-header-content {
-    @include media(">=smallPhone", "<=mediumPhone") {
-        padding: 3% !important;
-    }
-    @include media(">=largePhone", "<=tablet") {
-        padding: 1% !important;
-    }
-    
-    @include media(">=tablet", "<=desktop") {
-        padding: 1% !important;
-    }
+  @include media('>=smallPhone', '<=mediumPhone') {
+    padding: 3% !important;
+  }
+  @include media('>=largePhone', '<=tablet') {
+    padding: 1% !important;
+  }
+
+  @include media('>=tablet', '<=desktop') {
+    padding: 1% !important;
+  }
 }
 
-.filter-content-data { 
+.filter-content-data {
+  overflow-x: hidden;
+  @include media('>=smallPhone', '<=mediumPhone') {
+    padding: 3% !important;
     overflow-x: hidden;
-    @include media(">=smallPhone", "<=mediumPhone") {
-        padding: 3% !important;
-        overflow-x: hidden;
-    }
-    @include media(">=largePhone", "<=tablet") {
-        padding: 2% !important;
-    }
-    
-    @include media(">=tablet", "<=desktop") {
-        padding: 2% !important;
-    }
+  }
+  @include media('>=largePhone', '<=tablet') {
+    padding: 2% !important;
+  }
+
+  @include media('>=tablet', '<=desktop') {
+    padding: 2% !important;
+  }
 }

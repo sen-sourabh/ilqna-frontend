@@ -2,55 +2,55 @@
 @import '../App.scss';
 
 .logo {
-    width: 5%;
-    cursor: pointer;
+  width: 5%;
+  cursor: pointer;
 }
 
 .seachfield {
-    border: 1px solid black;
+  border: 1px solid black;
 }
 
 .filter {
-    position: fixed;
-    left: 54.5%;
-    cursor: pointer;
+  position: fixed;
+  left: 54.5%;
+  cursor: pointer;
 }
 
 .drawer-option-footer {
-    position: relative;
-    bottom: 0;
+  position: relative;
+  bottom: 0;
 }
 
 .drawer-title {
-    width: 220px;
-    margin: 0%;
-    padding: 9px;
-    text-align: center;
-    background-color: #1976d2;
-    color: #FFFFFF;
-    font-size: 1.9rem !important;
+  width: 220px;
+  margin: 0%;
+  padding: 9px;
+  text-align: center;
+  background-color: #1976d2;
+  color: #ffffff;
+  font-size: 1.9rem !important;
 
-    @include media("<=smallPhone") {
-        font-weight: 500 !important;
-        font-size: 1.25rem !important;
-        line-height: 1.6 !important;
-        letter-spacing: 0.0075em !important;
-        padding: 12px;
-    }
+  @include media('<=smallPhone') {
+    font-weight: 500 !important;
+    font-size: 1.25rem !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.0075em !important;
+    padding: 12px;
+  }
 
-    @include media(">=smallPhone", "<=mediumPhone") {
-        font-weight: 500 !important;
-        font-size: 1.25rem !important;
-        line-height: 1.6 !important;
-        letter-spacing: 0.0075em !important;
-        padding: 12px;
-    }
+  @include media('>=smallPhone', '<=mediumPhone') {
+    font-weight: 500 !important;
+    font-size: 1.25rem !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.0075em !important;
+    padding: 12px;
+  }
 }
 
 .drawer-content {
-    text-align: center;
+  text-align: center;
 }
 
 .header-icon {
-    color: #FFFFFF;
+  color: #ffffff;
 }

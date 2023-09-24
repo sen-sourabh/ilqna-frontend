@@ -1,6 +1,6 @@
 {
-    "API_URL": "http://localhost:3001/ilqna/", 
-    "BASE_URL": "http://localhost:3000",
-    "STACKGEO_API_KEY": "5a493b419e74b8386bccb23d8bd57706",
-    "STACKGEO_BASE_URL": "http://ip-api.com/json/"
+  "API_URL": "http://localhost:3001/ilqna/",
+  "BASE_URL": "http://localhost:3000",
+  "STACKGEO_API_KEY": "5a493b419e74b8386bccb23d8bd57706",
+  "STACKGEO_BASE_URL": "http://ip-api.com/json/"
 }

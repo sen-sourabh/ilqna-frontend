@@ -5,15 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './redux/store';
 import { Provider } from 'react-redux';
-import * as serviceWorker from "./serviceWorker";
+import * as serviceWorker from './serviceWorker';
 import setupLocatorUI from '@locator/runtime';
 
 const rootNode = document.getElementById('root');
-ReactDOM.render(  <React.StrictMode>
-  <Provider store={store}>
-    <App />
-  </Provider>
-</React.StrictMode>, rootNode);
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  rootNode,
+);
 
 // const root = createPortal(document.getElementById('root'));
 // root.render(

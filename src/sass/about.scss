@@ -2,7 +2,7 @@
 @import '../App.scss';
 
 .about-body {
-    @include media(">=smallPhone", "<=mediumPhone") {
-        height: 280px;
-    }
+  @include media('>=smallPhone', '<=mediumPhone') {
+    height: 280px;
+  }
 }

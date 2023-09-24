@@ -2,19 +2,19 @@
 @import '../App.scss';
 
 .filter {
-    // margin-top: 6%;
-    margin-bottom: 4%;
-    cursor: default;
-    user-select: none;
+  // margin-top: 6%;
+  margin-bottom: 4%;
+  cursor: default;
+  user-select: none;
 }
 
 .main-filter-name {
-    @include media(">=smallPhone", "<=mediumPhone") {
-        font-size: 1.3rem !important;
-    }
+  @include media('>=smallPhone', '<=mediumPhone') {
+    font-size: 1.3rem !important;
+  }
 }
 .main-filter-caption {
-    @include media(">=smallPhone", "<=mediumPhone") {
-        font-size: 0.7rem !important;
-    }
+  @include media('>=smallPhone', '<=mediumPhone') {
+    font-size: 0.7rem !important;
+  }
 }

@@ -1,14 +1,14 @@
 const isValidPhone = (phone) => {
-    if(!isEmpty(phone)) return false;
-    return phone.match(/^(\+\d{1,3}[- ]?)?\d{10}$/);
-}
+  if (!isEmpty(phone)) return false;
+  return phone.match(/^(\+\d{1,3}[- ]?)?\d{10}$/);
+};
 
 const isEmpty = (phone) => {
-    if(phone === null || phone === '' || phone === undefined) return false;
-    return true;
-}
+  if (phone === null || phone === '' || phone === undefined) return false;
+  return true;
+};
 
 const Phone = {
-    isValidPhone
-}
+  isValidPhone,
+};
 export default Phone;

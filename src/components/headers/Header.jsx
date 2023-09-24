@@ -1,6 +1,19 @@
-import React, { Fragment, useEffect, useState} from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Drawer, AppBar, Toolbar, Typography, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Badge, Box } from '@mui/material';
+import {
+  Drawer,
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Badge,
+  Box,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -29,13 +42,13 @@ export default function Header() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const [state, setState] = useState({
-    left: false
+    left: false,
   });
   const authPages = ['/login', '/register', '/forgot-password'];
 
   useEffect(() => {
     // initComponent();
-  })
+  });
 
   const initComponent = () => {
     // if(localStorage.getItem('isLogin')) {
@@ -43,20 +56,23 @@ export default function Header() {
     //     navigate('/home');
     //   }
     // } else {
-      // navigate('/')
+    // navigate('/')
     // }
-  }
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (authPages.includes(window.location.pathname) || (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift'))) {
+    if (
+      authPages.includes(window.location.pathname) ||
+      (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift'))
+    ) {
       return;
     }
     setState({ left: open });
   };
 
   const handleClickOpenFilter = () => {
-    if(filterPage.includes(window.location.pathname)) {
-      dispatch(openFilter(true))
+    if (filterPage.includes(window.location.pathname)) {
+      dispatch(openFilter(true));
     }
   };
 
@@ -70,7 +86,9 @@ export default function Header() {
 
   const handleClickLogout = () => {
     dispatch(prepareSnackbar({ open: true, severity: 'success', message: 'Logout successfully.' }));
-    setTimeout(() => { dispatch(resetSnackbar()) }, functions.snackbarTimer)
+    setTimeout(() => {
+      dispatch(resetSnackbar());
+    }, functions.snackbarTimer);
     dispatch(isLogout(false));
     navigate('/');
     functions.goingForLogout();
@@ -79,11 +97,11 @@ export default function Header() {
   const handleClickLogin = () => {
     navigate('/login');
     functions.goingForLogout();
-  }
+  };
 
   const handleLogoClick = () => {
-    navigate('/')
-  }
+    navigate('/');
+  };
 
   return (
     <Fragment>
@@ -99,12 +117,14 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography  
-            style={{cursor: 'pointer'}}
-            variant="h6" 
-            component="div" 
-            sx={{ flexGrow: 1 }} 
-            onClick={() => {handleLogoClick()}}
+          <Typography
+            style={{ cursor: 'pointer' }}
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+            onClick={() => {
+              handleLogoClick();
+            }}
           >
             ILQNA
           </Typography>
@@ -113,71 +133,65 @@ export default function Header() {
           <RightMenu />
         </Toolbar>
       </AppBar>
-      <Drawer
-        anchor='left'
-        open={state['left']}
-        onClose={toggleDrawer('left', false)}
-      >
+      <Drawer anchor="left" open={state['left']} onClose={toggleDrawer('left', false)}>
         <Box
-          className='drawer-content'
+          className="drawer-content"
           role="presentation"
           onClick={toggleDrawer('left', false)}
           onKeyDown={toggleDrawer('left', false)}
         >
-          <Typography className='drawer-title' sx={{ flexGrow: 1 }}>
+          <Typography className="drawer-title" sx={{ flexGrow: 1 }}>
             ILQNA
           </Typography>
           <List>
-            <ListItem key='filter' disablePadding onClick={handleClickOpenFilter}>
+            <ListItem key="filter" disablePadding onClick={handleClickOpenFilter}>
               <ListItemButton>
                 <ListItemIcon>
                   <FilterListIcon />
                 </ListItemIcon>
-                <ListItemText primary='Filter' className='drawer-option' />
+                <ListItemText primary="Filter" className="drawer-option" />
               </ListItemButton>
             </ListItem>
-            {
-              localStorage.getItem('isLogin') && 
-                <ListItem key='change-password' disablePadding onClick={handleOpenChangePassword}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <PasswordIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Change Password' className='drawer-option' />
-                  </ListItemButton>
-                </ListItem>
-            }
-            <ListItem key='about' disablePadding onClick={handleClickOpenAbout}>
+            {localStorage.getItem('isLogin') && (
+              <ListItem key="change-password" disablePadding onClick={handleOpenChangePassword}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <PasswordIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Change Password" className="drawer-option" />
+                </ListItemButton>
+              </ListItem>
+            )}
+            <ListItem key="about" disablePadding onClick={handleClickOpenAbout}>
               <ListItemButton>
                 <ListItemIcon>
                   <InfoIcon />
                 </ListItemIcon>
-                <ListItemText primary='About' className='drawer-option' />
+                <ListItemText primary="About" className="drawer-option" />
               </ListItemButton>
             </ListItem>
-            {
-              localStorage.getItem('isLogin') ?
-                <ListItem key='logout' disablePadding onClick={handleClickLogout}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <ExitToAppIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Logout' className='drawer-option' />
-                  </ListItemButton>
-                </ListItem>
-              :
-                <ListItem key='login' disablePadding onClick={handleClickLogin}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <LoginIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Login' className='drawer-option' />
-                  </ListItemButton>
-                </ListItem>
-            }
+            {localStorage.getItem('isLogin') ? (
+              <ListItem key="logout" disablePadding onClick={handleClickLogout}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ExitToAppIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" className="drawer-option" />
+                </ListItemButton>
+              </ListItem>
+            ) : (
+              <ListItem key="login" disablePadding onClick={handleClickLogin}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <LoginIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Login" className="drawer-option" />
+                </ListItemButton>
+              </ListItem>
+            )}
           </List>
         </Box>
       </Drawer>
     </Fragment>
-  )
+  );
 }
