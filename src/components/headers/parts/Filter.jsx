@@ -1,3 +1,5 @@
+import ClearIcon from '@mui/icons-material/Clear';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
   Chip,
   Dialog,
@@ -9,8 +11,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { Stack } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllBookmarkQuestions } from '../../../functions/APIs/bookmark-api';
 import { fetchAllQuestions } from '../../../functions/APIs/question-api';
 import {
   openFilter,
@@ -19,12 +23,8 @@ import {
   setSelectedLanguage,
 } from '../../../redux/dialogRedux/filter-slice';
 import { setQuestionData } from '../../../redux/questionRedux/question-slice';
-import LoadingButton from '@mui/lab/LoadingButton';
-import ClearIcon from '@mui/icons-material/Clear';
-import { Stack } from '@mui/system';
-import '../../../sass/home.scss';
 import '../../../sass/filter.scss';
-import { fetchAllBookmarkQuestions } from '../../../functions/APIs/bookmark-api';
+import '../../../sass/home.scss';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -168,9 +168,9 @@ export const Filter = ({ category = [], language = [] }) => {
         />
         {category.length != 0 && (
           <Typography variant="h6" align="left" className="filter-head">
-            Category{' '}
+            <strong>Category </strong>
             <span>
-              {selectedCategory}
+              {/* {selectedCategory} */}
               <ClearIcon className="filter-clear" onClick={() => handleClearCategoryFilter()} />
             </span>
           </Typography>
@@ -194,9 +194,9 @@ export const Filter = ({ category = [], language = [] }) => {
         </Stack>
         {language.length != 0 && (
           <Typography variant="h6" align="left" className="filter-head">
-            Language{' '}
+            <strong>Language </strong>
             <span>
-              {selectedLanguage}
+              {/* {selectedLanguage} */}
               <ClearIcon className="filter-clear" onClick={() => handleClearLanguageFilter()} />
             </span>
           </Typography>

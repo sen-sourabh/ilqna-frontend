@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { Avatar, Badge, Typography } from '@mui/material';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
+import * as React from 'react';
 import { capitalizeFirstLetter, generateRandomColor } from '../../functions/common/common';
 import '../../sass/qna.scss';
 
@@ -67,7 +67,7 @@ export const TooltipProfileCard = ({ userData }) => {
       </div>
       <div className="qna-user-info">
         <Typography variant="subtitle2">
-          <b>{capitalizeFirstLetter(userData?.username)}</b>
+          <b>{userData?.username}</b>
         </Typography>
         <Typography variant="caption">{capitalizeFirstLetter(userData?.designation)}</Typography>
       </div>

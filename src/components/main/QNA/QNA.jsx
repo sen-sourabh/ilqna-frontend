@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from 'react';
 //UI
-import { Typography, Avatar, Chip } from '@mui/material';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown';
-import { Divider } from '@mui/material';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import CommentIcon from '@mui/icons-material/Comment';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import TodayIcon from '@mui/icons-material/Today';
-import { useNavigate } from 'react-router-dom';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { Avatar, Chip, Divider, Typography } from '@mui/material';
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
-import CloseIcon from '@mui/icons-material/Close';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import CheckIcon from '@mui/icons-material/Check';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useNavigate } from 'react-router-dom';
 
 //SCSS
-import '../../../sass/qna.scss';
 import { LoadingButton } from '@mui/lab';
+import '../../../sass/qna.scss';
 
 //Common Functions
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addAnswer,
+  fetchAllAnswersByQuestionId,
+  updateAnswer,
+} from '../../../functions/APIs/answer-api';
+import { updateBookmark } from '../../../functions/APIs/bookmark-api';
+import { updateRating } from '../../../functions/APIs/rating-api';
 import {
   capitalizeFirstLetter,
   checkIsBookmarkedByLoggedInUser,
@@ -30,18 +37,10 @@ import {
   removeTags,
   snackbarTimer,
 } from '../../../functions/common/common';
-import { NeatEditor } from '../../NeatEditor/NeatEditor';
-import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../Loaders/loader';
-import {
-  addAnswer,
-  fetchAllAnswersByQuestionId,
-  updateAnswer,
-} from '../../../functions/APIs/answer-api';
 import { setAnswerData } from '../../../redux/answerRedux/answer-slice';
 import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
-import { updateRating } from '../../../functions/APIs/rating-api';
-import { updateBookmark } from '../../../functions/APIs/bookmark-api';
+import Loader from '../../Loaders/loader';
+import { NeatEditor } from '../../NeatEditor/NeatEditor';
 import { HtmlTooltip, TooltipProfileCard } from '../../Tooltips/HtmlTooltip';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -236,6 +235,9 @@ export default function QNA(props) {
         <>
           <div className="qna-question-list">
             <h3 className="qna-home-h3">{capitalizeFirstLetter(answerData[0]?.question)}</h3>
+            <div>
+              {answerData[0].whatYouHaveTried ? generateHTML(answerData[0].whatYouHaveTried) : null}
+            </div>
             <h6 className="qna-home-h6">
               <span className="qna-home-span">
                 <Chip
@@ -286,22 +288,31 @@ export default function QNA(props) {
                 <>
                   <Divider variant="middle" />
                   <div className="qna-user-answers">
-                    {/* <div className='qna-user-data' key={ans._id}>
-                                    <div className='qna-user-image'>
-                                        <StyledBadge
-                                            className='user-image-status'
-                                            overlap="circular"
-                                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                                            variant="dot"
-                                        >
-                                            <Avatar className='qna-user-image' sx={{ bgcolor: generateRandomColor() }}>{ ans.answer_user?.username[0]?.toUpperCase() }</Avatar>
-                                        </StyledBadge>
-                                    </div>
-                                    <div className='qna-user-info'>
-                                        <Typography variant='subtitle1'><b>{ ans.answer_user?.username }</b></Typography>
-                                        <Typography variant='subtitle2'>{ capitalizeFirstLetter(ans.answer_user?.designation) }</Typography>
-                                    </div>
-                                </div> */}
+                    <div className="qna-user-data" key={ans._id}>
+                      <div className="qna-user-image">
+                        <StyledBadge
+                          className="user-image-status"
+                          overlap="circular"
+                          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                          variant="dot"
+                        >
+                          <Avatar
+                            className="qna-user-image"
+                            sx={{ bgcolor: generateRandomColor() }}
+                          >
+                            {ans.answer_user?.username[0]?.toUpperCase()}
+                          </Avatar>
+                        </StyledBadge>
+                      </div>
+                      <div className="qna-user-info">
+                        <Typography variant="subtitle1">
+                          <b>{ans.answer_user?.username}</b>
+                        </Typography>
+                        <Typography variant="subtitle2">
+                          {capitalizeFirstLetter(ans.answer_user?.designation)}
+                        </Typography>
+                      </div>
+                    </div>
                     <div className="answer-place">{generateHTML(ans.answer)}</div>
                     <div className="qna-user-list">
                       <h6 className="qna-home-h6">
@@ -356,6 +367,55 @@ export default function QNA(props) {
               </div>
             </>
           )}
+          <Divider variant="middle" />
+          <div
+            className="qna-question-list"
+            style={{ display: 'flex', marginTop: '20px', marginBottom: '5px' }}
+          >
+            {answerData[0].categories.length ? (
+              <>
+                <Typography variant="subtitle1" style={{ cursor: 'default', userSelect: 'none' }}>
+                  <strong>Category: </strong>
+                </Typography>
+                {answerData[0].categories.map((cat) => {
+                  return (
+                    <>
+                      <Chip
+                        size="medium"
+                        style={{ marginLeft: '10px' }}
+                        className={`qna-regular-chip text-success border-success`}
+                        label={capitalizeFirstLetter(cat.categoryName)}
+                      />
+                    </>
+                  );
+                })}
+              </>
+            ) : null}
+          </div>
+          <div
+            className="qna-question-list"
+            style={{ display: 'flex', marginTop: '20px', marginBottom: '5px' }}
+          >
+            {answerData[0].languages.length ? (
+              <>
+                <Typography variant="subtitle1" style={{ cursor: 'default', userSelect: 'none' }}>
+                  <strong>Languages: </strong>
+                </Typography>
+                {answerData[0].languages.map((lang) => {
+                  return (
+                    <>
+                      <Chip
+                        size="medium"
+                        style={{ marginLeft: '10px' }}
+                        className={`qna-regular-chip text-primary border-primary`}
+                        label={capitalizeFirstLetter(lang.languageName)}
+                      />
+                    </>
+                  );
+                })}
+              </>
+            ) : null}
+          </div>
           {answerData[0]?.status === 'close' ? (
             <div>
               <Divider variant="middle">

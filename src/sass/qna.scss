@@ -113,7 +113,7 @@
   min-width: fit-content;
   position: relative;
   padding-top: 1.5%;
-  bottom: 4px;
+  bottom: 8px;
   @include media('<=smallPhone') {
     margin-left: 4%;
   }
@@ -175,9 +175,11 @@
   padding: 0px !important;
   border-radius: 100px !important;
   margin-right: 2px;
+  font-size: initial !important;
 }
 
 .qna-regular-chip {
+  font-size: initial !important;
   font-weight: 500;
   padding: 0px !important;
   border-radius: 100px !important;

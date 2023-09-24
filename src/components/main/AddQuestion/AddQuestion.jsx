@@ -5,13 +5,13 @@ import { Autocomplete, Button, Grid, TextField, Typography } from '@mui/material
 import '../../../sass/add-question.scss';
 // import '../../../sass/main.scss';
 import { Box } from '@mui/system';
-import { NeatEditor } from '../../NeatEditor/NeatEditor';
-import { addQuestion } from '../../../functions/APIs/question-api';
-import { isEmpty } from '../../../functions/common/common';
 import { useDispatch } from 'react-redux';
-import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
+import { addQuestion } from '../../../functions/APIs/question-api';
 import * as functions from '../../../functions/common/common';
+import { isEmpty } from '../../../functions/common/common';
+import { prepareSnackbar, resetSnackbar } from '../../../redux/snackbarRedux/snackbar-slice';
 import Loader from '../../Loaders/loader';
+import { NeatEditor } from '../../NeatEditor/NeatEditor';
 
 export default function AddQuestion({ category = [], language = [] }) {
   const dispatch = useDispatch();
@@ -32,7 +32,9 @@ export default function AddQuestion({ category = [], language = [] }) {
 
   const handleCategory = (newValue) => {
     let categoryIds = [];
-    let tech = newValue.filter((val) => val.label === 'technology' || val.label === 'Technology');
+    let tech = newValue.filter(
+      (val) => val.label.includes('technology') || val.label.includes('Technology'),
+    );
     if (tech.length) {
       setLanguageDropdownVisibility(true);
     } else {
@@ -55,6 +57,7 @@ export default function AddQuestion({ category = [], language = [] }) {
   const handleSubmit = async (e, type) => {
     e.preventDefault();
     if (isEmpty(question)) {
+      setIsLoading(true);
       var desc = document.getElementById('ilqna-editor');
       let body = {
         draft: type === 'draft' ? true : false,
@@ -79,8 +82,14 @@ export default function AddQuestion({ category = [], language = [] }) {
         setTimeout(() => {
           dispatch(resetSnackbar());
         }, functions.snackbarTimer);
+        setIsLoading(false);
       } else {
+        dispatch(prepareSnackbar({ open: true, severity: 'success', message: response.message }));
+        setTimeout(() => {
+          dispatch(resetSnackbar());
+        }, functions.snackbarTimer);
         handleClearForm();
+        setIsLoading(false);
       }
     } else {
       dispatch(
@@ -122,15 +131,6 @@ export default function AddQuestion({ category = [], language = [] }) {
             value={question}
             onChange={handleQuestion}
           />
-          {/* <TextField 
-            className='input-control' 
-            id="outlined-basic" 
-            label="Question description" 
-            variant="outlined"
-            placeholder='Description...'
-            fullWidth
-            onChange={handleQuestion}
-          /> */}
           <NeatEditor customId="ilqna-editor" defaultValue={editorValue} />
           <Autocomplete
             className="input-control input-autocomplete"

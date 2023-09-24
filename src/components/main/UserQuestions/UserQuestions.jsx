@@ -1,21 +1,19 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //UI
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown';
-import { Chip, Divider } from '@mui/material';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
 import TodayIcon from '@mui/icons-material/Today';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { Chip, Divider } from '@mui/material';
 
 //SCSS
-import '../../../sass/home.scss';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllAnswersByQuestionId } from '../../../functions/APIs/answer-api';
 import { fetchAllQuestions } from '../../../functions/APIs/question-api';
-import { setQuestionData } from '../../../redux/questionRedux/question-slice';
-import Loader from '../../Loaders/loader';
 import {
   capitalizeFirstLetter,
   checkIsBookmarkedByLoggedInUser,
@@ -23,7 +21,9 @@ import {
   getStatusColor,
 } from '../../../functions/common/common';
 import { setAnswerData } from '../../../redux/answerRedux/answer-slice';
-import { fetchAllAnswersByQuestionId } from '../../../functions/APIs/answer-api';
+import { setQuestionData } from '../../../redux/questionRedux/question-slice';
+import '../../../sass/home.scss';
+import Loader from '../../Loaders/loader';
 import { NotFoundByFilter } from '../../headers/parts/NotFoundByFilter';
 
 export default function UserQuestions() {
@@ -154,128 +154,6 @@ export default function UserQuestions() {
             </Fragment>
           );
         })}
-
-      {/* <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" />
-      <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" />
-      <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" />
-      <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" />
-      <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" />
-      <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" />
-      <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" />
-      <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" />
-      <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" />
-      <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" />
-      <div className="question-list" >
-        <h3 className="home-h3">Can I change my email name without creating a new account?...</h3>
-        <h6 className="home-h6">
-          <span className="home-span">Open</span> • 
-          <CommentIcon className="svg-icon" /><span className="home-span">34</span> • 
-          <TrendingUpIcon className="svg-icon trendingUp" label="trendingUp" /><span className="home-span">10</span> • 
-          <TrendingDownIcon className="svg-icon trendingDown" label="trendingDown" /><span className="home-span">5</span> •  
-          <TodayIcon className="svg-icon" /><span className="home-span">{ new Date().toDateString() }</span>
-        </h6>
-      </div>
-      <Divider variant="middle" /> */}
     </div>
   );
 }
