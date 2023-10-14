@@ -1,38 +1,32 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import InfoIcon from '@mui/icons-material/Info';
+import LoginIcon from '@mui/icons-material/Login';
+import MenuIcon from '@mui/icons-material/Menu';
+import PasswordIcon from '@mui/icons-material/Password';
 import {
-  Drawer,
   AppBar,
-  Toolbar,
-  Typography,
+  Box,
+  Drawer,
   IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Badge,
-  Box,
+  Toolbar,
+  Typography,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import '../../sass/header.scss';
-import PasswordIcon from '@mui/icons-material/Password';
-import InfoIcon from '@mui/icons-material/Info';
-import { isLogout } from '../../redux/loginRedux/login-slice';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
+import { useNavigate } from 'react-router-dom';
 import * as functions from '../../functions/common/common';
-import { openFilter } from '../../redux/dialogRedux/filter-slice';
-import { openChangePassword } from '../../redux/dialogRedux/change-password';
 import { openAbout } from '../../redux/dialogRedux/about-slice';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import PhoneIcon from '@mui/icons-material/Phone';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import ChatIcon from '@mui/icons-material/Chat';
-import LoginIcon from '@mui/icons-material/Login';
+import { openChangePassword } from '../../redux/dialogRedux/change-password';
+import { openFilter } from '../../redux/dialogRedux/filter-slice';
+import { isLogout } from '../../redux/loginRedux/login-slice';
+import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
+import '../../sass/header.scss';
 import { RightMenu } from './parts/RightMenu';
 
 const filterPage = ['/', '/user-questions', '/user-bookmark', '/notification'];
@@ -105,21 +99,31 @@ export default function Header() {
 
   return (
     <Fragment>
-      <AppBar position="fixed">
-        <Toolbar>
+      <AppBar
+        position="fixed"
+        style={{ borderRadius: '10px', margin: '10px', width: '98.5%', height: '5%' }}
+      >
+        <Toolbar
+          style={{
+            margin: '0px',
+            padding: '0px 16px 0px 16px',
+            minHeight: 'unset',
+            overflowY: 'hidden',
+          }}
+        >
           <IconButton
-            size="large"
+            size="medium"
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2 }}
+            sx={{ mr: 1 }}
             onClick={toggleDrawer('left', true)}
           >
             <MenuIcon />
           </IconButton>
           <Typography
             style={{ cursor: 'pointer' }}
-            variant="h6"
+            variant="p"
             component="div"
             sx={{ flexGrow: 1 }}
             onClick={() => {
@@ -133,7 +137,12 @@ export default function Header() {
           <RightMenu />
         </Toolbar>
       </AppBar>
-      <Drawer anchor="left" open={state['left']} onClose={toggleDrawer('left', false)}>
+      <Drawer
+        anchor="left"
+        open={state['left']}
+        onClose={toggleDrawer('left', false)}
+        className="drawer-design"
+      >
         <Box
           className="drawer-content"
           role="presentation"

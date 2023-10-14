@@ -18,7 +18,6 @@ import { Verification } from './components/Dialogs/Verification';
 import { ForgotPassword } from './components/Login/ForgotPassword';
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
-import { Footer } from './components/footers/Footer';
 import Header from './components/headers/Header';
 import { Filter } from './components/headers/parts/Filter';
 import AddQuestion from './components/main/AddQuestion/AddQuestion';
@@ -96,7 +95,7 @@ function App() {
           </Routes>
         )}
         {/* Footer */}
-        {isLogin && <Footer />}
+        {/* {isLogin && <Footer />} */}
         <Verification />
         <Messages />
         <UpdateUsername />

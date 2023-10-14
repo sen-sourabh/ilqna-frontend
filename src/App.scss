@@ -128,7 +128,7 @@
 }
 
 .filter-dialog {
-  margin-top: 20%;
+  margin-top: 40%;
 
   @include media('>=smallPhone', '<=mediumPhone') {
     margin-top: 80%;
@@ -138,7 +138,7 @@
   }
 
   @include media('>=tablet', '<=desktop') {
-    margin-top: 35%;
+    margin-top: 25%;
   }
 }
 
@@ -207,6 +207,9 @@
   }
 
   @include media('>=tablet', '<=desktop') {
-    padding: 2% !important;
+    padding-bottom: 2% !important;
+    padding-left: 2% !important;
+    padding-right: 2% !important;
+    padding-top: 0% !important;
   }
 }
