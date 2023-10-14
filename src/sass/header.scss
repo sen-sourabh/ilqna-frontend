@@ -24,11 +24,18 @@
 .drawer-title {
   width: 220px;
   margin: 0%;
-  padding: 9px;
-  text-align: center;
+  padding-left: 14px;
+  padding-right: 10px;
+  box-shadow:
+    0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  text-align: left;
   background-color: #1976d2;
   color: #ffffff;
-  font-size: 1.5rem !important;
+  font-size: 0.95rem !important;
+  line-height: 1 !important;
 
   @include media('<=smallPhone') {
     font-weight: 500 !important;

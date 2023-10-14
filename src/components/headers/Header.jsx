@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import InfoIcon from '@mui/icons-material/Info';
@@ -150,6 +151,15 @@ export default function Header() {
           onKeyDown={toggleDrawer('left', false)}
         >
           <Typography className="drawer-title" sx={{ flexGrow: 1 }}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 1 }}
+              onClick={toggleDrawer('left', true)}
+            >
+              <CloseIcon className="icon-size" />
+            </IconButton>
             ILQNA
           </Typography>
           <List>
