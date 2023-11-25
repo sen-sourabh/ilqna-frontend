@@ -100,10 +100,7 @@ export default function Header() {
 
   return (
     <Fragment>
-      <AppBar
-        position="fixed"
-        style={{ borderRadius: '10px', margin: '10px', width: '98.5%', height: '5%' }}
-      >
+      <AppBar position="fixed" className="header-ui">
         <Toolbar
           style={{
             margin: '0px',

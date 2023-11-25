@@ -367,7 +367,7 @@ export default function QNA(props) {
               </div>
             </>
           )}
-          <Divider variant="middle" />
+          {/* <Divider variant="middle" /> */}
           <div
             className="qna-question-list"
             style={{ display: 'flex', marginTop: '20px', marginBottom: '5px' }}

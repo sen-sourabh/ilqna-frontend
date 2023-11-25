@@ -7,15 +7,16 @@ import {
   TextField,
 } from '@mui/material';
 // import InfoIcon from '@mui/icons-material/Info';
+import { LoadingButton } from '@mui/lab';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openChangePassword } from '../../redux/dialogRedux/change-password';
-import { changePassword } from '../../functions/APIs/user-api';
-import Password from '../../functions/validations/password';
-import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
-import * as functions from '../../functions/common/common';
 import { useNavigate } from 'react-router-dom';
+import { changePassword } from '../../functions/APIs/user-api';
+import * as functions from '../../functions/common/common';
+import Password from '../../functions/validations/password';
+import { openChangePassword } from '../../redux/dialogRedux/change-password';
 import { isLogout } from '../../redux/loginRedux/login-slice';
+import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 
 export const ChangePassword = ({ email }) => {
   const navigate = useNavigate();
@@ -150,7 +151,7 @@ export const ChangePassword = ({ email }) => {
       dispatch(resetSnackbar());
     }, functions.snackbarTimer);
     dispatch(isLogout(false));
-    navigate('/');
+    navigate('/login');
     functions.goingForLogout();
   };
 
@@ -212,9 +213,17 @@ export const ChangePassword = ({ email }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClosePassword}>Cancel</Button>
-        <Button variant="contained" onClick={handleChangePassword} loading={loading}>
+        {/* <Button variant="contained" onClick={handleChangePassword} loading={loading}>
           Change
-        </Button>
+        </Button> */}
+        <LoadingButton
+          margin="normal"
+          onClick={handleChangePassword}
+          loading={loading}
+          variant="contained"
+        >
+          <b>Update</b>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

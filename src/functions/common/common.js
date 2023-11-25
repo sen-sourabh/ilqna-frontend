@@ -93,7 +93,11 @@ export const capitalizeFirstLetterOfEachWord = (str) => {
 
 //Capitalize first letter of each word in given string
 export const capitalizeFirstLetter = (str) => {
-  return str[0].toUpperCase() + str.substring(1);
+  if (!isEmpty(str)) {
+    return '';
+  } else {
+    return str[0].toUpperCase() + str.substring(1);
+  }
 };
 
 //Remove all HTML tags from string to check valid string

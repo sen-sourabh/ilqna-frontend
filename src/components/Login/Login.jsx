@@ -7,14 +7,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../../sass/login.scss';
 
 //UI
-import { Divider, Paper, Stack, TextField, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { Divider, Paper, Stack, TextField, Typography } from '@mui/material';
 // import LoginIcon from '@mui/icons-material/Login';
-import GoogleIcon from '@mui/icons-material/Google';
-import RedditIcon from '@mui/icons-material/Reddit';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GoogleIcon from '@mui/icons-material/Google';
 import InfoIcon from '@mui/icons-material/Info';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import RedditIcon from '@mui/icons-material/Reddit';
 
 //Validations
 import * as functions from '../../functions/common/common';
@@ -23,8 +23,8 @@ import Password from '../../functions/validations/password';
 
 //Component
 import { useDispatch } from 'react-redux';
-import { isLogin, userData } from '../../redux/loginRedux/login-slice';
 import { signInWithEmailAndPassword } from '../../functions/APIs/login-api';
+import { isLogin, userData } from '../../redux/loginRedux/login-slice';
 import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 import Loader from '../Loaders/loader';
 
@@ -146,7 +146,7 @@ export default function Login() {
               autoFocus
               type="email"
               label="Email"
-              variant="standard"
+              variant="filled"
               placeholder="example@example.com"
               onChange={handleEmail}
               ref={emailRef}
@@ -154,7 +154,7 @@ export default function Login() {
             />
             <TextField
               label="Password"
-              variant="standard"
+              variant="filled"
               onChange={handlePassword}
               type={showPassword ? 'text' : 'password'}
               placeholder="••••••••••"

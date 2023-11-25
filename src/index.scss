@@ -65,7 +65,7 @@ code {
 .ilqna-main {
   position: relative;
   top: 66px;
-  margin-bottom: 10%;
+  // margin-bottom: 10%;
   padding-left: 2%;
   padding-right: 2%;
   cursor: default;
@@ -78,11 +78,11 @@ code {
     margin-bottom: 50%;
   }
   @include media('>=largePhone', '<=tablet') {
-    margin-bottom: 12.2%;
+    // margin-bottom: 12.2%;
   }
 
   @include media('>=tablet', '<=desktop') {
-    margin-bottom: 12.2%;
+    // margin-bottom: 12.2%;
   }
 }
 

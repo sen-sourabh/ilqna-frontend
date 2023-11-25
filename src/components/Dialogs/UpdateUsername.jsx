@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 //UI
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
 //Functions
-import * as functions from '../../functions/common/common';
 import { updateUsername } from '../../functions/APIs/user-api';
+import * as functions from '../../functions/common/common';
 //Redux
+import { LoadingButton } from '@mui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { openUsername } from '../../redux/dialogRedux/update-username-slice';
-import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 import { userData } from '../../redux/loginRedux/login-slice';
+import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 
 export const UpdateUsername = () => {
   const dispatch = useDispatch();
@@ -106,17 +107,6 @@ export const UpdateUsername = () => {
         <DialogContentText>
           You will recieve a verification code at registered email...
         </DialogContentText>
-        {/* <TextField
-                margin="dense"
-                label="Username"
-                type="text"
-                fullWidth
-                variant="standard"
-                inputProps={
-					{ readOnly: true, }
-				}
-                defaultValue={username}
-            /> */}
         <TextField
           autoFocus
           margin="dense"
@@ -142,9 +132,14 @@ export const UpdateUsername = () => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCloseUsername}>Cancel</Button>
-        <Button variant="contained" loading={loading} onClick={handleClickToVerifyOpen}>
-          Send
-        </Button>
+        <LoadingButton
+          margin="normal"
+          onClick={handleClickToVerifyOpen}
+          loading={loading}
+          variant="contained"
+        >
+          <b>Send</b>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

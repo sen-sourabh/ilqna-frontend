@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 //UI
-import { Paper, Stack, TextField, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { Paper, Stack, TextField, Typography } from '@mui/material';
 //Routers
 import { Link, useNavigate } from 'react-router-dom';
 //SCSS
@@ -11,12 +11,12 @@ import '../../sass/login.scss';
 //Icons
 import InfoIcon from '@mui/icons-material/Info';
 
+import { useDispatch } from 'react-redux';
+import { signUpWithEmailAndPassword } from '../../functions/APIs/login-api';
 import * as functions from '../../functions/common/common';
 import Email from '../../functions/validations/email';
 import Password from '../../functions/validations/password';
 import Phone from '../../functions/validations/phone';
-import { useDispatch } from 'react-redux';
-import { signUpWithEmailAndPassword } from '../../functions/APIs/login-api';
 import { prepareSnackbar, resetSnackbar } from '../../redux/snackbarRedux/snackbar-slice';
 import Loader from '../Loaders/loader';
 
@@ -94,6 +94,8 @@ export default function Register() {
       username: functions.generatedUsernameByEmail(email),
       email,
       password,
+      image:
+        'https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=740&t=st=1700899108~exp=1700899708~hmac=b319cc871c2df714121e287db7786949829669c4010d93fed2202779f6d9f054',
       phone,
       ipAddress: localStorage.getItem('ipLocationData')
         ? JSON.parse(localStorage.getItem('ipLocationData')).ipAddress
