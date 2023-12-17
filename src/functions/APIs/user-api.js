@@ -36,3 +36,27 @@ export const changePassword = async (body) => {
       return { code: 101, status: 'F_ERROR', message: error };
     });
 };
+
+export const getUser = async (userdata) => {
+  return await axios
+    .get(ENV.API_URL + `users/getUser/${userdata._id}`, prepareHeaders())
+    .then((response) => {
+      checkJWT(response);
+      return refactor(response);
+    })
+    .catch((error) => {
+      return { code: 101, status: 'F_ERROR', message: error };
+    });
+};
+
+export const getAllUsers = async (userdata) => {
+  return await axios
+    .get(ENV.API_URL + `users/getAllUsers`, prepareHeaders())
+    .then((response) => {
+      checkJWT(response);
+      return refactor(response);
+    })
+    .catch((error) => {
+      return { code: 101, status: 'F_ERROR', message: error };
+    });
+};

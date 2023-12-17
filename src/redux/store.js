@@ -1,21 +1,25 @@
 import { configureStore } from '@reduxjs/toolkit';
-import loginReducer from './loginRedux/login-slice';
+import allUsersReducer from './allUsersRedux/allusers-slice';
+import answerReducer from './answerRedux/answer-slice';
+import { questionApiSlice } from './api-saga/questions-api';
+import aboutReducer from './dialogRedux/about-slice';
+import changePasswordReducer from './dialogRedux/change-password';
+import composeMessageReducer from './dialogRedux/compose-message-slice';
+import filterReducer from './dialogRedux/filter-slice';
+import showMessageReducer from './dialogRedux/show-message-slice';
+import updateUsernameReducer from './dialogRedux/update-username-slice';
 import verificationReducer from './dialogRedux/verification-slice';
 import forgotPasswordReducer from './loginRedux/forgotPassword-slice';
-import snackbarReducer from './snackbarRedux/snackbar-slice';
-import updateUsernameReducer from './dialogRedux/update-username-slice';
-import changePasswordReducer from './dialogRedux/change-password';
-import filterReducer from './dialogRedux/filter-slice';
-import aboutReducer from './dialogRedux/about-slice';
-import showMessageReducer from './dialogRedux/show-message-slice';
-import composeMessageReducer from './dialogRedux/compose-message-slice';
-import { questionApiSlice } from './api-saga/questions-api';
+import loginReducer from './loginRedux/login-slice';
+import profileReducer from './profileRedux/profile-slice';
 import questionReducer from './questionRedux/question-slice';
-import answerReducer from './answerRedux/answer-slice';
+import snackbarReducer from './snackbarRedux/snackbar-slice';
 
 const store = configureStore({
   reducer: {
     login: loginReducer,
+    profile: profileReducer,
+    all_users: allUsersReducer,
     verification: verificationReducer,
     forgotPassword: forgotPasswordReducer,
     snackbar: snackbarReducer,

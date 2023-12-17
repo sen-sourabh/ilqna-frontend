@@ -4,7 +4,14 @@ import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers, getUser } from '../../../../functions/APIs/user-api';
+import { setAllUsersData } from '../../../../redux/allUsersRedux/allusers-slice';
+import { setProfileData } from '../../../../redux/profileRedux/profile-slice';
+import '../../../../sass/user-tabs.scss';
 import Loader from '../../../Loaders/loader';
+import AllUsers from './Tabs/AllUsers/AllUsers';
+import Profile from './Tabs/Profile/Profile';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,22 +48,44 @@ function a11yProps(index) {
 
 export default function UserTabs() {
   const [value, setValue] = useState(0);
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state) => state.login);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    loadProfileContents();
+    loadAllUsersContents();
     setIsLoading(false);
   }, []);
 
+  const loadProfileContents = async () => {
+    const response = await getUser(userData);
+    dispatch(setProfileData(response?.data));
+  };
+
+  const loadAllUsersContents = async () => {
+    const response = await getAllUsers();
+    dispatch(setAllUsersData(response?.data));
+  };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    loadProfileContents();
+    loadAllUsersContents();
   };
 
   return (
     <div className="ilqna-main">
       {isLoading && <Loader />}
-      <Box sx={{ width: '100%' }}>
+      <Box>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+            scrollButtons={true}
+            allowScrollButtonsMobile={true}
+          >
             <Tab label="Profile" {...a11yProps(0)} />
             <Tab label="All Users" {...a11yProps(1)} />
             <Tab label="Pending Approvals" {...a11yProps(2)} />
@@ -67,10 +96,10 @@ export default function UserTabs() {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          Profile
+          <Profile />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          All Users
+          <AllUsers />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           Pending Approvals

@@ -63,11 +63,18 @@ export const goingForLogout = () => {
   window.location.href = currentLocation;
 };
 
-//Refactor API Response
+//Refactor List API Response
 export const refactor = (response) => {
   // console.log("response: ", response)
   if (!response || !response?.data) return [];
   return response?.data[0] || [];
+};
+
+//Refactor Get API Response
+export const getRefactor = (response) => {
+  // console.log("response: ", response)
+  if (!response || !response[0]?.data) return [];
+  return response[0]?.data || null;
 };
 
 //Generate Default Username By Email At The Time Of Sign Up
