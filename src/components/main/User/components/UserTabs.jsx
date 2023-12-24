@@ -5,12 +5,18 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from '../../../../functions/APIs/category-api';
+import { getLanguages } from '../../../../functions/APIs/language-api';
 import { getAllUsers, getUser } from '../../../../functions/APIs/user-api';
 import { setAllUsersData } from '../../../../redux/allUsersRedux/allusers-slice';
+import { setAllCategoriesData } from '../../../../redux/categoriesRedux/categories-slice';
+import { setAllLanguagesData } from '../../../../redux/languagesRedux/languages-slice';
 import { setProfileData } from '../../../../redux/profileRedux/profile-slice';
 import '../../../../sass/user-tabs.scss';
 import Loader from '../../../Loaders/loader';
 import AllUsers from './Tabs/AllUsers/AllUsers';
+import Categories from './Tabs/Categories/Categories';
+import Languages from './Tabs/Languages/Languages';
 import Profile from './Tabs/Profile/Profile';
 
 function CustomTabPanel(props) {
@@ -55,6 +61,8 @@ export default function UserTabs() {
   useEffect(() => {
     loadProfileContents();
     loadAllUsersContents();
+    loadAllCategoriesContents();
+    loadAllLanguagesContents();
     setIsLoading(false);
   }, []);
 
@@ -68,10 +76,22 @@ export default function UserTabs() {
     dispatch(setAllUsersData(response?.data));
   };
 
+  const loadAllCategoriesContents = async () => {
+    const response = await getCategories();
+    dispatch(setAllCategoriesData(response?.data));
+  };
+
+  const loadAllLanguagesContents = async () => {
+    const response = await getLanguages();
+    dispatch(setAllLanguagesData(response?.data));
+  };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     loadProfileContents();
     loadAllUsersContents();
+    loadAllCategoriesContents();
+    loadAllLanguagesContents();
   };
 
   return (
@@ -105,10 +125,10 @@ export default function UserTabs() {
           Pending Approvals
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
-          Categories
+          <Categories />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={4}>
-          Languages
+          <Languages />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={5}>
           Activity
