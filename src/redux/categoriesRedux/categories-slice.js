@@ -6,8 +6,8 @@ const categoriesSlice = createSlice({
     allCategoriesData: [],
   },
   reducers: {
-    setAllCategoriesData: (state, actions) => {
-      state.allCategoriesData = actions.payload;
+    setAllCategoriesData: (state, action) => {
+      state.allCategoriesData = action.payload;
     },
   },
 });

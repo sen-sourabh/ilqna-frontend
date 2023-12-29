@@ -6,7 +6,6 @@ import './categories.scss';
 export default function Categories() {
   const [isLoading, setIsLoading] = useState(true);
   const { allCategoriesData } = useSelector((state) => state.category);
-  console.log('cate: ', allCategoriesData);
 
   useEffect(() => {
     setIsLoading(false);
@@ -15,7 +14,7 @@ export default function Categories() {
   return (
     <Fragment>
       {isLoading && <Loader />}
-      {allCategoriesData?.length && <div>{JSON.stringify(allCategoriesData)}</div>}
+      {allCategoriesData?.length > 0 && <div>{JSON.stringify(allCategoriesData)}</div>}
     </Fragment>
   );
 }

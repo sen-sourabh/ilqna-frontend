@@ -14,7 +14,7 @@ export default function Languages() {
   return (
     <Fragment>
       {isLoading && <Loader />}
-      {allLanguagesData?.length && <div>{JSON.stringify(allLanguagesData)}</div>}
+      {allLanguagesData?.length > 0 && <div>{JSON.stringify(allLanguagesData)}</div>}
     </Fragment>
   );
 }

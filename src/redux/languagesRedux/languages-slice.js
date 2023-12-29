@@ -6,8 +6,8 @@ const languagesSlice = createSlice({
     allLanguagesData: [],
   },
   reducers: {
-    setAllLanguagesData: (state, actions) => {
-      state.allLanguagesData = actions.payload;
+    setAllLanguagesData: (state, action) => {
+      state.allLanguagesData = action.payload;
     },
   },
 });
