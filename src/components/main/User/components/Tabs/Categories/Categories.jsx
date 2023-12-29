@@ -8,8 +8,10 @@ export default function Categories() {
   const { allCategoriesData } = useSelector((state) => state.category);
 
   useEffect(() => {
-    setIsLoading(false);
-  }, []);
+    if(allCategoriesData.length > 0) {
+      setIsLoading(false);
+    }
+  }, [allCategoriesData]);
 
   return (
     <Fragment>

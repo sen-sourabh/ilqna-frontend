@@ -8,8 +8,10 @@ export default function Languages() {
   const { allLanguagesData } = useSelector((state) => state.language);
 
   useEffect(() => {
-    setIsLoading(false);
-  }, []);
+    if(allLanguagesData.length > 0) {
+      setIsLoading(false);
+    }
+  }, [allLanguagesData]);
 
   return (
     <Fragment>
