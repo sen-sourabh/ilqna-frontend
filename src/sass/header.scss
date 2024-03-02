@@ -1,0 +1,86 @@
+@import '../index.scss';
+@import '../App.scss';
+
+.logo {
+  width: 5%;
+  cursor: pointer;
+}
+
+.header-ui {
+  background-color: rgba(25, 118, 210, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+
+  border-radius: 10px;
+  margin: 5px;
+  width: 97% !important;
+  left: 1% !important;
+  height: 7%;
+}
+
+.seachfield {
+  border: 1px solid black;
+}
+
+.filter {
+  position: fixed;
+  left: 54.5%;
+  cursor: pointer;
+}
+
+.drawer-option-footer {
+  position: relative;
+  bottom: 0;
+}
+
+.drawer-title {
+  width: 220px;
+  padding-left: 14px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  box-shadow:
+    0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  text-align: left;
+  background-color: #1976d2;
+  color: #ffffff;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+
+  @include media('<=smallPhone') {
+    font-weight: 500 !important;
+    font-size: 1.25rem !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.0075em !important;
+    padding: 12px;
+  }
+
+  @include media('>=smallPhone', '<=mediumPhone') {
+    font-weight: 500 !important;
+    font-size: 1.25rem !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.0075em !important;
+    padding: 12px;
+  }
+}
+
+.drawer-content {
+  text-align: center;
+}
+
+.header-icon {
+  color: #ffffff;
+}
+
+.icon-size {
+  font-size: 1.2rem !important;
+}
+
+.drawer-design .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-left: 18px;
+  height: 98%;
+}

@@ -1,0 +1,216 @@
+@import '../index.scss';
+@import '../App.scss';
+
+.qna {
+  margin-bottom: 10%;
+}
+
+.qna-question-list {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.qna-icon {
+  margin-right: 10px;
+  font-size: 2rem !important;
+}
+
+.qna-trendingUp {
+  color: #00df00;
+}
+
+.qna-icon-hover-up {
+  color: #3e5060;
+}
+
+.qna-icon-hover-down {
+  color: #3e5060;
+}
+
+.qna-icon-hover-up:hover {
+  color: #00df00;
+}
+
+.qna-trendingDown {
+  color: #ff7c7c;
+}
+
+.qna-icon-hover-down:hover {
+  color: #ff7c7c;
+}
+
+// .qna-dateIcon {
+//     font-size: 2rem !important;
+// }
+
+.qna-home-h3 {
+  font-size: 2rem;
+  margin-top: 12px;
+  margin-bottom: 0px;
+  color: #0a1929;
+  font-weight: 500;
+
+  @include media('<=smallPhone') {
+    font-size: 1.2rem;
+  }
+}
+
+.qna-home-h6 {
+  margin-top: 4px;
+  margin-bottom: 10px;
+  @include media('<=smallPhone') {
+    font-size: 0.6rem;
+  }
+}
+
+.qna-home-span {
+  font-size: 1rem;
+  color: #3e5060;
+
+  @include media('<=smallPhone') {
+    font-size: 0.7rem;
+  }
+}
+
+.qna-user-answers {
+  padding: 2%;
+}
+
+.qna-user-data {
+  width: fit-content;
+  display: inline-flex;
+
+  margin-bottom: 1%;
+  @include media('<=smallPhone') {
+    margin-bottom: 4%;
+    width: 100%;
+  }
+}
+
+.qna-user-image {
+  width: fit-content;
+  @include media('<=smallPhone') {
+    width: fit-content;
+  }
+}
+
+.qna-user-image {
+  @include media('<=smallPhone') {
+    height: 30px !important;
+    width: 30px !important;
+    font-size: 1rem !important;
+  }
+}
+
+.user-image-status {
+  @include media('<=smallPhone') {
+    // width: fit-content;
+  }
+}
+
+.qna-user-info {
+  margin-left: 7%;
+  min-width: fit-content;
+  position: relative;
+  padding-top: 1.5%;
+  bottom: 8px;
+  @include media('<=smallPhone') {
+    margin-left: 4%;
+  }
+}
+
+.qna-user-info > h6 {
+  @include media('<=smallPhone') {
+    font-size: 0.8rem;
+    line-height: 1.75;
+  }
+}
+
+.qna-user-list {
+  justify-content: right;
+  width: 100%;
+  display: inline-flex;
+
+  // border: 1px solid grey;
+  height: 44px;
+  margin-top: 1%;
+
+  @include media('<=smallPhone') {
+    margin-top: 4%;
+  }
+}
+
+.qna-user-upvote-list {
+  margin-left: 10px;
+  cursor: pointer;
+  // float: right;
+  // width: fit-content;
+  @include media('<=smallPhone') {
+    height: 30px !important;
+    width: 30px !important;
+    font-size: 1rem !important;
+  }
+}
+
+.qna-svg-icon {
+  cursor: pointer;
+  padding-left: 6px;
+  padding-right: 6px;
+  position: relative;
+  top: 9px;
+  font-size: 1.5rem !important;
+  @include media('<=smallPhone') {
+    top: 6px;
+    font-size: 1.1rem !important;
+  }
+}
+
+.qna-user-editor {
+  margin-top: 2%;
+}
+
+.qna-chip {
+  font-weight: 500;
+  float: right;
+  padding: 0px !important;
+  border-radius: 100px !important;
+  margin-right: 2px;
+  font-size: initial !important;
+}
+
+.qna-regular-chip {
+  font-size: initial !important;
+  font-weight: 500;
+  padding: 0px !important;
+  border-radius: 100px !important;
+  margin-right: 2px;
+}
+
+.qna-chip > span {
+  font-size: 0.9rem !important;
+}
+
+.qna-regular-chip > span {
+  font-size: 0.9rem !important;
+  @include media('<=smallPhone') {
+    font-size: 0.7rem !important;
+  }
+}
+
+.answer-place {
+  // border: 1px solid lightgreen;
+  max-width: 100%;
+}
+
+.bookmarked {
+  color: #ffd700;
+}
+
+// .if-not-login {
+//     position: relative;
+//     background-color: white;
+//     top: inherit;
+//     height: 82vh;
+//     z-index: 99999;
+//     opacity: 0.3;
+// }

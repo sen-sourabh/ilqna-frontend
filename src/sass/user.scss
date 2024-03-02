@@ -1,0 +1,163 @@
+@import '../index.scss';
+@import '../App.scss';
+
+.user {
+  margin-bottom: 1%;
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.user-image {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+  display: flex;
+  width: 20%;
+  height: auto;
+  @include media('<=smallPhone') {
+    font-size: 1.2rem;
+  }
+}
+
+.user-image .MuiBadge-badge {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.avatar-img {
+  width: 100px !important;
+  height: 100px !important;
+  font-size: 4rem !important;
+}
+
+.user-title {
+  height: fit-content;
+  color: #0a1929;
+  font-size: 1.6rem !important;
+  padding-bottom: 0% !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.user-title-icon {
+  // font-size: 1rem;
+  font-weight: 600 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+  cursor: pointer;
+  position: absolute;
+  color: #0a1929;
+  top: 64.5%;
+}
+
+.ask-section {
+  color: #0a1929;
+  width: 30% !important;
+  height: auto;
+  position: absolute;
+  top: 0% !important;
+  right: 2%;
+}
+
+.sections {
+  color: #0a1929;
+}
+
+.sections:hover {
+  // box-shadow: 0px 10px 13px 0px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  color: #1976d2 !important;
+  & .user-icon {
+    color: #1976d2;
+  }
+  & .logout-icon {
+    color: #0a1929; //#00000099;
+  }
+}
+
+.ask-section-content {
+  color: #0a1929;
+  margin-left: 15% !important;
+  margin-top: 1% !important;
+  width: 70% !important;
+  height: auto;
+}
+
+.ask-section-count {
+  color: #0a1929 !important;
+  font-size: 3rem !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+.caption-text {
+  height: fit-content;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+  // font-size: 1rem !important;
+  // line-height: 1 !important;
+  // padding-bottom: 0% !important;
+}
+
+.ask-section-text {
+  color: #0a1929;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+.user-email {
+  color: #0a1929;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+  overflow-wrap: break-word;
+}
+
+.user-icon {
+  float: right;
+  cursor: pointer;
+  color: #0a1929; //#666666;
+}
+
+.logout-icon {
+  color: #d32f2f;
+}
+// .logout-icon:hover {
+//     color: #00000099;
+// }
+// .logout-icon:active {
+//     color: #d32f2f;
+// }
+
+.noti-icon > .MuiBadge-colorError {
+  top: -1px !important;
+  right: 4px !important;
+  transform: unset !important;
+}
+
+.about-icon {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+  width: 100% !important;
+  height: auto !important;
+  font-size: 3rem !important;
+  color: #1976d2;
+}
+
+.version-info {
+  color: #0a1929;
+  position: relative;
+  top: 12px;
+  float: right;
+  font-size: 0.6rem;
+}
+
+.user-header {
+  // display: inline-flex  ;
+}

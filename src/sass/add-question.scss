@@ -1,0 +1,23 @@
+@import '../index.scss';
+@import '../App.scss';
+
+.input-control {
+  margin-top: 1rem !important;
+}
+
+.full-neat-editor {
+  margin-top: 1rem !important;
+  box-shadow: none !important;
+  border: 1px solid #bfbfbf !important;
+  border-radius: 4px !important;
+}
+.full-neat-editor:hover {
+  border: 1px solid rgba(0, 0, 0, 0.87) !important;
+}
+.full-neat-editor:focus-within {
+  outline: #1976d2 auto 1px !important;
+}
+
+.neat-editor {
+  color: currentColor !important;
+}

@@ -1,0 +1,239 @@
+@import '../index.scss';
+@import '../App.scss';
+
+.home {
+  // margin-top: 6%;
+  margin-bottom: 4%;
+  cursor: default;
+  user-select: none;
+}
+
+.no-question {
+  left: 0;
+  line-height: 200px;
+  margin-top: -100px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 100%;
+}
+
+.question-list {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.trendingUp {
+  color: #00df00;
+}
+
+.trendingDown {
+  color: #ff7c7c;
+}
+
+.home-h3 {
+  font-size: 1.5rem;
+  margin-top: 12px;
+  margin-bottom: 0px;
+  color: #0a1929;
+  cursor: pointer;
+  font-weight: 500;
+  text-overflow: ellipsis;
+
+  @include media('<=smallPhone') {
+    font-size: 1rem;
+  }
+
+  @include media('>=smallPhone', '<=mediumPhone') {
+    font-size: 1rem;
+  }
+
+  @include media('>=largePhone', '<=tablet') {
+    font-size: 1.2rem;
+  }
+
+  @include media('>=tablet', '<=desktop') {
+    font-size: 1.2rem;
+  }
+}
+
+.home-h6 {
+  margin-top: 10px;
+  margin-bottom: 14px;
+  @include media('<=smallPhone') {
+    font-size: 0rem;
+  }
+}
+
+.home-span {
+  font-size: 0.9rem;
+  color: #3e5060;
+  font-weight: normal;
+  @include media('<=smallPhone') {
+    margin-right: 1px;
+    font-size: 0.7rem;
+  }
+
+  @include media('>=smallPhone', '<=mediumPhone') {
+    font-size: 0.7rem;
+    font-weight: normal;
+  }
+
+  @include media('>=largePhone', '<=tablet') {
+    font-size: 0.8rem;
+    font-weight: normal;
+  }
+
+  @include media('>=tablet', '<=desktop') {
+    font-size: 0.8rem;
+    font-weight: normal;
+  }
+}
+
+.filter-head {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  @include media('>=smallPhone', '<=mediumPhone') {
+    padding-top: 3%;
+    padding-bottom: 3%;
+  }
+}
+
+.filter-chip {
+  font-size: initial !important;
+  font-weight: normal !important;
+  margin: 5px !important;
+}
+
+.active-filter {
+  color: whitesmoke !important;
+  background-color: green !important;
+  font-weight: 600 !important;
+}
+
+.inactive-filter {
+  background-color: white !important;
+  color: black !important;
+}
+
+.inactive-filter:hover {
+  color: whitesmoke !important;
+  background-color: #00800099 !important;
+}
+
+.filter-clear {
+  cursor: pointer;
+  float: right;
+}
+
+.filter-clear:hover {
+  color: $errorColor;
+}
+
+.home-chip {
+  font-weight: 500;
+  float: right;
+  padding: 0px !important;
+  border-radius: 100px !important;
+  margin-right: 2px;
+}
+
+.regular-chip {
+  font-weight: 500;
+  padding: 0px !important;
+  border-radius: 100px !important;
+  margin-right: 2px;
+  @include media('<=smallPhone') {
+    height: 16px !important;
+    margin-right: 5px !important;
+  }
+  @include media('>=smallPhone', '<=mediumPhone') {
+    margin-right: 0px;
+  }
+
+  @include media('>=largePhone', '<=tablet') {
+    margin-right: 5px !important;
+  }
+
+  @include media('>=tablet', '<=desktop') {
+    margin-right: 5px !important;
+  }
+}
+
+.home-chip > span {
+  font-size: 0.7rem !important;
+  @include media('>=smallPhone', '<=mediumPhone') {
+    // margin-right: 0px;
+  }
+}
+
+.regular-chip > span {
+  font-size: 0.7rem !important;
+  @include media('<=smallPhone') {
+    font-size: 0rem !important;
+  }
+  @include media('>=smallPhone', '<=mediumPhone') {
+    font-size: 0.6rem !important;
+  }
+
+  @include media('>=largePhone', '<=tablet') {
+    font-size: 0.7rem !important;
+  }
+
+  @include media('>=tablet', '<=desktop') {
+    font-size: 0.7rem !important;
+  }
+}
+
+.notify-question {
+  color: #006cd8;
+  cursor: pointer;
+}
+
+.bookmarked {
+  color: #ffd700;
+}
+
+.draft-status {
+  float: right;
+
+  @include media('<=smallPhone') {
+    display: none;
+  }
+  @include media('>=smallPhone', '<=mediumPhone') {
+    display: none;
+  }
+  @include media('>=largePhone', '<=tablet') {
+    // display: none;
+  }
+
+  @include media('>=tablet', '<=desktop') {
+    // display: none;
+  }
+}
+
+// .bg-success {
+//     background-color: #0fe10f;
+//     color: whitesmoke;
+// }
+
+// .bg-error {
+//     background-color: #ff7c7c;
+//     color: whitesmoke;
+// }
+
+// .bg-primary {
+//     background-color: #1976d2;
+//     color: whitesmoke;
+// }
+
+// .icon-color {
+//     color: whitesmoke;
+// }
+
+// @media only screen and (max-width: 400px) {
+//     .home {
+//         margin-top: 18%;
+//         margin-bottom: 12%;
+//     }
+// }
