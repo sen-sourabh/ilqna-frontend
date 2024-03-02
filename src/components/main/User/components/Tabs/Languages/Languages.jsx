@@ -8,7 +8,7 @@ export default function Languages() {
   const { allLanguagesData } = useSelector((state) => state.language);
 
   useEffect(() => {
-    if(allLanguagesData.length > 0) {
+    if (allLanguagesData.length > 0) {
       setIsLoading(false);
     }
   }, [allLanguagesData]);

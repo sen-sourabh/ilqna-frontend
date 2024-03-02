@@ -8,7 +8,7 @@ export default function Categories() {
   const { allCategoriesData } = useSelector((state) => state.category);
 
   useEffect(() => {
-    if(allCategoriesData.length > 0) {
+    if (allCategoriesData.length > 0) {
       setIsLoading(false);
     }
   }, [allCategoriesData]);

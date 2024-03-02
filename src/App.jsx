@@ -35,7 +35,6 @@ import { getLanguages } from './functions/APIs/language-api';
 
 function App() {
   const { isLogin, userData } = useSelector((state) => state.login);
-  console.log('userData: ', userData);
   const [category, setCategory] = useState([]);
   const [language, setLanguage] = useState([]);
   const authPages = ['/login', '/register', '/forgot-password'];
