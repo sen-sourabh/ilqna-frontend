@@ -104,9 +104,6 @@ export default function QNA(props) {
     let body = {
       _id,
     };
-    // if(userData?._id) {
-    //     body = {...body, questionUserId: userData?._id}
-    // }
     const response = await fetchAllAnswersByQuestionId(body);
     dispatch(setAnswerData(response.data));
   };
